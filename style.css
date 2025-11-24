@@ -1,0 +1,468 @@
+html, body {
+    top: 0;
+    background: #424040;
+    background: linear-gradient(301deg,rgba(66, 64, 64, 1) 10%, rgba(0, 0, 0, 1) 50%, rgba(66, 64, 64, 1) 90%);
+    padding: 2rem; 
+    font-family: "Cagliostro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    /* border*/
+    --b: 12px;
+    --c: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);  
+    --w: 15rem;
+}
+
+.container::before,
+.container::after {
+    content: '';
+    position: absolute;
+    width: var(--w);
+    height: var(--w);
+    background: var(--c);
+    clip-path: polygon(
+        0 0,
+        calc(100% - var(--b)) 0,
+        100% var(--b),
+        var(--b) var(--b),
+        var(--b) calc(100% - var(--b)),
+        0 100%
+    );
+    margin: 2rem;
+}
+
+.container::before {
+    top: 0;
+    left: 0;
+}
+
+.container::after {
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 15vh;
+    top: 3rem;
+
+}
+
+header > nav {
+    display: flex;
+    gap: 3rem;
+}
+
+
+.img-logo {
+    height: 150px;
+    background: none;
+}
+
+.up-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.up-links a {
+    color: white;
+    text-decoration: none;
+}
+
+/*Main*/
+
+/* Font-Family
+  font-family: "Cagliostro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+*/
+
+.main {
+    position: absolute;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    left: 8vw;
+    top: 35vh;
+    width: 80vw;
+    
+
+}
+.main-context {
+    padding: 1rem;
+    width: 40%;
+    color: wheat;
+}
+
+.main-context h1 {
+    margin: 0;
+    font-size: 80px;
+}
+
+.main-context p {
+    margin-left: 2rem;
+    font-size: 25px;
+}
+
+.side-menu {
+    color: wheat;
+}
+
+.side-menu h1{
+    font-size: 45px;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.side-menu nav{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.side-menu nav a {
+    color: wheat;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.side-menu nav a:hover {
+    text-decoration: underline;
+} 
+
+/* Mobile Navigation */
+.mobile-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Burger Menu Styles */
+.burger-menu,
+.burger-menu2 {
+    position: relative;
+}
+
+.menu-toggle,
+.menu-toggle2 {
+    display: none;
+}
+
+.burger-icon,
+.burger-icon2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    padding: 5px;
+    position: relative;
+    z-index: 1001;
+}
+
+.burger-line {
+    width: 100%;
+    height: 3px;
+    background-color: wheat;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Burger line 2 styles */
+.burger-line2 {
+    width: 100%;
+    height: 3px;
+    background-color: wheat;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Transform to X when menu is open */
+.menu-toggle:checked + .burger-icon .burger-line:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle:checked + .burger-icon .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle:checked + .burger-icon .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.menu-toggle2:checked + .burger-icon2 .burger-line2:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.menu-toggle2:checked + .burger-icon2 .burger-line2:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle2:checked + .burger-icon2 .burger-line2:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+footer {
+    position: fixed;
+    display: flex;
+    justify-content: end;
+    padding: 0.8rem;
+    right: 3rem;
+    bottom: 2.5rem;
+    color: wheat;
+}
+
+
+/* Burger Menu 2 Styles */
+.burger-menu2 {
+    display: none;
+    position: relative;
+}
+
+/* Full screen menu styles for both burger menus */
+.side-menu,
+.side-menu2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(66, 64, 64, 0.95);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show menu when checkbox is checked */
+.menu-toggle:checked ~ .side-menu,
+.menu-toggle2:checked ~ .side-menu2 {
+    opacity: 1;
+    visibility: visible;
+}
+
+.side-menu h1,
+.side-menu2 h1 {
+    font-size: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: wheat;
+}
+
+.side-menu nav,
+.side-menu2 nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.side-menu nav a,
+.side-menu2 nav a {
+    font-size: 30px;
+    text-align: center;
+    color: wheat;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.side-menu nav a:hover,
+.side-menu nav a:hover {
+    color: #FEDB37;
+    text-decoration: underline;
+}
+
+/* Projects Button */
+.projects-btn {
+    background: transparent;
+    border: none;
+    color: grey;
+    font-family: "Cagliostro", sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.projects-btn:hover {
+    color: wheat;
+}
+
+/* Medias */
+@media (max-width: 630px) {
+    /* Hide regular navigation on mobile */
+    .up-links {
+        display: none;
+    }
+
+    /* Show mobile navigation */
+    .mobile-nav {
+        display: flex;
+    }
+
+    .desktop-menu {
+        display: none !important;
+    }
+
+    .main {
+        left: 8.5vw;
+        width: 84%;
+    }
+
+    .main-context {
+        width: 100%;
+    }
+
+    .main-context h1 {
+        font-size: large;
+    }
+
+    .main-context p {
+        font-size: medium;
+    }
+}
+
+@media (min-width: 631px) {
+    /* Hide mobile navigation on desktop */
+    .mobile-nav {
+        display: none;
+    }
+    
+    /* Keep social links visible on desktop */
+    .up-links {
+        display: flex;
+        align-items: center;
+    }
+}
+
+
+/* MODAL BASE */
+.project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(20, 20, 20, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease;
+    z-index: 2000;
+}
+
+.project-modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background: #111;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 70%;
+    max-width: 800px;
+    color: wheat;
+    text-align: center;
+}
+
+.close-btn {
+    font-size: 40px;
+    cursor: pointer;
+    position: absolute;
+    right: 40px;
+    top: 20px;
+}
+
+.modal-content img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.tags span {
+    background: #222;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin: 4px;
+    display: inline-block;
+}
+
+.modal-nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-nav button {
+    padding: 10px 20px;
+    background: #333;
+    border: none;
+    color: wheat;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.modal-image-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.modal-image-wrap img {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+.img-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.6);
+    border: none;
+    color: wheat;
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+#prevImg { left: 10px; }
+#nextImg { right: 10px; }
+
+.img-counter {
+    opacity: 0.8;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
