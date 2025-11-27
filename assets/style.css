@@ -105,6 +105,7 @@ header > nav {
 .main-context h1 {
     margin: 0;
     font-size: 80px;
+    color: rgba(255, 217, 0, 0.712);
 }
 
 .main-context p {
@@ -299,7 +300,8 @@ footer {
 }
 
 /* Projects Button */
-.projects-btn {
+.projects-btn,
+.certifications-btn {
     background: transparent;
     border: none;
     color: grey;
@@ -310,7 +312,8 @@ footer {
     transition: color 0.3s ease;
 }
 
-.projects-btn:hover {
+.projects-btn:hover,
+.certifications-btn:hover {
     color: wheat;
 }
 
