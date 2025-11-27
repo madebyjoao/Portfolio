@@ -1,21 +1,22 @@
-html, body {
-    top: 0;
+html {
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    margin: 0;
     background: #424040;
     background: linear-gradient(301deg,rgba(66, 64, 64, 1) 10%, rgba(0, 0, 0, 1) 50%, rgba(66, 64, 64, 1) 90%);
     padding: 2rem; 
     font-family: "Cagliostro", sans-serif;
     font-weight: 400;
     font-style: normal;
-    min-height: 100vh;
-    height: auto;
-    overflow-x: hidden;
-
-}
-
-body.home {
     height: 100vh;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
+
 
 header.header-cv {
     position: fixed;  
@@ -74,8 +75,6 @@ header {
     align-items: center;
     justify-content: space-between;
     height: 15vh;
-    top: 3rem;
-
 }
 
 header > nav {
@@ -320,7 +319,8 @@ footer {
 
 /* Projects Button */
 .projects-btn,
-.certifications-btn {
+.certifications-btn,
+.cv-btn {
     background: transparent;
     border: none;
     color: grey;
@@ -332,7 +332,8 @@ footer {
 }
 
 .projects-btn:hover,
-.certifications-btn:hover {
+.certifications-btn:hove,
+.cv-btn {
     color: wheat;
 }
 

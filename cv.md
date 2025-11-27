@@ -1,6 +1,6 @@
 # **João Silva**
-**Junior Web Developer**
-Cannes, France  
+### **Junior Web Developer**  
+**Address:** Cannes, France  
 **Email:** contact@madebyjoao.fr  
 **Phone:** 06 95 70 06 79  
 **Portfolio:** https://madebyjoao.fr  
@@ -9,7 +9,7 @@ Cannes, France
 ---
 
 ## **Profile**
-Focused and motivated junior web developer enrolled in a 16-month development program. Strong interest in backend logic, Linux systems, automation, and local network applications. Currently seeking anapprenticeship starting October 2026.
+Focused and motivated junior web developer enrolled in a 16-month development program. Strong interest in backend logic, Linux systems, automation, and local network applications. Currently seeking an apprenticeship starting October 2026.
 
 ---
 
@@ -46,8 +46,8 @@ Linux (Debian/Ubuntu), Windows
 
 ## **Education**
 
-**La Plateforme_ — Cannes**  
-*Web Developer Program (2025–2026)*  
+**La Plateforme — Cannes**  
+*Web Developer Program (2025–2026) - Bac +2*  
 
 ---
 

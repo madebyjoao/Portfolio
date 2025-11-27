@@ -5,6 +5,35 @@ const projects = [
         tags: ["In Progress", "Stay Tuned"],
         imgs: [
             "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+        ],
+        live: "",
+        github: "#"
+    },
+    {
+        title: "Coming Soon 2",
+        desc: "Exciting projects are currently in development. Check back soon to see what I've been working on!",
+        tags: ["In Progress", "Stay Tuned"],
+        imgs: [
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+        ],
+        live: "",
+        github: "#"
+    },
+    {
+        title: "Coming Soon 3",
+        desc: "Exciting projects are currently in development. Check back soon to see what I've been working on!",
+        tags: ["In Progress", "Stay Tuned"],
+        imgs: [
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
+            "assets/images/placeholder.png",
         ],
         live: "",
         github: "#"
