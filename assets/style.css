@@ -6,12 +6,34 @@ html, body {
     font-family: "Cagliostro", sans-serif;
     font-weight: 400;
     font-style: normal;
+    min-height: 100vh;
+    height: auto;
+    overflow-x: hidden;
+
+}
+
+body.home {
     height: 100vh;
-    overflow: hidden;
+    overflow-y: hidden;
+}
+
+header.header-cv {
+    position: fixed;  
+    pointer-events: none; 
+    z-index: 1
+}
+
+header, .main, .cv-page, footer {
+    position: relative;
+    z-index: 2;
 }
 
 .container {
     /* border*/
+    position: fixed;  
+    inset: 0;
+    pointer-events: none; 
+    z-index: 1;
     --b: 12px;
     --c: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);  
@@ -136,9 +158,6 @@ header > nav {
     font-size: 20px;
 }
 
-.side-menu nav a:hover {
-    text-decoration: underline;
-} 
 
 /* Mobile Navigation */
 .mobile-nav {
@@ -468,4 +487,66 @@ footer {
     opacity: 0.8;
     font-size: 14px;
     margin-bottom: 12px;
+}
+/* CV PAGE */
+
+/* Wrapper for the CV page content */
+.cv-page {
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+    margin: 0 auto;
+}
+
+/* Card containing the rendered markdown */
+.cv-wrapper {
+    max-width: 900px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2.5rem 3rem;
+    border-radius: 8px;
+    color: #f2f2f2;
+}
+
+/* Title above the markdown */
+.cv-title {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+/* Markdown reset for readability */
+#cv {
+    color: #f0f0f0;
+    background: transparent;
+    line-height: 1.6;
+}
+
+#cv h1,
+#cv h2,
+#cv h3,
+#cv h4 {
+    color: #ffffff;
+    margin-top: 1.4rem;
+    font-weight: 600;
+}
+
+#cv p,
+#cv li {
+    line-height: 1.6;
+}
+
+#cv a {
+    color: #4da6ff;
+}
+
+#cv hr {
+    border: none;
+    border-top: 1px solid #888;
+    margin: 1.5rem 0;
+}
+
+.cv-downloads {
+    margin-top: 2rem;
 }

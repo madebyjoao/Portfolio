@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CV – João [Last Name]</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body class="body-cv">
+    <div class="container"></div>
+
+        <header class="header-cv">
+
+            <div class="logo">
+                <img src="assets/images/golden_logo.png" class="img-logo" alt="logo-mbj">
+            </div>
+
+        </header>
+
+        <main class="cv-page">
+            <div class="cv-wrapper">
+             <h1 class="cv-title">Curriculum Vitae</h1>
+                <div id="cv"></div>
+
+                <p class="cv-downloads">
+                    <a href="cv.md" download>Download CV (Markdown)</a>
+                </p>
+            </div>
+        </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    fetch('cv.md')
+      .then(res => res.text())
+      .then(md => {
+        document.getElementById('cv').innerHTML = marked.parse(md);
+      })
+      .catch(err => {
+        document.getElementById('cv').textContent =
+          'Error loading CV. Please try again later.';
+        console.error(err);
+      });
+  </script>
+</body>
+</html>

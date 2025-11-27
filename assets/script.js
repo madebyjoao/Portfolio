@@ -43,7 +43,6 @@ function showProject(i) {
 
     showImage();
 }
-console.log(e);
 
 function showImage() {
     const p = projects[currentProjectIndex];
