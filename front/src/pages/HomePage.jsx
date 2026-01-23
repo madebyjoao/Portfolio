@@ -30,7 +30,7 @@ export default function HomePage() {
           <div className="container heroGrid">
             <div className="heroContent">
               <p className="eyebrow">Web Developer</p>
-              <h1 className="heroTitle">João Silva Coutinho</h1>
+              <h1 className="heroTitle">João Coutinho Silva</h1>
               <p className="heroSubtitle">
                 I build clean, reliable web applications with modern front-end and back-end stacks.
               </p>
