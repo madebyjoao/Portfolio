@@ -7,3 +7,12 @@ import {
   Clock,
   Navigation,
 } from "lucide-react";
+
+function Contact() {
+  retun (
+    <>
+    </>
+  )
+}
+
+export default Contact

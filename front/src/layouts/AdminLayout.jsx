@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from "react-router";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import Navbar from "@/components/Navbar";
 import AdminSidebar from "@/components/admin/AdminSideBar";
 
 export default function AdminLayout({ children }) {

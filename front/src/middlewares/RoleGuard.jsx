@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router";
 import instance from "../api/config";
-import AccessDeniedPage from "../pages/public/AccessDenied";
 import handleLogout from "../utils/helpers";
 
 export function RoleGuard({ allowedRoles, children }) {
@@ -50,6 +49,8 @@ export function RoleGuard({ allowedRoles, children }) {
     return children;
   } else {
     
-    return <AccessDeniedPage />;
+    return (
+      <>Access denied</>
+    );
   }
 }
