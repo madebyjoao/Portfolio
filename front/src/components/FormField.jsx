@@ -1,5 +1,3 @@
-import { Input } from "@/components/ui/input";
-
 export default function FormField({ 
   label, 
   id, 
@@ -10,12 +8,10 @@ export default function FormField({
   options = [],
   placeholder = ""
 }) {
-  const baseInputClass = "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500";
-
   if (type === "textarea") {
     return (
       <div>
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={id}>
           {label}
         </label>
         <textarea 
@@ -23,7 +19,6 @@ export default function FormField({
           {...register(id)} 
           rows={rows}
           placeholder={placeholder}
-          className={baseInputClass}
         />
       </div>
     );
@@ -32,13 +27,12 @@ export default function FormField({
   if (type === "select") {
     return (
       <div>
-        <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor={id}>
           {label}
         </label>
         <select 
           id={id} 
-          {...register(id)} 
-          className={baseInputClass}
+          {...register(id)}
         >
           <option value="">Sélectionner {label.toLowerCase()}</option>
           {Array.isArray(options) && options.map((option) => (
@@ -53,16 +47,15 @@ export default function FormField({
 
   return (
     <div>
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+      <label htmlFor={id}>
         {label}
       </label>
-      <Input
+      <input
         id={id}
         type={type}
         {...register(id)}
         required={required}
         placeholder={placeholder}
-        className={baseInputClass}
       />
     </div>
   );

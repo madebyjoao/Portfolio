@@ -16,19 +16,6 @@ import {
 } from "lucide-react";
 import { Form, NavLink, useLocation } from "react-router";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar";
 import handleLogout from "@/utils/helpers";
 import { ThemeToggle } from "../ThemeToggle";
 
@@ -48,80 +35,64 @@ export default function AdminSidebar() {
 
 
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" asChild>
+    <aside>
+      <header>
+        <nav>
+          <ul>
+            <li>
               <NavLink to="/admin">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-                  <LayoutDashboard className="size-4" />
+                <div>
+                  <LayoutDashboard />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Greetings, {localStorage.getItem("first_name")}</span>
-                  <span className="truncate text-xs text-muted-foreground">
-                    Dashboard
-                  </span>
+                <div>
+                  <span>Greetings, {localStorage.getItem("first_name")}</span>
+                  <span>Dashboard</span>
                 </div>
               </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarHeader>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
+      <div>
+        <div>
+          <label>Navigation</label>
+          <div>
+            <nav>
               {navItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.url}
-                    tooltip={item.title}
-                  >
-                    <NavLink to={item.url}>
-                      <item.icon className="size-4" />
-                      <span>{item.title}</span>
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
+                <div key={item.title}>
+                  <NavLink to={item.url}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                  </NavLink>
+                </div>
               ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
+            </nav>
+          </div>
+        </div>
+      </div>
 
-      <SidebarFooter>       
-        <SidebarMenuItem>
-          <SidebarMenuButton asChild tooltip="Toggle Theme">
-            <div className="flex items-center w-full">
-              <ThemeToggle />
-            </div>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Back Home">
-              <NavLink to="/">
-                <ArrowLeftFromLine className="size-4" />
-                <span>Back Home</span>
-              </NavLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip="Back Home">
-              <button onClick={handleLogout} className="hover:cursor-pointer">
-                  <LogOut className="size-4" />
-                  <span>Log out</span>
-              </button>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-
-      <SidebarRail />
-    </Sidebar>
+      <footer>       
+        <div>
+          <div>
+            <ThemeToggle />
+          </div>
+        </div>
+        <nav>
+          <div>
+            <NavLink to="/">
+              <ArrowLeftFromLine />
+              <span>Back Home</span>
+            </NavLink>
+          </div>
+          <div>
+            <button onClick={handleLogout}>
+              <LogOut />
+              <span>Log out</span>
+            </button>
+          </div>
+        </nav>
+      </footer>
+    </aside>
   )
 }

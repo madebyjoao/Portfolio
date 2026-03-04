@@ -10,24 +10,6 @@ import {
   useReactTable,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-} from "@/components/ui/dialog";
 import FormField from "@/components/FormField";
 
 
@@ -192,7 +174,7 @@ function Users() {
       accessorKey: "role",
       header: "Rôle",
       cell: ({ row }) => (
-        <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+        <span>
           {row.getValue("role")}
         </span>
       ),
@@ -202,21 +184,17 @@ function Users() {
       cell: ({ row }) => {
         const user = row.original;
         return (
-          <div className="flex gap-2 justify-end">
-            <Button 
-              variant="outline"
-              size="sm"
+          <div>
+            <button 
               onClick={() => handleEdit(user)}
             >
               Modifier
-            </Button>
-            <Button 
-              variant="destructive"
-              size="sm"
+            </button>
+            <button 
               onClick={() => handleDelete(user.id)}
             >
               Supprimer
-            </Button>
+            </button>
           </div>
         );
       },
@@ -235,28 +213,22 @@ function Users() {
   });
 
   return (
-    <section className="container mx-auto px-4 py-8">
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">Liste des utilisateurs</h2>
-          <Dialog open={isDialogOpen && !modeEdit} onOpenChange={(open) => {
-            setIsDialogOpen(open);
-            if (!open) handleReset();
-          }}>
-            <DialogTrigger asChild>
-              <Button>Créer un utilisateur</Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>Créer un utilisateur</DialogTitle>
-                <DialogDescription>
-                  Remplissez les informations pour créer un nouvel utilisateur
-                </DialogDescription>
-              </DialogHeader>
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <section>
+      <div>
+        <div>
+          <h2>Liste des utilisateurs</h2>
+          {/* Create User Dialog */}
+          {isDialogOpen && !modeEdit && (
+            <div>
+              <button onClick={() => { setIsDialogOpen(false); handleReset(); }}>Close</button>
+              <div>
+                <h3>Créer un utilisateur</h3>
+                <p>Remplissez les informations pour créer un nouvel utilisateur</p>
+              </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
                 <input type="hidden" id="id" {...register("id")} />
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-2">
+                <div>
                   <FormField label="Prénom" id="first_name" register={register} required />
                   <FormField label="Nom" id="last_name" register={register} required />
                   <FormField label="Email" id="email" type="email" register={register} required />
@@ -273,7 +245,7 @@ function Users() {
 
                 <FormField label="Biographie" id="biography" type="textarea" register={register} />
                 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
                   <FormField label="Portfolio URL" id="portfolio_url" type="url" register={register} />
                   <FormField label="YouTube URL" id="youtube_url" type="url" register={register} />
                   <FormField label="Instagram URL" id="instagram_url" type="url" register={register} />
@@ -284,80 +256,78 @@ function Users() {
                   <FormField label="Rôle" id="role" type="select" register={register} options={roles} />
                 </div>
 
-                <DialogFooter>
-                  <Button type="button" variant="outline" onClick={handleReset}>
+                <div>
+                  <button type="button" onClick={handleReset}>
                     Annuler
-                  </Button>
-                  <Button type="submit">
+                  </button>
+                  <button type="submit">
                     Créer un utilisateur
-                  </Button>
-                </DialogFooter>
+                  </button>
+                </div>
               </form>
-            </DialogContent>
-          </Dialog>
+            </div>
+          )}
+          
+          <button onClick={() => setIsDialogOpen(true)}>Créer un utilisateur</button>
         </div>
 
         {users.length > 0 ? (
-          <div className="rounded-md border">
-            <Table>
-              <TableHeader>
+          <div>
+            <table>
+              <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
+                  <tr key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <TableHead key={header.id}>
+                      <th key={header.id}>
                         {header.isPlaceholder
                           ? null
                           : flexRender(
                               header.column.columnDef.header,
                               header.getContext()
                             )}
-                      </TableHead>
+                      </th>
                     ))}
-                  </TableRow>
+                  </tr>
                 ))}
-              </TableHeader>
-              <TableBody>
+              </thead>
+              <tbody>
                   {table.getRowModel().rows?.length ? (
                     table.getRowModel().rows.map((row) => (
-                      <TableRow key={row.id}>
+                      <tr key={row.id}>
                         {row.getVisibleCells().map((cell) => (
-                          <TableCell key={cell.id}>
+                          <td key={cell.id}>
                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                          </TableCell>
+                          </td>
                         ))}
-                      </TableRow>
+                      </tr>
                     ))
                   ) : (
-                    <TableRow>
-                      <TableCell colSpan={columns.length} className="h-24 text-center">
+                    <tr>
+                      <td colSpan={columns.length}>
                         Aucun utilisateur trouvé.
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                   )}
-              </TableBody>
-            </Table>
+              </tbody>
+            </table>
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-500">Aucun utilisateur trouvé.</div>
+          <div>Aucun utilisateur trouvé.</div>
         )}
       </div>
 
       {/* Edit Modal */}
-      <Dialog open={isDialogOpen && modeEdit} onOpenChange={(open) => {
-        setIsDialogOpen(open);
-        if (!open) handleReset();
-      }}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Modifier un utilisateur</DialogTitle>
-            <DialogDescription>
-              Modifiez les informations de l'utilisateur
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleSubmit(onUpdate)} className="space-y-4">
+      {isDialogOpen && modeEdit && (
+        <div>
+          <button onClick={() => { setIsDialogOpen(false); handleReset(); }}>Close</button>
+          <div>
+            <h3>Modifier un utilisateur</h3>
+            <p>Modifiez les informations de l'utilisateur</p>
+          </div>
+          <form onSubmit={handleSubmit(onUpdate)}>
             <input type="hidden" id="id" {...register("id")} />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
               <FormField label="Prénom" id="first_name" register={register} required />
               <FormField label="Nom" id="last_name" register={register} required />
               <FormField label="Email" id="email" type="email" register={register} required />
@@ -374,7 +344,7 @@ function Users() {
 
             <FormField label="Biographie" id="biography" type="textarea" register={register} />
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
               <FormField label="Portfolio URL" id="portfolio_url" type="url" register={register} />
               <FormField label="YouTube URL" id="youtube_url" type="url" register={register} />
               <FormField label="Instagram URL" id="instagram_url" type="url" register={register} />
@@ -385,17 +355,17 @@ function Users() {
               <FormField label="Rôle" id="role" type="select" register={register} options={roles} />
             </div>
 
-            <DialogFooter>
-              <Button type="button" variant="outline" onClick={handleReset}>
+            <div>
+              <button type="button" onClick={handleReset}>
                 Annuler
-              </Button>
-              <Button type="submit">
+              </button>
+              <button type="submit">
                 Mettre à jour
-              </Button>
-            </DialogFooter>
+              </button>
+            </div>
           </form>
-        </DialogContent>
-      </Dialog>
+        </div>
+      )}
     </section>
   );
 }
