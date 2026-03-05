@@ -36,15 +36,17 @@ createRoot(document.getElementById("root")).render(
             <Route path="/contact" element={<Contact />} />
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/register" element={<Register />} />
+          </Route >
 
-            
+          <Route path="/u" element={<PublicLayout />}>
+            <Route path=":slug" element={<div>Test</div>}/>
           </Route>
 
           {/* Routes privées */}
           <Route path="admin" element={ <RoleGuard allowedRoles={["ADMIN"]}>
             <AdminLayout />
-            </RoleGuard> 
-              } >
+            </RoleGuard> } 
+          >
             <Route index element={<Dashboard />} />
             <Route path="users" element={<Users />} />
             <Route path="cms" element={<Cms />} />

@@ -11,6 +11,7 @@ import {
 function Contact() {
   retun (
     <>
+    *Contact
     </>
   )
 }

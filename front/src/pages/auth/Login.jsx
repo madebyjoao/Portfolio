@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { login } from "../../api/auth.js";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +15,6 @@ const loginSchema = z.object({
 });
 
 export function Login() {
-
   const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm({
@@ -31,13 +30,14 @@ export function Login() {
       localStorage.setItem("email", response.data?.email);
       localStorage.setItem("role", response.data?.role);
       localStorage.setItem("token", response.data?.token);
+      localStorage.setItem('slug', response.data?.slug);
 
       switch (response.data?.role) {
         case "ADMIN":
           navigate("/admin");
           break;
         case "CLIENT":
-          navigate("/");
+          navigate("/u/" + response.data?.slug);
           break;
         default:
           navigate("/");
