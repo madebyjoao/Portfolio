@@ -6,16 +6,11 @@ import {Twitter} from "lucide-react"
 
 export default function PublicLayout() {
 
-  
+    return (
+        <>
 
-  
-  return (
-    <>
+            <Outlet />
 
-
-        <Outlet />
-
-
-    </>
-  );
+        </>
+    );
 }

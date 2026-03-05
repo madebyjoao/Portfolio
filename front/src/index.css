@@ -1,7 +1,5 @@
-html {
-  scroll-behavior: smooth;
-}
-
 body {
-  background-color: rgba(220, 105, 105, 16%);
+  background-color: rgba(0, 0, 0, 1);
+  margin: 0;
+  padding: 0;
 }
