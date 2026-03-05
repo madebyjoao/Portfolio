@@ -13,6 +13,8 @@ import { RoleGuard } from "./middlewares/RoleGuard.jsx";
 import Users from "./pages/admin/Users.jsx";
 import Contact from "./pages/public/Contact.jsx";
 import Cms from "./pages/admin/Cms.jsx";
+import Builder from "./pages/builder/Builder.jsx";
+import BuilderLayout from "./layouts/BuilderLayout.jsx";
 
 
 
@@ -30,6 +32,7 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <Routes>
+
           {/* Routes publiques */}
           <Route path="/" element={<PublicLayout />}>
             <Route index element={<Home />} />
@@ -38,20 +41,27 @@ createRoot(document.getElementById("root")).render(
             <Route path="/auth/register" element={<Register />} />
           </Route >
 
+          {/* Routes privées */}
           <Route path="/u" element={<PublicLayout />}>
             <Route path=":slug" element={<div>Test</div>}/>
+          </Route>7
+
+          <Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
+                                            <BuilderLayout />
+                                          </RoleGuard>}>
+
+            <Route index element={<Builder />}/>
           </Route>
 
-          {/* Routes privées */}
           <Route path="admin" element={ <RoleGuard allowedRoles={["ADMIN"]}>
-            <AdminLayout />
-            </RoleGuard> } 
+                                          <AdminLayout />
+                                        </RoleGuard> } 
           >
             <Route index element={<Dashboard />} />
             <Route path="users" element={<Users />} />
             <Route path="cms" element={<Cms />} />
-
           </Route>
+
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>

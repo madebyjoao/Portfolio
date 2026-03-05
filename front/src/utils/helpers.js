@@ -5,5 +5,6 @@ export default function handleLogout() {
   localStorage.removeItem("email");
   localStorage.removeItem("role");
   localStorage.removeItem("token");
+  localStorage.removeItem("slug");
   window.location.href = "/";
 }
