@@ -13,10 +13,12 @@ const registerSchema = z
     first_name: z.string().min(1, "Le prénom est requis"),
     last_name: z.string().min(1, "Le nom est requis"),
     email: z.string().email("Email invalide"),
+    slug: z.string().min(1, "Le slug est requis"),
     password: z
       .string()
       .min(6, "Le mot de passe doit contenir au moins 6 caractères"),
-    confirmpassword: z.string(),
+    confirmpassword: z.string()
+    
   })
   .refine((data) => data.password === data.confirmpassword, {
     message: "Les mots de passe ne correspondent pas",
@@ -44,7 +46,7 @@ export function Register() {
         last_name: data.last_name,
         email: data.email,
         password: data.password,
-        // role est optionnel, backend met "PRODUCER" par défaut
+        slug: data.slug,
       });
     },
     onSuccess: (res) => {
@@ -75,33 +77,6 @@ export function Register() {
 
   return (
     <>
-      {/* <h1 className="text-2xl">Register</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Prénom</label>
-        <input type="text" {...register("first_name")} required />
-        {errors.first_name && <span>{errors.first_name.message}</span>}
-
-        <label>Nom</label>
-        <input type="text" {...register("last_name")} required />
-        {errors.last_name && <span>{errors.last_name.message}</span>}
-
-        <label>Email</label>
-        <input type="email" {...register("email")} required />
-        {errors.email && <span>{errors.email.message}</span>}
-
-        <label>Mot de passe</label>
-        <input type="password" {...register("password")} required />
-        {errors.password && <span>{errors.password.message}</span>}
-
-        <label>Confirmez le mot de passe</label>
-        <input type="password" {...register("confirmpassword")} required />
-        {errors.confirmpassword && <span>{errors.confirmpassword.message}</span>}
-
-        <button type="submit">Register</button>
-      </form>
-
-      <Link to="/auth/login">Already have an account? Login</Link> */}
-
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-black text-white pt-[154px] pb-[90px] px-6"
@@ -169,6 +144,25 @@ export function Register() {
               {...register("email")}
               className="w-full h-[76px] outline-none  placeholder-white/40"
               type="email"
+              required
+            />
+          </div>
+
+          <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+            Slug
+          </h2>
+
+          <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
+            <img
+              className="flex items-center px-[15px]"
+              src="/src/assets/login_svg/Icon (2).svg"
+              alt=""
+            />
+            <input
+              placeholder="slug unique"
+              {...register("slug")}
+              className="w-full h-[76px] outline-none  placeholder-white/40"
+              type="text"
               required
             />
           </div>

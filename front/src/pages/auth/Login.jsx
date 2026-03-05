@@ -15,6 +15,7 @@ const loginSchema = z.object({
 });
 
 export function Login() {
+
   const navigate = useNavigate();
 
   const { register, handleSubmit } = useForm({
@@ -35,7 +36,7 @@ export function Login() {
         case "ADMIN":
           navigate("/admin");
           break;
-        case "JURY":
+        case "CLIENT":
           navigate("/");
           break;
         default:
@@ -69,15 +70,6 @@ export function Login() {
        <h1 className="text-2xl">
           You are already logged in as {localStorage.getItem("first_name")}
         </h1>
-         <h1 className="text-2xl">
-          You are already logged in as {localStorage.getItem("first_name")}
-        </h1>
-         <h1 className="text-2xl">
-          You are already logged in as {localStorage.getItem("first_name")}
-        </h1>
-        <h1 className="text-2xl">
-          You are already logged in as {localStorage.getItem("first_name")}
-        </h1>
         <button onClick={handleLogout} className="hover:cursor-pointer">
           <LogOut className="size-4" />
           <span>Log out</span>
@@ -93,46 +85,6 @@ export function Login() {
 
   return (
     <>
-      {/* <h1 className="text-2xl">Login</h1>
-
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <label
-            htmlFor="email"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"         
-            placeholder="your@email.com"
-            className="border p-2 rounded w-full"
-            {...register("email")}
-            required
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="password"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-             Password
-          </label>
-          <input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            className="border p-2 rounded w-full"
-            {...register("password")}
-            required
-          />
-        </div>
-
-      </form>
-
-      <Link to="/auth/register">No account yet? Register</Link> */}
 
       <form
         onSubmit={handleSubmit(onSubmit)}

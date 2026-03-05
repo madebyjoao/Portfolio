@@ -28,6 +28,7 @@ async function login(req, res) {
       email: user.email,
       first_name: user.first_name,
       role: user.role,
+      slug: user.slug,
       token,
     });
   } catch (error) {
