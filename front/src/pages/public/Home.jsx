@@ -1,12 +1,17 @@
-import { Link } from "react-router";
 import "./Home.css";
+import previewVideo from "@/assets/preview.mp4";
 
 function Home() {
   return (
-    <>
-     <p>Hello</p>
-    </>
+    <div className="flex flex-col items-center justify-center min-h-screen text-white">
+     <h1 className="text-white">Hello</h1>
+     <div className="relative mt-4 aspect-video w-full max-w-2xl overflow-hidden rounded-lg shadow-lg">
+        <video className="w-full h-full object-cover" autoPlay loop muted playsInline aria-label="Preview video showing app functionality" >
+          <source src={previewVideo} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
   );
 }
-
 export default Home;
