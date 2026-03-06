@@ -24,7 +24,7 @@ function Overview() {
       <div style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
         <div style={{ padding: "20px", border: "1px solid #ddd", borderRadius: "8px", flex: 1 }}>
           <h3>Total Utilisateurs</h3>
-          <p style={{ fontSize: "2rem", fontWeight: "bold" }}>{stats.totalUsers}</p>
+          <p style={{ fontSize: "2rem", fontWeight: "bold" }}>{stats.clientCount}</p>
         </div>
         <div style={{ padding: "20px", border: "1px solid #ddd", borderRadius: "8px", flex: 1 }}>
           <h3>Total Vidéos</h3>

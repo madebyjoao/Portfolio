@@ -4,12 +4,12 @@ import { Op } from "sequelize";
 async function getStats(req, res) {
   try {
     const users = await User.findAll();
-    const producerCount = await User.count({ where: { role: 'PRODUCER' } });
+    const clientCount = await User.count({ where: { role: 'CLIENT' } });
 
 
     const stats = {
       totalUsers: users.length,
-      producerCount: producerCount,
+      clientCount: clientCount,
       recentUsers: users.slice(0, 5),
     };
 

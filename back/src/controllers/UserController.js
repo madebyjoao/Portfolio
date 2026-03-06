@@ -93,7 +93,7 @@ function findUserByEmail(email) {
 // Get available roles
 function getRoles(req, res) {
   res.json({
-    roles: ["ADMIN", "JURY", "PRODUCER"]
+    roles: ["ADMIN", "CLIENT"]
   });
 }
 
