@@ -44,7 +44,7 @@ createRoot(document.getElementById("root")).render(
           {/* Routes privées */}
           <Route path="/u" element={<PublicLayout />}>
             <Route path=":slug" element={<div>Test</div>}/>
-          </Route>7
+          </Route>
 
           <Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
                                             <BuilderLayout />

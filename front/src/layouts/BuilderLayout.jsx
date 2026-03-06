@@ -3,24 +3,20 @@ import {Facebook} from "lucide-react"
 import {Instagram} from "lucide-react"
 import {Youtube} from "lucide-react"
 import {Twitter} from "lucide-react"
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import BuilderSidebar from "../components/BuilderSidebar";
 
 export default function BuilderLayout() {
 
     return (
         <div className="min-h-screen flex">
-            <Navbar />
+            <BuilderSidebar />
 
                 <main>
 
                     <Outlet />
 
                 </main>
-
-            <Footer />
             
-
         </div>
     );
 }
