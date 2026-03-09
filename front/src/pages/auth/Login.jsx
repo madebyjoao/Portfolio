@@ -88,110 +88,101 @@ export function Login() {
 
   return (
     <>
-     
+      <div className="w-full pt-[170px]">
+        <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-full max-w-[550px] mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
+          <form 
+          onSubmit={handleSubmit(onSubmit)}
+          className="px-6 max-w-[500px] my-0 mx-auto sm:p-[56px]">
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-black text-white pt-[154px] pb-[90px] px-6"
-      >
-       
-        <div className="flex flex-col max-w-[500px] my-0 mx-auto p-8 sm:p-[56px] items-center uppercase bg-black/70 border border-white/10 rounded-[24px] shadow-[0_0_30px_rgba(173,70,255,0.1)]">
-          <LogIn className="bg-white/5 mb-[24px] border border-white/10 p-6 w-[96px] h-[96px] rounded-[32px] " />
-
-          <h2 className="text-center text-[36px] sm:text-[48px] mb-[11px] font-bold inline-block bg-[linear-gradient(to_top,rgba(152,16,250,0.6)_35%,rgba(43,127,255,1)_60%)] bg-clip-text text-transparent tracking-[-2.4px]">
-            CONNEXION
-          </h2>
-          <h2 className="text-center text-[10px] mb-[44px] tracking-[3px] text-white/50 font-bold">
-            Protocole d'accès marsAI
-          </h2>
-
-          <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-            Identifiant de Session
-          </h2>
-          <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-            <img
-              className="flex items-center px-[15px]"
-              src="/src/assets/login_svg/Icon (2).svg"
-              alt=""
-            />
-            <input
-              id="email"
-              type="email"
-              placeholder="agent@marsai.io"
-              {...register("email")}
-              className="w-full h-[76px] outline-none  placeholder-white/40"
-            />
-          </div>
-
-          <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-            Clé Cryptographique
-          </h2>
-          <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
-            <img
-              className="flex items-center px-[15px]"
-              src="/src/assets/login_svg/Icon (2).svg"
-              alt=""
-            />
-            <input
-              id="password"
-              type="password"
-              placeholder="●●●●●●"
-              className="w-full h-[76px] outline-none  placeholder-white/40"
-              {...register("password")}
-              required
-            />
-          </div>
-
-          <div className="flex text-[10px] items-center w-full py-[32px] gap-[10px] tracking-[1px]">
-            {/* Checkbox */}
-            <label className="relative inline-flex items-center cursor-pointer mb-[-1px]">
-              <input type="checkbox" className="peer sr-only" />
-              <div className="w-5 h-5 rounded-full border border-white/10 bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-blue-500">
-                <svg
-                  className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </div>
-            </label>
-
-            {/* Текст */}
-            <h2 className="mr-auto tracking-[1px]">Maintenir session</h2>
-            <h2 className="text-[#51A2FF] tracking-[2px]  cursor-pointer">
-              Reset ?
+            <h2 className="text-center text-[36px] sm:text-[48px] mb-[11px] font-bold inline-block bg-[rgb(255,255,255)] bg-clip-text text-transparent tracking-[-2.4px]">
+              Connection
             </h2>
-          </div>
 
-          <button
-            type="submit"
-            disabled={loginMutation.isPending}
-            className="flex justify-center items-center gap-[17px] font-bold w-full bg-white text-black rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[76px] trackincg-[2.75px] mb-[75px]"
-          >
-            {" "}
-            <Send size={20} />
-            <h2>
-              {loginMutation.isPending ? "Connecting..." : "Initialiser Flux"}
+            <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+              Username
             </h2>
-          </button>
+            <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
+              <img
+                className="flex items-center px-[15px]"
+                src="/src/assets/login_svg/Icon (2).svg"
+                alt=""
+              />
+              <input
+                id="email"
+                type="email"
+                placeholder="agent@marsai.io"
+                {...register("email")}
+                className="w-full h-[56px] outline-none  placeholder-white"
+              />
+            </div>
 
-          <div className="flex items-center sm:items-end flex-col sm:flex-row   w-full gap-[15px] justify-center">
-            <h2 className="text-[11px] text-[rgba(255,255,255,0.6)] tracking-[2.2px]">
-              Nouveau Voyageur ?
+            <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+              Password
             </h2>
-            <h2 className="text-[16px] capitalize tracking-[2.2px] mb-[-3px]">
-              Générer Identité
-            </h2>
-          </div>
+            <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
+              <img
+                className="flex items-center px-[15px]"
+                src="/src/assets/login_svg/Icon (2).svg"
+                alt=""
+              />
+              <input
+                id="password"
+                type="password"
+                placeholder="●●●●●●"
+                className="w-full h-[56px] outline-none  placeholder-white"
+                {...register("password")}
+                required
+              />
+            </div>
+
+            <div className="flex text-[10px] items-center w-full py-[32px] gap-[10px] tracking-[1px]">
+
+              <label className="relative inline-flex items-center cursor-pointer mb-[-1px]">
+                <input type="checkbox" className="peer sr-only" />
+                <div className="w-5 h-5 rounded-full border border-white/10 bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-[rgb(0,255,150)]">
+                  <svg
+                    className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5 13l4 4L19 7"
+                    />
+                  </svg>
+                </div>
+              </label>
+
+              <h2 className="mr-auto tracking-[1px]">Keep me logged</h2>
+              <h2 className="text-[rgb(255,255,255)] tracking-[2px]  cursor-pointer">
+                Reset ?
+              </h2>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loginMutation.isPending}
+              className="flex justify-center items-center gap-[17px] font-bold w-full bg-[rgb(92,131,116)] text-[rgb(255,255,255)] rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[76px] trackincg-[2.75px]  cursor-pointer"
+            >
+              {" "}
+              <Send size={20} />
+              <h2>
+                {loginMutation.isPending ? "Connecting..." : "Initialiser Flux"}
+              </h2>
+            </button>
+          </form>
+          <a href="/auth/register" className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-[15px] justify-center pb-10">
+            <button className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-pointer">
+              Create a new account
+            </button>
+          </a>
         </div>
-      </form>
+      </div>
+      
+
     </>
   );
 }

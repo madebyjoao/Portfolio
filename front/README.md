@@ -16,5 +16,11 @@ npm run dev
 
 ## Color palette
 ```sh
-https://colorhunt.co/palette/f2f2f2eae4d5b6b09f000000
+background page: rgb(147,177,166)
+
+background modals/navbar: rgb(24,61,61)
+
+text color: rgb(255,255,255) 
+
+icons/buttons: rgb(92,131,116)
 ```
