@@ -10,11 +10,11 @@ export default function Navbar() {
     const [showLogout, setShowLogout] = useState(false);
 
     return (
-        <nav role="navigation" aria-label="Main navigation" className="fixed flex justify-between items-center bg-purple-400 m-8 opacity-75 rounded-full px-8 py-4 top-0 gap-4 left-0 right-0 mx-auto max-w-[calc(100%-4rem)]">
+        <nav role="navigation" aria-label="Main navigation" className="fixed flex justify-between items-center bg-[rgb(182,176,159)] m-8 opacity-75 rounded-full px-8 py-4 top-0 gap-4 left-0 right-0 mx-auto max-w-[calc(100%-4rem)]">
             {!token ? (
                 <NavLink to="/auth/login">
                     <div className="cursor-pointer">
-                        <Users2 />
+                        <Users2 className="text-[rgb(242,242,242)]" />
                     </div>
                 </NavLink>
             ) : (
@@ -25,9 +25,9 @@ export default function Navbar() {
                     onClick={showLogout ? handleLogout : null}
                 >
                     {showLogout ? (
-                        <UserRoundXIcon />
+                        <UserRoundXIcon className="text-[rgb(242,242,242)]" />
                     ) : (
-                        <LucideUserCheck2 />
+                        <LucideUserCheck2 className="text-[rgb(242,242,242)]" />
                     )}
                 </div>
             )}
@@ -35,8 +35,8 @@ export default function Navbar() {
                 <img className="w-14" src={logo} alt="Picture of the Logo" />
             </NavLink>
 
-            <NavLink to="/builder">
-                Build IT
+            <NavLink to="/builder" className="text-[rgb(242,242,242)]" >
+                BUILDER
             </NavLink>
 
         </nav>

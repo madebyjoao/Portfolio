@@ -35,7 +35,7 @@ export default function AdminSidebar() {
 
 
   return (
-    <aside>
+    <aside className="text-[rgb(242,242,242)]">
       <header>
         <nav>
           <ul>

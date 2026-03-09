@@ -18,7 +18,7 @@ function Overview() {
   const stats = data.data;
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div className="text-white" style={{ padding: "20px" }}>
       <h1>Tableau de bord - Vue d'ensemble</h1>
       
       <div style={{ display: "flex", gap: "20px", marginBottom: "30px" }}>
