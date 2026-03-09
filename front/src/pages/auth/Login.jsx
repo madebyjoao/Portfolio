@@ -89,8 +89,7 @@ export function Login() {
   return (
     <>
      
-      <TopAlert message={alertMessage} />
-      
+
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-black text-white pt-[154px] pb-[90px] px-6"

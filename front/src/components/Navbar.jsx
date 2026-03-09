@@ -25,7 +25,7 @@ export default function Navbar() {
                     onClick={showLogout ? handleLogout : null}
                 >
                     {showLogout ? (
-                        <UserRoundXIcon className="text-[rgb(242,242,242)]" />
+                        <UserRoundXIcon className="text-[rgb(212,10,10)]" />
                     ) : (
                         <LucideUserCheck2 className="text-[rgb(242,242,242)]" />
                     )}
