@@ -4,7 +4,6 @@ import OverviewController from "../../controllers/OverviewController.js";
 
 const overviewRouter = express.Router();
 
-overviewRouter.use((req, res, next) => AuthMiddleware(req, res, next, ["ADMIN"]));
 
 overviewRouter.get("/", OverviewController.getStats); // Admin
 

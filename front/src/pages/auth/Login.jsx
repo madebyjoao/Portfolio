@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { login } from "../../api/auth.js";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +8,7 @@ import handleLogout from "@/utils/helpers.js";
 import { LogOut } from "lucide-react";
 import { Send } from "lucide-react";
 import { LogIn } from "lucide-react";
+import TopAlert from "../../components/TopAlert.jsx";
 
 const loginSchema = z.object({
   email: z.string().email("Email invalide"),
@@ -16,6 +17,8 @@ const loginSchema = z.object({
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const alertMessage = location.state?.alertMessage;
 
   const { register, handleSubmit } = useForm({
     resolver: zodResolver(loginSchema),
@@ -85,7 +88,9 @@ export function Login() {
 
   return (
     <>
-
+     
+      <TopAlert message={alertMessage} />
+      
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="bg-black text-white pt-[154px] pb-[90px] px-6"

@@ -1,11 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, Navigate } from "react-router";
 import instance from "../api/config";
-import handleLogout from "../utils/helpers";
+import AccessDeniedPage from "../pages/public/AccessDenied";
 
 export function RoleGuard({ allowedRoles, children }) {
   const location = useLocation();
+
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,6 @@ export function RoleGuard({ allowedRoles, children }) {
     if (!token) {
       setUser(null);
       setLoading(false);
-      handleLogout();
       return;
     }
 
@@ -37,7 +37,7 @@ export function RoleGuard({ allowedRoles, children }) {
         console.error("Error response:", error.response?.data);
         setUser(null);
         setLoading(false);
-        handleLogout();
+        ;
       });
   }, [location.pathname]);
 
@@ -45,12 +45,26 @@ export function RoleGuard({ allowedRoles, children }) {
     return <div>Loading...</div>;
   }
 
+  if (!user) {
+    return (
+      <Navigate
+        to="/auth/login"
+        replace
+        state={{ alertMessage: "Please login to continue." }}
+      />
+    );
+  }
+
   if (allowedRoles.includes(user?.role)) {
     return children;
   } else {
     
     return (
-      <>Access denied</>
+      <Navigate
+        to="/auth/login"
+        replace
+        state={{ alertMessage: "Access denied: your role is not allowed here." }}
+      />
     );
   }
 }
