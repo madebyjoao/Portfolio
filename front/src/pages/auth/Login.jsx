@@ -110,7 +110,7 @@ export function Login() {
               <input
                 id="email"
                 type="email"
-                placeholder="agent@marsai.io"
+                placeholder="example@email.com"
                 {...register("email")}
                 className="w-full h-[56px] outline-none  placeholder-white"
               />

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -81,7 +81,7 @@ export function Register() {
         <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-fit mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
           <form 
           onSubmit={handleSubmit(onSubmit)}
-          className="px-6 w-fit mx-auto sm:p-[56px] ">
+          className="px-6 w-fit mx-auto sm:px-[56px] sm:pt-[56px] sm:pb-[30px] ">
 
           <h2 className="text-center text-[36px] sm:text-[48px] mb-[20px] font-bold bg-[rgb(255,255,255)] bg-clip-text text-transparent tracking-[-2.4px]">
             INSCRIPTION
@@ -102,7 +102,7 @@ export function Register() {
 					<input
 						placeholder="John"
 						{...register("first_name")}
-						className="w-full h-[76px] outline-none  placeholder-white/40"
+						className="w-full h-[56px] outline-none  placeholder-white/40"
 						type="text"
 						required
 					/>
@@ -119,32 +119,13 @@ export function Register() {
 					<input
 						placeholder="Doe"
 						{...register("last_name")}
-						className="w-full h-[76px] outline-none  placeholder-white"
+						className="w-full h-[56px] outline-none  placeholder-white/40"
 						type="text"
 						required
 					/>
 					</div>
 
-					<h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-					Canal de Communication
-					</h2>
-
-					<div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-					<img
-						className="flex items-center px-[15px]"
-						src="/src/assets/login_svg/Icon (2).svg"
-						alt=""
-					/>
-					<input
-						placeholder="nom@exemple.com"
-						{...register("email")}
-						className="w-full h-[76px] outline-none  placeholder-white/40"
-						type="email"
-						required
-					/>
-					</div>
-				</div>
-				<div>
+					
 					<h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
 						Slug
 					</h2>
@@ -158,43 +139,64 @@ export function Register() {
 						<input
 						placeholder="slug unique"
 						{...register("slug")}
-						className="w-full h-[76px] outline-none  placeholder-white/40"
+						className="w-full h-[56px] outline-none  placeholder-white/40"
 						type="text"
 						required
 						/>
 					</div>
+				</div>
+				<div>
+
+					<h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+						EMAIL
+					</h2>
+
+					<div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
+					<img
+						className="flex items-center px-[15px]"
+						src="/src/assets/login_svg/Icon (2).svg"
+						alt=""
+					/>
+					<input
+						placeholder="nom@exemple.com"
+						{...register("email")}
+						className="w-full h-[56px] outline-none  placeholder-white/40"
+						type="email"
+						required
+					/>
+					</div>					
 
 					<div className="grid grid-cols-1 sm:grid-cols-2 gap-[24px] w-full">
 						<div className="w-full">
-						<h2 className=" tracking-[2px] text-[10px] mb-[12px]">
-							Password
-						</h2>
-						<div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
-							<input
-							placeholder="●●●●●●"
-							{...register("password")}
-							className="w-full h-[76px] w-full pl-[15px] outline-none  placeholder-white/40"
-							type="password"
-							required
-							/>
-							<img
-							className="flex items-center"
-							src="/src/assets/login_svg/Icon (2).svg"
-							alt=""
-							/>
-						</div>
+							<h2 className=" tracking-[2px] text-[10px] mb-[12px]">
+								Password
+							</h2>
+							<div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
+								<input
+								placeholder="●●●●●●"
+								{...register("password")}
+								className="w-full h-[56px] w-full pl-[15px] outline-none  placeholder-white/40"
+								type="password"
+								required
+								/>
+								<img
+								className="flex items-center"
+								src="/src/assets/login_svg/Icon (2).svg"
+								alt=""
+								/>
+							</div>
 						</div>
 
 						<div>
 						<h2 className="tracking-[2px] text-[10px] mb-[12px]">
-							Passyord Verification
+							Password Verification
 						</h2>
 
 						<div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
 							<input
 							placeholder="●●●●●●"
 							{...register("confirmpassword")}
-							className=" pl-[15px] w-full h-[76px] outline-none  placeholder-white/40"
+							className=" pl-[15px] w-full h-[56px] outline-none  placeholder-white/40"
 							type="password"
 							required
 							/>
@@ -209,10 +211,10 @@ export function Register() {
 						</div>
 					</div>
 
-					<div className="flex text-[10px] items-center w-full py-[32px] gap-[10px] tracking-[1px]">
+					<div className="flex text-[10px] items-center w-full pt-[20px] pb-[11px] gap-[10px] tracking-[1px]">
 						<label className="relative inline-flex items-center cursor-pointer mb-[1px]">
 
-						<input type="checkbox" className="peer sr-only" />
+						<input type="checkbox" className="peer sr-only" required/>
 
 						
 						<div className="w-5 h-5 rounded-full border-2 border-white bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-[rgb(0,255,150)]">
@@ -238,7 +240,7 @@ export function Register() {
 					<button
 						type="submit"
 						disabled={registerMutation.isPending}
-						className="flex justify-center items-center gap-[17px] font-bold w-full bg-white text-black rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[76px] trackincg-[2.75px]"
+						className="flex justify-center items-center gap-[17px] font-bold w-full bg-white text-black rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[56px] trackincg-[2.75px]"
 					>
 						{" "}
 						<Send size={20} />{" "}
@@ -249,13 +251,13 @@ export function Register() {
 				</div>
 			</div>
           </form>
-          <div className="flex w-full gap-[15px] justify-center items-center sm:items-end flex-col sm:flex-row pb-5 ">
+          <div className="flex flex-row items-center w-full gap-1 justify-center sm:flex-row sm:pb-12.5 ">
 				<h2 className="text-[11px] white-[80px] tracking-[2.2px]">
 					Already Registered?
 				</h2>
-				<a href="/auth/login" className="text-[16px] capitalize tracking-[2.2px] mb-[-3px] cursor-pointer">
-					<LogIn />
-				</a>
+				<Link to="/auth/login" className="cursor-pointer self-center">
+					<LogIn size={20} />
+				</Link>
           </div>
         </div>
       </div>
