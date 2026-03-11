@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Portfolio from "../models/Portfolio.js";
 import { hashPassword } from "../utils/password.js";
 
 // Liste
@@ -7,34 +8,106 @@ function getUsers(req, res) {
     res.json(users);
   });
 }
+function cleanSlug(value) {
+  return value
+    ?.trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "") // remove accents
+    .replace(/[^a-z0-9\s-]/g, "")    // remove invalid chars
+    .replace(/\s+/g, "-")            // spaces -> dash
+    .replace(/-+/g, "-")             // collapse dashes
+    .replace(/^-|-$/g, "");          // trim dashes
+}
 
 // Création
-function createUser(req, res) {
-
+async function createUser(req, res) {
   if (!req.body) {
     return res.status(400).json({ error: "Données manquantes" });
   }
 
   const { first_name, last_name, email, password, role, slug } = req.body;
 
-if (!first_name || !last_name || !email || !password || !slug ) {
-  return res.status(400).json({ error: "Tous les champs sont requis" });
-}
-
-// Vérifie si email déjà utilisé
-User.findOne({ where: { email } }).then(async (existingEmail) => {
-  if (existingEmail) {
-    return res.status(400).json({ error: "Email déjà utilisé" });
+  if (!first_name || !last_name || !email || !password || !slug) {
+    return res.status(400).json({ error: "Tous les champs sont requis" });
   }
 
-  const hash = await hashPassword(password);
-  User.create({ first_name, last_name, email, password: hash, slug, role: role || "CLIENT" })
-      .then((newUser) => {
-        const { password, ...safeUser } = newUser.dataValues;
-        res.status(201).json({ message: "Utilisateur créé", newUser: safeUser });
-      });
-});
+  const normalizedSlug = normalizeSlug(slug);
+
+  if (!normalizedSlug || normalizedSlug.length < 3 || normalizedSlug.length > 50) {
+    return res.status(400).json({ error: "Slug invalide" });
+  }
+
+  const reservedSlugs = ["admin", "api", "login", "register", "build", "u"];
+  if (reservedSlugs.includes(normalizedSlug)) {
+    return res.status(400).json({ error: "Slug réservé" });
+  }
+
+  const transaction = await sequelize.transaction();
+
+  try {
+    const existingEmail = await User.findOne({ where: { email }, transaction });
+    if (existingEmail) {
+      await transaction.rollback();
+      return res.status(400).json({ error: "Email déjà utilisé" });
+    }
+
+    const existingSlug = await Portfolio.findOne({
+      where: { slug: normalizedSlug },
+      transaction,
+    });
+
+    if (existingSlug) {
+      await transaction.rollback();
+      return res.status(400).json({ error: "Slug déjà utilisé" });
+    }
+
+    const hash = await hashPassword(password);
+
+    const newUser = await User.create(
+      {
+        first_name,
+        last_name,
+        email,
+        password: hash,
+        role: role || "CLIENT",
+      },
+      { transaction }
+    );
+
+    const newPortfolio = await Portfolio.create(
+      {
+        user_id: newUser.id,
+        slug: normalizedSlug,
+        template_id: 1,
+        is_published: false,
+      },
+      { transaction }
+    );
+
+    await transaction.commit();
+
+    const { password: _, ...safeUser } = newUser.dataValues;
+
+    return res.status(201).json({
+      message: "Utilisateur créé",
+      user: safeUser,
+      portfolio: {
+        id: newPortfolio.id,
+        slug: newPortfolio.slug,
+        template_id: newPortfolio.template_id,
+        is_published: newPortfolio.is_published,
+      },
+    });
+  } catch (error) {
+    await transaction.rollback();
+    return res.status(500).json({
+      error: "Erreur lors de la création de l'utilisateur",
+      details: error.message,
+    });
+  }
 }
+
 
 // Suppression
 function deleteUser(req, res) {

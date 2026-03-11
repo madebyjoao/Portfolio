@@ -1,73 +1,240 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface) {
-    await queryInterface.sequelize.transaction(async (t) => {
-      const q = (sql) =>
-        queryInterface.sequelize.query(sql, { transaction: t });
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("portfolios", {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
 
-      await q(`
-        CREATE TABLE IF NOT EXISTS portfolios (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          user_id INT NOT NULL,
-          
+      user_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: "users",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
 
-          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
-      `);
-      
-      await q(`
-        CREATE TABLE IF NOT EXISTS portfolio_champs (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          portfolio_id INT NOT NULL,
-          about_title VARCHAR(255) NOT NULL,
-          about_text VARCHAR(255) NOT NULL,
+      slug: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+        unique: true,
+      },
 
-          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
-      `);
+      title: {
+        type: Sequelize.STRING(120),
+        allowNull: true,
+      },
 
-      await q(`
-        CREATE TABLE IF NOT EXISTS projects (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          portfolios_id INT NOT NULL,
-          thumbnail VARCHAR(255),
-          title VARCHAR(50),
-          description VARCHAR(255),          
+      about_title: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
 
-          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
-      `);
+      about_text: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
 
-      await q(`
-        CREATE TABLE IF NOT EXISTS certificats (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          portfolio_id INT NOT NULL,
-          certificats_path VARCHAR(255),
-          certificats_info VARCHAR(255),          
+      cv_path: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
 
-          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
-      `);
+      template_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+      },
 
+      is_published: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      },
+    });
+
+    await queryInterface.createTable("projects", {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
+      portfolio_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "portfolios",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+
+      title: {
+        type: Sequelize.STRING(120),
+        allowNull: false,
+      },
+
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+
+      thumbnail: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
+
+      repo_url: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
+
+      live_url: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
+
+      is_public: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
+
+      order_index: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      },
+    });
+
+    await queryInterface.createTable("certificates", {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+
+      portfolio_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: "portfolios",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
+
+      title: {
+        type: Sequelize.STRING(150),
+        allowNull: false,
+      },
+
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+
+      image_path: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+      },
+
+      issuer: {
+        type: Sequelize.STRING(150),
+        allowNull: true,
+      },
+
+      issued_at: {
+        type: Sequelize.DATEONLY,
+        allowNull: true,
+      },
+
+      type: {
+        type: Sequelize.ENUM("CERTIFICATE", "FORMATION"),
+        allowNull: false,
+        defaultValue: "CERTIFICATE",
+      },
+
+      is_public: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
+
+      order_index: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      },
+    });
+
+    await queryInterface.addIndex("portfolios", ["slug"], {
+      unique: true,
+      name: "portfolios_slug_unique",
+    });
+
+    await queryInterface.addIndex("projects", ["portfolio_id"], {
+      name: "projects_portfolio_id_index",
+    });
+
+    await queryInterface.addIndex("certificates", ["portfolio_id"], {
+      name: "certificates_portfolio_id_index",
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.sequelize.transaction(async (t) => {
-      const q = (sql) =>
-        queryInterface.sequelize.query(sql, { transaction: t });
-
-      await q(`DROP TABLE portfolios;`);
-      await q(`DROP TABLE portfolio_champs;`);
-      await q(`DROP TABLE projects;`);
-      await q(`DROP TABLE certificats;`);
-      
-    });
+    await queryInterface.dropTable("certificates");
+    await queryInterface.dropTable("projects");
+    await queryInterface.dropTable("portfolios");
   },
 };

@@ -2,9 +2,10 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import router from "./src/routes/index.js";
-import { configDotenv } from "dotenv";
+import "./src/models/index.js";
+import dotenv from "dotenv";
 
-configDotenv(); // Charger les variables d'environnement depuis le fichier .env
+dotenv.config(); // Charger les variables d'environnement depuis le fichier .env
 
 const app = express(); // Créer une application Express
 

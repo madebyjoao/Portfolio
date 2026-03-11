@@ -65,22 +65,6 @@ export function Login() {
     },
   });
 
-  const isLoggedIn = !!localStorage.getItem("email");
-
-  if (isLoggedIn) {
-    return (
-      <>
-       <h1 className="text-2xl">
-          You are already logged in as {localStorage.getItem("first_name")}
-        </h1>
-        <button onClick={handleLogout} className="hover:cursor-pointer">
-          <LogOut className="size-4" />
-          <span>Log out</span>
-        </button>
-        <Link to="/">Return to homepage</Link>
-      </>
-    );
-  }
 
   const onSubmit = (data) => {
     loginMutation.mutate(data);

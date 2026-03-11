@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import Portfolio from "../models/Portfolio.js";
 import { comparePassword } from "../utils/password.js";
 import UserController from "./UserController.js";
 import jwt from "jsonwebtoken";
@@ -19,6 +20,10 @@ async function login(req, res) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
+    const portfolio = await Portfolio.findOne({
+      where: { user_id: user.id },
+    });
+
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRES_IN || "1h",
     });
@@ -28,7 +33,7 @@ async function login(req, res) {
       email: user.email,
       first_name: user.first_name,
       role: user.role,
-      slug: user.slug,
+      slug: portfolio?.slug || null,
       token,
     });
   } catch (error) {

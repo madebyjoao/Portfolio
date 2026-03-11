@@ -1,37 +1,58 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface) {
-    await queryInterface.sequelize.transaction(async (t) => {
-      const q = (sql) =>
-        queryInterface.sequelize.query(sql, { transaction: t });
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable("users", {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+      },
 
-      await q(`
-        CREATE TABLE IF NOT EXISTS users (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          first_name VARCHAR(100) NOT NULL,
-          last_name VARCHAR(100) NOT NULL,
-          slug VARCHAR(50) NOT NULL,
-          email VARCHAR(255) NOT NULL UNIQUE,
-          password VARCHAR(255) NOT NULL,
-          role ENUM('ADMIN','CLIENT') NOT NULL DEFAULT 'CLIENT',
+      first_name: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+      },
 
-          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-        ) ENGINE=InnoDB;
-      `);
+      last_name: {
+        type: Sequelize.STRING(100),
+        allowNull: false,
+      },
 
+      email: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+        unique: true,
+      },
+
+      password: {
+        type: Sequelize.STRING(255),
+        allowNull: false,
+      },
+
+      role: {
+        type: Sequelize.ENUM("ADMIN", "CLIENT"),
+        allowNull: false,
+        defaultValue: "CLIENT",
+      },
+
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      },
+
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
+      },
     });
   },
 
   async down(queryInterface) {
-    await queryInterface.sequelize.transaction(async (t) => {
-      const q = (sql) =>
-        queryInterface.sequelize.query(sql, { transaction: t });
-
-      await q(`DROP TABLE users;`);
-      
-    });
+    await queryInterface.dropTable("users");
   },
 };

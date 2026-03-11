@@ -22,13 +22,16 @@ export default function Navbar() {
                 <div
                     onMouseEnter={() => setShowLogout(true)}
                     onMouseLeave={() => setShowLogout(false)}
-                    className="cursor-pointer"
+                    className="flex items-center border-white/20 rounded-full gap-3 p-2 backdrop-blur-md bg-white/10 shadow-lg text-[rgb(255,255,255)] font-bold cursor-pointer"
                     onClick={showLogout ? handleLogout : null}
                 >
                     {showLogout ? (
-                        <UserRoundXIcon className="text-[rgb(212,10,10)]" />
+                        <UserRoundXIcon color="red" />
                     ) : (
-                        <LucideUserCheck2 className="text-[rgb(255,255,255)]" />
+                        <>
+                            <LucideUserCheck2 color="white"/>
+                            <p>Welcome, {localStorage.getItem("first_name")}</p>
+                        </>
                     )}
                 </div>
             )}
