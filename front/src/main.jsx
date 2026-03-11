@@ -15,6 +15,9 @@ import Contact from "./pages/public/Contact.jsx";
 import Cms from "./pages/admin/Cms.jsx";
 import Builder from "./pages/builder/Builder.jsx";
 import BuilderLayout from "./layouts/BuilderLayout.jsx";
+import Portfolio from "./pages/public/Portfolio.jsx";
+import Certificates from "./pages/public/Certificates.jsx";
+import PortfolioLayout from "./layouts/PortfolioLayout.jsx";
 
 
 
@@ -28,42 +31,45 @@ const queryClient = new QueryClient({
 });
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <Routes>
+	<StrictMode>
+		<BrowserRouter>
+		<QueryClientProvider client={queryClient}>
+			<Routes>
 
-          {/* Routes publiques */}
-          <Route path="/" element={<PublicLayout />}>
-            <Route index element={<Home />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/register" element={<Register />} />
-          </Route >
+			{/* Routes publiques */}
+			<Route path="/" element={<PublicLayout />}>
+				<Route index element={<Home />} />
+				<Route path="/contact" element={<Contact />} />
+				<Route path="/auth/login" element={<Login />} />
+				<Route path="/auth/register" element={<Register />} />
+			</Route >
 
-          {/* Routes privées */}
-          <Route path="/u" element={<PublicLayout />}>
-            <Route path=":slug" element={<div>Test</div>}/>
-          </Route>
+			{/* Routes portfolio */}
+			<Route path="/u" element={<PortfolioLayout />}>
+				<Route path=":slug" element={<Portfolio />} />
+				<Route path=":slug/certificates" element={<Certificates />} />
+			</Route>
 
-          <Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
-                                            <BuilderLayout />
-                                          </RoleGuard>}>
 
-            <Route index element={<Builder />}/>
-          </Route>
+			{/* Routes privées */}
+			<Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
+												<BuilderLayout />
+											</RoleGuard>}>
 
-          <Route path="admin" element={ <RoleGuard allowedRoles={["ADMIN"]}>
-                                          <AdminLayout />
-                                        </RoleGuard> } 
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="users" element={<Users />} />
-            <Route path="cms" element={<Cms />} />
-          </Route>
+				<Route index element={<Builder />}/>
+			</Route>
 
-        </Routes>
-      </QueryClientProvider>
-    </BrowserRouter>
-  </StrictMode>,
+			<Route path="admin" element={ <RoleGuard allowedRoles={["ADMIN"]}>
+											<AdminLayout />
+											</RoleGuard> } 
+			>
+				<Route index element={<Dashboard />} />
+				<Route path="users" element={<Users />} />
+				<Route path="cms" element={<Cms />} />
+			</Route>
+
+			</Routes>
+		</QueryClientProvider>
+		</BrowserRouter>
+	</StrictMode>,
 );
