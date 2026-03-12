@@ -50,7 +50,6 @@ createRoot(document.getElementById("root")).render(
 				<Route path=":slug/certificates" element={<Certificates />} />
 			</Route>
 
-
 			{/* Routes privées */}
 			<Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
 												<BuilderLayout />
@@ -59,10 +58,9 @@ createRoot(document.getElementById("root")).render(
 				<Route index element={<Builder />}/>
 			</Route>
 
-			<Route path="admin" element={ <RoleGuard allowedRoles={["ADMIN"]}>
-											<AdminLayout />
-											</RoleGuard> } 
-			>
+			<Route path="admin" element={ 	<RoleGuard allowedRoles={["ADMIN"]}>
+												<AdminLayout />
+										 	</RoleGuard> }>
 				<Route index element={<Dashboard />} />
 				<Route path="users" element={<Users />} />
 				<Route path="cms" element={<Cms />} />
