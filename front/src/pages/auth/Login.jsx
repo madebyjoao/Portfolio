@@ -72,22 +72,22 @@ export function Login() {
 
   return (
     <>
-      <div className="w-full pt-[170px]">
-        <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-full max-w-[550px] mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
+      <div className="w-full pt-42.5">
+        <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-full max-w-137.5 mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
           <form 
           onSubmit={handleSubmit(onSubmit)}
-          className="px-6 max-w-[500px] my-0 mx-auto sm:p-[56px]">
+          className="px-6 max-w-125 my-0 mx-auto sm:p-14">
 
-            <h2 className="text-center text-[36px] sm:text-[48px] mb-[11px] font-bold inline-block bg-[rgb(255,255,255)] bg-clip-text text-transparent tracking-[-2.4px]">
+            <h2 className="text-center text-[36px] sm:text-[48px] mb-2.75 font-bold inline-block bg-[rgb(255,255,255)] bg-clip-text text-transparent tracking-[-2.4px]">
               Connection
             </h2>
 
-            <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+            <h2 className="w-full text-[10px] mb-3 tracking-[2px]">
               Username
             </h2>
-            <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
+            <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-6">
               <img
-                className="flex items-center px-[15px]"
+                className="flex items-center px-3.75"
                 src="/src/assets/login_svg/Icon (2).svg"
                 alt=""
               />
@@ -96,16 +96,16 @@ export function Login() {
                 type="email"
                 placeholder="example@email.com"
                 {...register("email")}
-                className="w-full h-[56px] outline-none  placeholder-white"
+                className="w-full h-14 outline-none  placeholder-white"
               />
             </div>
 
-            <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
+            <h2 className="w-full text-[10px] mb-3 tracking-[2px]">
               Password
             </h2>
             <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
               <img
-                className="flex items-center px-[15px]"
+                className="flex items-center px-3.75"
                 src="/src/assets/login_svg/Icon (2).svg"
                 alt=""
               />
@@ -113,15 +113,15 @@ export function Login() {
                 id="password"
                 type="password"
                 placeholder="●●●●●●"
-                className="w-full h-[56px] outline-none  placeholder-white"
+                className="w-full h-14 outline-none  placeholder-white"
                 {...register("password")}
                 required
               />
             </div>
 
-            <div className="flex text-[10px] items-center w-full py-[32px] gap-[10px] tracking-[1px]">
+            <div className="flex text-[10px] items-center w-full py-8 gap-2.5 tracking-[1px]">
 
-              <label className="relative inline-flex items-center cursor-pointer mb-[-1px]">
+              <label className="relative inline-flex items-center cursor-pointer -mb-px">
                 <input type="checkbox" className="peer sr-only" />
                 <div className="w-5 h-5 rounded-full border border-white/10 bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-[rgb(0,255,150)]">
                   <svg
@@ -149,7 +149,7 @@ export function Login() {
             <button
               type="submit"
               disabled={loginMutation.isPending}
-              className="flex justify-center items-center gap-[17px] font-bold w-full bg-[rgb(92,131,116)] text-[rgb(255,255,255)] rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[76px] trackincg-[2.75px]  cursor-pointer"
+              className="flex justify-center items-center gap-4.25 font-bold w-full bg-[rgb(92,131,116)] text-[rgb(255,255,255)] rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-19 trackincg-[2.75px]  cursor-pointer"
             >
               {" "}
               <Send size={20} />
@@ -158,7 +158,7 @@ export function Login() {
               </h2>
             </button>
           </form>
-          <a href="/auth/register" className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-[15px] justify-center pb-10">
+          <a href="/auth/register" className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-3.75 justify-center pb-10">
             <button className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-pointer">
               Create a new account
             </button>
