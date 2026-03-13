@@ -20,6 +20,7 @@ module.exports = {
         about_text: 'Administrator portfolio for testing.',
         template_id: 1,
         is_published: true,
+        template: 1,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -31,6 +32,7 @@ module.exports = {
         about_text: 'Portfolio of client 1.',
         template_id: 1,
         is_published: true,
+        template: 1,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -42,6 +44,7 @@ module.exports = {
         about_text: 'Portfolio of client 2.',
         template_id: 1,
         is_published: false,
+        template: 1,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -53,6 +56,7 @@ module.exports = {
         about_text: 'Portfolio of client 3.',
         template_id: 1,
         is_published: false,
+        template: 1,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -64,6 +68,7 @@ module.exports = {
         about_text: 'Portfolio of client 4.',
         template_id: 1,
         is_published: false,
+        template: 1,
         created_at: new Date(),
         updated_at: new Date()
       }

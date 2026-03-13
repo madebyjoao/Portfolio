@@ -52,6 +52,12 @@ const Portfolio = sequelize.define(
       defaultValue: 1,
     },
 
+    template: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
+
     is_published: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
