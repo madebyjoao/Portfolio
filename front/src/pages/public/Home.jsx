@@ -1,7 +1,7 @@
 import previewVideo from "@/assets/preview.mp4";
 import StatsBox from "@/components/StatsBox";
 import { useQuery } from "@tanstack/react-query";
-import { School2, School2Icon, UserCheck2 } from "lucide-react";
+import { BookHeart, School2, School2Icon, UserCheck2 } from "lucide-react";
 import { getStats } from "../../api/overview";
 
 
@@ -24,7 +24,9 @@ function Home() {
 
 	const stats = [
 		{ id: "1", title: "Total CLients", number: performance.clientCount, icon: UserCheck2 },
-		{ id: "2", title: "Total Portfolios", number: "5986", icon: School2Icon },
+		{ id: "2", title: "Total Portfolios", number: performance.portfolioCount, icon: BookHeart },
+		{ id: "3", title: "Total Portfolios", number: "5986", icon: School2Icon },
+		{ id: "4", title: "Total Portfolios", number: "5986", icon: School2Icon },
 	]
   return (
     <div className="flex flex-col items-center justify-center min-h-screen text-white">

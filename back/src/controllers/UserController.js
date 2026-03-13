@@ -13,11 +13,11 @@ function cleanSlug(value) {
     ?.trim()
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // remove accents
-    .replace(/[^a-z0-9\s-]/g, "")    // remove invalid chars
-    .replace(/\s+/g, "-")            // spaces -> dash
-    .replace(/-+/g, "-")             // collapse dashes
-    .replace(/^-|-$/g, "");          // trim dashes
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s-]/g, "")    
+    .replace(/\s+/g, "-")            
+    .replace(/-+/g, "-")             
+    .replace(/^-|-$/g, "");          
 }
 
 // Création

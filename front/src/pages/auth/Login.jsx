@@ -40,7 +40,7 @@ export function Login() {
           navigate("/admin");
           break;
         case "CLIENT":
-          navigate("/u/" + response.data?.slug);
+          navigate("/");
           break;
         default:
           navigate("/");
