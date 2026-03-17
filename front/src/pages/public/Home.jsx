@@ -23,7 +23,7 @@ function Home() {
 	const performance = data.data;
 
 	const stats = [
-		{ id: "1", title: "Total CLients", number: performance.clientCount, icon: UserCheck2 },
+		{ id: "1", title: "Total Clients", number: performance.clientCount, icon: UserCheck2 },
 		{ id: "2", title: "Total Portfolios", number: performance.portfolioCount, icon: BookHeart },
 		{ id: "3", title: "Total Portfolios", number: "5986", icon: School2Icon },
 		{ id: "4", title: "Total Portfolios", number: "5986", icon: School2Icon },

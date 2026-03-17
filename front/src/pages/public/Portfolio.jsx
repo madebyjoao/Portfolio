@@ -1,6 +1,8 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getPortfolioBySlug } from "../../api/portfolio";
+import TemplateOne from "../../components/templates/TemplateOne";
+import TemplateTwo from "../../components/templates/TemplateTwo";
 
 export default function Portfolio() {
   const { slug } = useParams();
@@ -21,21 +23,32 @@ export default function Portfolio() {
 
   const portfolio_info = data.data;
 
+  console.log(portfolio_info);
+  console.log(portfolio_info.portfolio.template)
   
 
-  if (portfolio_info.template === 1) {
-    return (
-      <div className="relative top-50">
-        <h1 className="text-white">This is Your Portfolio Template 1</h1>
-      </div>
-    );
-  } else {
-    return (
-      <div className="relative top-50">
-        <h1 className="text-white">This is Your Portfolio Template 2</h1>
-      </div>
-    );
+  switch (portfolio_info.portfolio.template) {
+
+    case 1:
+      return (
+        <TemplateOne portfolio_info={portfolio_info} />
+      );
+      break;
+    
+    case 2:
+      return (
+        <TemplateTwo portfolio_info={portfolio_info} />
+      );
+      break;
+
+    default:
+      return (
+        <>
+          <h1>no template</h1>
+        </>
+      )
   }
+
 }
 
 

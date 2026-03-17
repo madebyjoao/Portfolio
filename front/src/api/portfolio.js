@@ -4,11 +4,8 @@ async function getPortfolioBySlug(slug) {
     return await instance.get(`portfolio/slug/${slug}`);
 }
 
-export { getPortfolioBySlug };
-
-/*
-async function getStats() {
-  return await instance.get("overview");
+async function getCertificatesBySlug(slug) {
+    return await instance.get(`certificates/${slug}`);
 }
 
-export { getStats }; */
+export { getPortfolioBySlug, getCertificatesBySlug };

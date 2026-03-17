@@ -10,7 +10,8 @@
     "db:migrate:status": "sequelize-cli db:migrate:status",
     "db:migrate:undo": "sequelize-cli db:migrate:undo",
     "db:migrate:undo:all": "sequelize-cli db:migrate:undo:all",
-    "dev:migrate": "sequelize-cli db:migrate && nodemon index.js"
+    "dev:migrate": "sequelize-cli db:migrate && nodemon index.js",
+    "db:seed": "sequelize-cli db:seed:all"
   },
   "keywords": [],
   "author": "",
