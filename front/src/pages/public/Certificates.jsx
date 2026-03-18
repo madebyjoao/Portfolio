@@ -40,15 +40,23 @@ export default function Certificates() {
 
   return (
 
-      <div className="fixed flex flex-col items-center justify-center gap-4 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <button onClick={prev} className="absolute left-0 z-10" aria-label="Previous Certificate">
-          <ChevronLeftIcon size={50} strokeWidth={4}/>
+      <div className="relative flex items-center justify-center min-h-screen py-8 px-4">
+        <button 
+            onClick={prev} 
+            className="absolute left-4 md:left-8 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors" 
+            aria-label="Previous Certificate"
+        >
+          <ChevronLeftIcon size={40} strokeWidth={3}/>
         </button>
         
         <CertificatesBox  certificates_info={certificates_info[currentCertif]} />
 
-        <button onClick={prev} className="absolute right-0 z-10" aria-label="Next Certificate">
-          <ChevronRightIcon size={50} strokeWidth={4}/>
+        <button 
+            onClick={next} 
+            className="absolute right-4 md:right-8 z-10 p-2 rounded-full bg-white shadow-lg hover:bg-gray-100 transition-colors" 
+            aria-label="Next Certificate"
+        >
+          <ChevronRightIcon size={40} strokeWidth={3}/>
         </button>
       </div>
 
