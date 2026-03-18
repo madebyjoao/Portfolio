@@ -23,9 +23,6 @@ export default function Portfolio() {
 
   const portfolio_info = data.data;
 
-  console.log(portfolio_info);
-  console.log(portfolio_info.portfolio.template)
-  
 
   switch (portfolio_info.portfolio.template) {
 

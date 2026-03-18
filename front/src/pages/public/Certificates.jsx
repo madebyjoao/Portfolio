@@ -7,7 +7,7 @@ import CertificatesBox from "../../components/Certificates";
 export default function Certificates() {
 
   const { slug } = useParams();
-  console.log(slug);
+
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["certificates", slug],
@@ -27,15 +27,13 @@ export default function Certificates() {
   }
   const certificates_info = data.data.certificates;
 
-  console.log("test", certificates_info)
-
   return (
-    <div className="fixed top-50 flex align-center">
-      <div className="flex flex-col gap-2">
+
+      <div className="flex flex-col content-center justify-center gap-2 top-50 w-1/2">
         {certificates_info.map((certif) => (
           <CertificatesBox  certificates_info={certif}/>
         ))}
       </div>
-    </div>
+
   )
 }

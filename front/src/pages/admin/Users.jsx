@@ -152,7 +152,7 @@ function Users() {
     }
 
     function onUpdate(updatedUser) {
-      console.log(updateUser);
+
       updateMutation.mutate(updatedUser);
     }
 
