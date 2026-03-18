@@ -1,6 +1,14 @@
 import User from "../models/User.js";
 import Portfolio from "../models/Portfolio.js";
 import { hashPassword } from "../utils/password.js";
+import fs from "fs";
+import path, { dirname } from "path";
+import sequelize from "../db/connection.js";
+import { fileURLToPath } from "url";
+import createUserFolder from "../utils/createFolder.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Liste
 function getUsers(req, res) {
@@ -32,7 +40,7 @@ async function createUser(req, res) {
     return res.status(400).json({ error: "Tous les champs sont requis" });
   }
 
-  const normalizedSlug = normalizeSlug(slug);
+  const normalizedSlug = cleanSlug(slug);
 
   if (!normalizedSlug || normalizedSlug.length < 3 || normalizedSlug.length > 50) {
     return res.status(400).json({ error: "Slug invalide" });
@@ -85,6 +93,7 @@ async function createUser(req, res) {
       { transaction }
     );
 
+    await createUserFolder(normalizedSlug);
     await transaction.commit();
 
     const { password: _, ...safeUser } = newUser.dataValues;
@@ -99,6 +108,7 @@ async function createUser(req, res) {
         is_published: newPortfolio.is_published,
       },
     });
+
   } catch (error) {
     await transaction.rollback();
     return res.status(500).json({

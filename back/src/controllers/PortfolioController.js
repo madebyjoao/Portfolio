@@ -1,4 +1,3 @@
-import User from "../models/User.js";
 import Portfolio from "../models/Portfolio.js";
 import Certificate from "../models/Certificate.js";
 
