@@ -4,6 +4,7 @@ import authRouter from "./Auth.route.js";
 import overviewRouter from "./admin/Overview.route.js";
 import portfolioRouter from "./Portfolio.route.js";
 import certificatesRouter from "./Certicates.route.js";
+import builderRouter from "./Builder.route.js";
 
 
 const router = express.Router();
@@ -13,5 +14,6 @@ router.use("/users", userRouter);
 router.use("/overview", overviewRouter);
 router.use("/portfolio", portfolioRouter);
 router.use("/certificates", certificatesRouter);
+router.use("/builder", builderRouter);
 
 export default router;
