@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getCertificatesBySlug } from "../../api/portfolio";
+import CertificatesBox from "../../components/Certificates";
 
 
 export default function Certificates() {
@@ -29,15 +30,10 @@ export default function Certificates() {
   console.log("test", certificates_info)
 
   return (
-    <div className="fixed top-50 ">
-      <h1 className="text-white">Contact page</h1>
-      <div className="flex flex-col ">
+    <div className="fixed top-50 flex align-center">
+      <div className="flex flex-col gap-2">
         {certificates_info.map((certif) => (
-          <div className="bg-green-700 gap-3 m-2">
-            <h2>{certif.title}</h2>
-            <h3>{certif.description}</h3>
-
-          </div>
+          <CertificatesBox  certificates_info={certif}/>
         ))}
       </div>
     </div>
