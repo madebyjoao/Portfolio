@@ -31,7 +31,8 @@ async function getUploadCertificates(req, res, next) {
             { where: { slug: slug } }
         );
 
-        res.status(200).json({ message: "File uploaded successfully", imagePath });
+        req.body.image = filename;
+        next();
 
     } catch (error) {
         res.status(500).json({ message: "Upload failed", error: error.message });

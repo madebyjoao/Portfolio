@@ -1,6 +1,9 @@
+import { useParams } from "react-router";
 
 
 function Builder() {
+
+    const { slug } = useParams();
 
     return (
         <div>
