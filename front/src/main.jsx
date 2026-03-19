@@ -51,11 +51,11 @@ createRoot(document.getElementById("root")).render(
 			</Route>
 
 			{/* Routes privées */}
-			<Route path="builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
+			<Route path="/builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
 												<BuilderLayout />
 											</RoleGuard>}>
 
-				<Route index element={<Builder />}/>
+				<Route path=":slug" element={<Builder />}/>
 			</Route>
 
 			<Route path="admin" element={ 	<RoleGuard allowedRoles={["ADMIN"]}>

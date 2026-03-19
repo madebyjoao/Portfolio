@@ -8,4 +8,12 @@ async function getCertificatesBySlug(slug) {
     return await instance.get(`certificates/${slug}`);
 }
 
-export { getPortfolioBySlug, getCertificatesBySlug };
+async function uploadCertificate(slug, formData) {
+    return await instance.post(`builder/${slug}`, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+}
+
+export { getPortfolioBySlug, getCertificatesBySlug, uploadCertificate };
