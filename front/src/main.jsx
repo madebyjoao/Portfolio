@@ -18,6 +18,9 @@ import BuilderLayout from "./layouts/BuilderLayout.jsx";
 import Portfolio from "./pages/public/Portfolio.jsx";
 import Certificates from "./pages/public/Certificates.jsx";
 import PortfolioLayout from "./layouts/PortfolioLayout.jsx";
+import BuilderProjects from "./pages/builder/builderPages/BuilderProjects.jsx";
+import BuilderPreview from "./pages/builder/builderPages/BuilderPreview.jsx";
+import BuilderCertificates from "./pages/builder/builderPages/BuilderCertificates.jsx";
 
 
 
@@ -55,7 +58,10 @@ createRoot(document.getElementById("root")).render(
 												<BuilderLayout />
 											</RoleGuard>}>
 
-				<Route index element={<Builder />}/>
+				<Route index element={<Builder />} />
+				<Route path="projects" element={<BuilderProjects />} />
+				<Route path="certificates" element={<BuilderCertificates />} />
+				<Route path="preview" element={<BuilderPreview />} />
 			</Route>
 
 			<Route path="admin" element={ 	<RoleGuard allowedRoles={["ADMIN"]}>

@@ -1,5 +1,5 @@
 import { LayoutDashboard, User, FolderKanban, Brush, Eye, Settings, Award, Home } from "lucide-react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 export default function BuilderSidebar() {
 
@@ -14,34 +14,29 @@ export default function BuilderSidebar() {
             </div>
 
             <nav className="flex flex-col gap-3">
-                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
                     <LayoutDashboard size={18} />
                     Dashboard
-                </button>
+                </NavLink>
 
-                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
-                    <User size={18} />
-                    Projects
-                </button>
-
-                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/projects" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
                     <FolderKanban size={18} />
                     Projects
-                </button>
+                </NavLink>
 
-                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/certificates" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
                     <Award size={18} />
                     Certificates
-                </button>
+                </NavLink>
 
-                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/preview" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
                     <Eye size={18} />
                     Preview
-                </button>
+                </NavLink>
 
             </nav>
 
-            <div className="flex flex-col items-start mt-auto pt-6 border-t border-white/20">
+            <div className="flex flex-col items-start mt-auto pt-6 border-t border-white/10">
 
                 <Link to="/" aria-label="Button Home Page" className="flex gap-1 p-1 text-sm">
                     <Home size={19}/>

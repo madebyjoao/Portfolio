@@ -8,8 +8,6 @@ async function getCertificatesBySlug(slug) {
     return await instance.get(`certificates/${slug}`);
 }
 
-async function uploadCertificate(slug, formData) {
-    return await instance.post(`builder/${slug}`);
-}
 
-export { getPortfolioBySlug, getCertificatesBySlug, uploadCertificate };
+
+export { getPortfolioBySlug, getCertificatesBySlug };
