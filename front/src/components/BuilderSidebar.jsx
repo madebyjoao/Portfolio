@@ -1,4 +1,5 @@
-import { LayoutDashboard, User, FolderKanban, Brush, Eye, Settings, Award } from "lucide-react";
+import { LayoutDashboard, User, FolderKanban, Brush, Eye, Settings, Award, Home } from "lucide-react";
+import { Link } from "react-router";
 
 export default function BuilderSidebar() {
 
@@ -40,8 +41,14 @@ export default function BuilderSidebar() {
 
             </nav>
 
-            <div className="mt-auto pt-6 border-t border-white/20">
+            <div className="flex items-center justify-around mt-auto pt-6 border-t border-white/20">
+
+                <Link to="/" aria-label="Button Home Page">
+                    <Home size={20}/>
+                </Link>
+               
                 <p className="text-sm text-gray-300">Portfolio Builder Panel</p>
+                
             </div>
         </aside>
     );
