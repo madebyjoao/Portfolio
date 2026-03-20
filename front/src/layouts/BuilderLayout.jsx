@@ -1,17 +1,13 @@
 import { Outlet } from "react-router";
-import {Facebook} from "lucide-react"
-import {Instagram} from "lucide-react"
-import {Youtube} from "lucide-react"
-import {Twitter} from "lucide-react"
 import BuilderSidebar from "../components/BuilderSidebar";
 
 export default function BuilderLayout() {
 
     return (
-        <div className="min-h-screen flex">
+        <div className="min-h-screen flex bg-[rgb(147,177,166)]">
             <BuilderSidebar />
 
-                <main>
+                <main className="flex-1 p-6">
 
                     <Outlet />
 

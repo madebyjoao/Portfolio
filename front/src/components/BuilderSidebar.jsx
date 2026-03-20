@@ -1,12 +1,48 @@
-
+import { LayoutDashboard, User, FolderKanban, Brush, Eye, Settings, Award } from "lucide-react";
 
 export default function BuilderSidebar() {
 
+    const firstName = localStorage.getItem("first_name");
+    const lastName = localStorage.getItem("last_name");
+
     return (
-        <section className="flex flex-col bg-[rgb(24,61,61)] w-1/4 text-[rgb(255,255,255)]">
+        <aside className="w-72 min-h-screen bg-[rgb(24,61,61)] text-white flex flex-col p-6">
+            <div className="mb-10">
+                <h2 className="text-2xl font-bold">Builder</h2>
+                <p className="text-sm text-gray-300 mt-2">Create your portfolio, <strong>{firstName} {lastName}</strong></p>
+            </div>
 
+            <nav className="flex flex-col gap-3">
+                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                    <LayoutDashboard size={18} />
+                    Dashboard
+                </button>
 
+                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                    <User size={18} />
+                    Projects
+                </button>
 
-        </section>
-    )
+                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                    <FolderKanban size={18} />
+                    Projects
+                </button>
+
+                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                    <Award size={18} />
+                    Certificates
+                </button>
+
+                <button className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                    <Eye size={18} />
+                    Preview
+                </button>
+
+            </nav>
+
+            <div className="mt-auto pt-6 border-t border-white/20">
+                <p className="text-sm text-gray-300">Portfolio Builder Panel</p>
+            </div>
+        </aside>
+    );
 }
