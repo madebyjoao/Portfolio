@@ -4,11 +4,9 @@ import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import handleLogout from "@/utils/helpers.js";
-import { LogOut } from "lucide-react";
 import { Send } from "lucide-react";
-import { LogIn } from "lucide-react";
-import TopAlert from "../../components/TopAlert.jsx";
+
+
 
 const loginSchema = z.object({
   email: z.string().email("Email invalide"),

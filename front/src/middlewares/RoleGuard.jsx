@@ -29,6 +29,11 @@ export function RoleGuard({ allowedRoles, children }) {
           setUser(response.data);
         } else {
           setUser(null);
+          <Navigate
+        to="/auth/login"
+        replace
+        state={{ alertMessage: "Please login to continue." }}
+      />
         }
         setLoading(false);
       })
@@ -45,15 +50,6 @@ export function RoleGuard({ allowedRoles, children }) {
     return <div>Loading...</div>;
   }
 
-  if (!user) {
-    return (
-      <Navigate
-        to="/auth/login"
-        replace
-        state={{ alertMessage: "Please login to continue." }}
-      />
-    );
-  }
 
   if (allowedRoles.includes(user?.role)) {
     return children;

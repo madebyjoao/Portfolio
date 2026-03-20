@@ -7,13 +7,12 @@ import handleLogout from "../utils/helpers";
 export default function Navbar() {
 
     const token = localStorage.getItem('token');
-    const slug = localStorage.getItem('slug');
 
     const [showLogout, setShowLogout] = useState(false);
 
     return (
         <nav role="navigation" aria-label="Main navigation" 
-        
+
             className="flex justify-between items-center bg-[rgb(24,61,61)] m-8 rounded-full px-7 py-2,5 top-0 gap-4 left-0 right-0 w-full py-4 mx-auto max-w-[calc(100%-4rem)] shadow-[0_0_50px_rgba(24,61,61,0.7)] relative">
             {!token ? (
                 <NavLink to="/auth/login">
@@ -42,7 +41,7 @@ export default function Navbar() {
                 <img className="w-14" src={logo} alt="Picture of the Logo" />
             </NavLink>
 
-            <NavLink to={`/builder/${localStorage.getItem("slug")}`} className="text-[rgb(255,255,255)] text-[26px] font-bold border-white/20 rounded-full px-2 py-1 backdrop-blur-md bg-white/10 shadow-lg" >
+            <NavLink to="/builder" className="text-[rgb(255,255,255)] text-[26px] font-bold border-white/20 rounded-full px-2 py-1 backdrop-blur-md bg-white/10 shadow-lg" >
                 BUILDER
             </NavLink>
 

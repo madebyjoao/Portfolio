@@ -55,7 +55,7 @@ createRoot(document.getElementById("root")).render(
 												<BuilderLayout />
 											</RoleGuard>}>
 
-				<Route path=":slug" element={<Builder />}/>
+				<Route index element={<Builder />}/>
 			</Route>
 
 			<Route path="admin" element={ 	<RoleGuard allowedRoles={["ADMIN"]}>

@@ -22,7 +22,7 @@ export default function Portfolio() {
   }
 
   const portfolio_info = data.data;
-
+  
 
   switch (portfolio_info.portfolio.template) {
 

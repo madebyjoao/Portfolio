@@ -3,8 +3,6 @@ import StatsBox from "@/components/StatsBox";
 import { useQuery } from "@tanstack/react-query";
 import { BookHeart, School2, School2Icon, UserCheck2 } from "lucide-react";
 import { getStats } from "../../api/overview";
-import { useParams } from "react-router";
-
 
 
 function Home() {
