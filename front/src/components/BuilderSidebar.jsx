@@ -41,13 +41,14 @@ export default function BuilderSidebar() {
 
             </nav>
 
-            <div className="flex items-center justify-around mt-auto pt-6 border-t border-white/20">
+            <div className="flex flex-col items-start mt-auto pt-6 border-t border-white/20">
 
-                <Link to="/" aria-label="Button Home Page">
-                    <Home size={20}/>
+                <Link to="/" aria-label="Button Home Page" className="flex gap-1 p-1 text-sm">
+                    <Home size={19}/>
+                    <p>Go home</p>                    
                 </Link>
                
-                <p className="text-sm text-gray-300">Portfolio Builder Panel</p>
+                <p className="text-sm text-gray-300 p-1">Portfolio Builder Panel</p>
                 
             </div>
         </aside>
