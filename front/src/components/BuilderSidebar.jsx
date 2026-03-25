@@ -14,22 +14,26 @@ export default function BuilderSidebar() {
             </div>
 
             <nav className="flex flex-col gap-3">
-                <NavLink to="/builder" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder" end className={({ isActive }) => `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
+                        isActive ? 'bg-[rgb(92,131,116)]' : '' }` } >
                     <LayoutDashboard size={18} />
                     Dashboard
                 </NavLink>
 
-                <NavLink to="/builder/projects" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/projects" className={({ isActive }) => `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
+                        isActive ? 'bg-[rgb(92,131,116)]' : '' }` } >
                     <FolderKanban size={18} />
                     Projects
                 </NavLink>
 
-                <NavLink to="/builder/certificates" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/certificates" className={({ isActive }) => `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
+                        isActive ? 'bg-[rgb(92,131,116)]' : '' }` } >
                     <Award size={18} />
                     Certificates
                 </NavLink>
 
-                <NavLink to="/builder/preview" className="flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition">
+                <NavLink to="/builder/preview" className={({ isActive }) => `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
+                        isActive ? 'bg-[rgb(92,131,116)]' : '' }` } >
                     <Eye size={18} />
                     Preview
                 </NavLink>

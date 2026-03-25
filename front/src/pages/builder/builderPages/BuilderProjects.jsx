@@ -5,7 +5,7 @@ export default function BuilderProjects() {
 
   return (
     <>
-      <h1 className="text-white">Contact page</h1>
+      <h1 className="text-white">This is the Project</h1>
     </>
   )
 }
