@@ -38,7 +38,7 @@ export default function Navbar() {
                 </div>
             )}
             <NavLink to="/" className="absolute flex bg-[rgb(24,61,61)] left-1/2 -translate-x-1/2 border-double rounded-full p-5 w-24 h-24">
-                <img className="w-24 h-16" src={logo} alt="Picture of the Logo" />
+                <img className="w-24 h-16 object-fill" src={logo} alt="Picture of the Logo" />
             </NavLink>
 
             <NavLink to="/builder" className="text-[rgb(255,255,255)] text-[26px] font-bold border-white/20 rounded-full px-2 py-1 backdrop-blur-md bg-white/10 shadow-lg" >

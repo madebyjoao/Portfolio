@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import BuilderSidebar from "../components/BuilderSidebar";
+import BuilderSidebar from "../components/builder/BuilderSidebar";
 
 export default function BuilderLayout() {
 

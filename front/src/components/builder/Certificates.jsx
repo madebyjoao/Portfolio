@@ -1,4 +1,4 @@
-import { BASE_URL } from "../api/config";
+import { BASE_URL } from "../../api/config";
 
 
 export default function CertificatesBox({certificates_info}) {
