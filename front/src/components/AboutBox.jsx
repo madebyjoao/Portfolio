@@ -2,12 +2,14 @@
 
 
 
-export default function AboutBox() {
+export default function AboutBox({ about_title, about_text }) {
+
 
     return (
 
         <>
-            <h1>Anna</h1>
+            <h1>{about_title}</h1>
+            <p>{about_text}</p>
         </>
     )
 }
