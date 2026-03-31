@@ -5,16 +5,13 @@ import ProjectsBox from "../Projects";
 
 export default function TemplateOne({portfolio_info}) {
 
-    console.log(portfolio_info)
-
+    const info = portfolio_info.portfolio;
+    
     return (
         <div className="relative top-50">
             <ProjectsBox />
-            <h1 className="text-white">This is Your Portfolio Template {portfolio_info.portfolio.template}</h1>
-            <h2 className="text-white">{portfolio_info.portfolio.about_title}</h2>
-            <h2 className="text-white">{portfolio_info.portfolio.about_text}</h2>
-            <AboutBox about_title={portfolio_info.portfolio.about_title} about_text={portfolio_info.portfolio.about_text}/>
+            <h1 className="text-white">This is Your Portfolio Template {info.template}</h1>
+            <AboutBox about_title={info.about_title} about_text={info.about_text}/>
         </div>
-       
     )
 }

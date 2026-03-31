@@ -37,17 +37,22 @@ async function getUploadCertificates(req, res, next) {
             .toFile(uploadPath);
 
         const imagePath = `${slug}/${filename}.jpg`;
+
+
         
         
         await Certificate.create({
             portfolio_id: portfolio.id,
-            title: "New Certificate", 
+            title: req.body.title, 
+            description: req.body.info,
             image_path: imagePath,
             type: "CERTIFICATE",
             is_public: true,
         });
 
         req.body.image = filename;
+
+        console.log(req.body);
         next();
 
     } catch (error) {
