@@ -20,7 +20,7 @@ async function getUploadCertificates(req, res, next) {
 
     try {
         
-        const portfolio = await Portfolio.findOne({ where: { slug: slug } });
+        const portfolio = req.portfolio;
         
         if (!portfolio) {
             return res.status(404).json({ message: "Portfolio not found" });
