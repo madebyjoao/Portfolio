@@ -1,5 +1,6 @@
 import Portfolio from "../models/Portfolio.js";
 import Certificate from "../models/Certificate.js";
+import Project from "../models/Project.js";
 
 async function getTemplate(req, res) {
 
@@ -46,4 +47,29 @@ async function getCertificates(req, res) {
     }
 }
 
-export default { getTemplate, getCertificates };
+async function getProjects() {
+
+    const { slug } = req.params;
+
+    try {
+        const portfolio = await Portfolio.findOne({
+            where: { slug },
+            attributes: ['id']
+        });
+
+        if (!portfolio) {
+            return res.status(404).json({ error: "Portfolio not found" });
+        }
+
+        const projects = await Project.findAll({
+            where: { portfolio_id: portfolio.id }
+        })
+
+        res.status(200).json({ projects })
+
+    } catch (error) {
+        res.status(500).json({ error: 'failed to fetch Projects' });
+    }
+}
+
+export default { getTemplate, getCertificates, getProjects };
