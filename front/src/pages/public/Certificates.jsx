@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getCertificatesBySlug } from "../../api/portfolio";
-import CertificatesBox from "../../components/builder/Certificates";
+import CertificatesBox from "../../components/portfolio/Certificates";
 import { useState } from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 

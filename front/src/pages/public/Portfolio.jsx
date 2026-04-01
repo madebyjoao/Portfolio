@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPortfolioBySlug } from "../../api/portfolio";
 import TemplateOne from "../../components/templates/TemplateOne";
 import TemplateTwo from "../../components/templates/TemplateTwo";
-import ProjectsBox from "../../components/Projects";
+
 
 export default function Portfolio() {
   const { slug } = useParams();
@@ -23,7 +23,6 @@ export default function Portfolio() {
   }
 
   const portfolio_info = data.data;
-  
 
   switch (portfolio_info.portfolio.template) {
 
