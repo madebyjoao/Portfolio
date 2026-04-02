@@ -6,7 +6,6 @@ import portfolioRouter from "./Portfolio.route.js";
 import certificatesRouter from "./Certicates.route.js";
 import builderRouter from "./Builder.route.js";
 
-
 const router = express.Router();
 
 router.use("/auth", authRouter);

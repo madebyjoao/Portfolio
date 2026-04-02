@@ -18,53 +18,42 @@ export default function PortfolioLayout() {
 
     const template = data?.data.portfolio.template;
 
-        
-        switch (template) {
-            
-            case 1:
-                return (
-                        <div className="min-h-screen flex flex-col">
-                            <NavbarPortfolio title={isPending ? "Loading..." : title} />
-                            
-                            <main>
+    switch (template) {
+        case 1:
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <NavbarPortfolio title={isPending ? "Loading..." : title} />
 
-                                <Outlet />
+                    <main>
+                        <Outlet />
+                    </main>
 
-                            </main>
+                    <Footer />
+                </div>
+            );
+            break;
 
-                            <Footer />
-                        
+        case 2:
+            return (
+                <div className="min-h-screen flex flex-col">
+                    <NavbarPortfolio2
+                        title={isPending ? "Loading..." : title}
+                    />
 
-                        </div>
-                    );
-                    break;
+                    <main>
+                        <Outlet />
+                    </main>
 
-                case 2:
-                    return (
+                    <Footer />
+                </div>
+            );
+            break;
 
-                         <div className="min-h-screen flex flex-col">
-                            <NavbarPortfolio2 title={isPending ? "Loading..." : title} />
-                            
-                            <main>
-
-                                <Outlet />
-
-                            </main>
-
-                            <Footer />
-                        
-
-                        </div>
-
-                    );
-                    break;
-                
-                default:
-                      return (
-                        <>
-                          <h1>no template</h1>
-                        </>
-                      )
-            };
-
+        default:
+            return (
+                <>
+                    <h1>no template</h1>
+                </>
+            );
+    }
 }

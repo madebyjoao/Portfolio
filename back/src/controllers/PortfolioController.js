@@ -3,20 +3,19 @@ import Certificate from "../models/Certificate.js";
 import Project from "../models/Project.js";
 
 async function getTemplate(req, res) {
-
     const { slug } = req.params;
 
     try {
-        const portfolio = await Portfolio.findOne({ 
+        const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ['template', 'title', 'about_title', 'about_text']
+            attributes: ["template", "title", "about_title", "about_text"],
         });
 
         if (!portfolio) {
             return res.status(404).json({ error: "Portfolio not found" });
         }
-        res.status(200).json({ 
-            portfolio: portfolio
+        res.status(200).json({
+            portfolio: portfolio,
         });
     } catch (error) {
         res.status(500).json({ error: "Failed to fetch template" });
@@ -24,13 +23,12 @@ async function getTemplate(req, res) {
 }
 
 async function getCertificates(req, res) {
-
     const { slug } = req.params;
 
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ['id']
+            attributes: ["id"],
         });
 
         if (!portfolio) {
@@ -38,7 +36,7 @@ async function getCertificates(req, res) {
         }
 
         const certificates = await Certificate.findAll({
-            where: { portfolio_id: portfolio.id }
+            where: { portfolio_id: portfolio.id },
         });
 
         res.status(200).json({ certificates });
@@ -48,13 +46,12 @@ async function getCertificates(req, res) {
 }
 
 async function getProjects(req, res) {
-
     const { slug } = req.params;
 
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ['id']
+            attributes: ["id"],
         });
 
         if (!portfolio) {
@@ -62,13 +59,12 @@ async function getProjects(req, res) {
         }
 
         const projects = await Project.findAll({
-            where: { portfolio_id: portfolio.id }
-        })
+            where: { portfolio_id: portfolio.id },
+        });
 
-        res.status(200).json({ projects })
-
+        res.status(200).json({ projects });
     } catch (error) {
-        res.status(500).json({ error: 'failed to fetch Projects' });
+        res.status(500).json({ error: "failed to fetch Projects" });
     }
 }
 

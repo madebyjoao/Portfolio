@@ -9,8 +9,7 @@ async function getCertificatesBySlug(slug) {
 }
 
 async function getProjectsBySlug(slug) {
-    return await instance.get(`portfolio/projects/${slug}`)
+    return await instance.get(`portfolio/projects/${slug}`);
 }
-
 
 export { getPortfolioBySlug, getCertificatesBySlug, getProjectsBySlug };

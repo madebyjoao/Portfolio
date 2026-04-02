@@ -4,8 +4,6 @@ import OverviewController from "../../controllers/OverviewController.js";
 
 const overviewRouter = express.Router();
 
-
 overviewRouter.get("/", OverviewController.getStats);
-
 
 export default overviewRouter;

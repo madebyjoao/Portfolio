@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
 function getInitialTheme() {
-    const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)")?.matches;
+    const prefersDark = window.matchMedia?.(
+        "(prefers-color-scheme: dark)",
+    )?.matches;
     return prefersDark ? "dark" : "light";
 }
 
@@ -18,9 +20,14 @@ export function ThemeToggle() {
     }
 
     return (
-        <button className="themeToggle" type="button" onClick={toggleTheme} aria-label="Toggle theme" aria-pressed={theme === "dark"}>
+        <button
+            className="themeToggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            aria-pressed={theme === "dark"}
+        >
             {theme === "dark" ? "🌙" : "☀️"}
         </button>
-
-    )
+    );
 }

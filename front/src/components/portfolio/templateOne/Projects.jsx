@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
 
-export default function ProjectsBox({ project_title, project_description, project_thumbnail, project_repo_url, project_live_url }) {
+export default function ProjectsBox({
+    project_title,
+    project_description,
+    project_thumbnail,
+    project_repo_url,
+    project_live_url,
+}) {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -20,8 +26,12 @@ export default function ProjectsBox({ project_title, project_description, projec
                 </div>
                 <div className="flex flex-col justify-center gap-1">
                     <h1 className="text-lg font-bold">{project_title}</h1>
-                    <p className="text-sm line-clamp-2 opacity-70">{project_description}</p>
-                    <span className="text-sm font-medium mt-1 opacity-50">View more →</span>
+                    <p className="text-sm line-clamp-2 opacity-70">
+                        {project_description}
+                    </p>
+                    <span className="text-sm font-medium mt-1 opacity-50">
+                        View more →
+                    </span>
                 </div>
             </div>
 
@@ -43,8 +53,12 @@ export default function ProjectsBox({ project_title, project_description, projec
                             />
                         </div>
                         <div className="p-6 flex flex-col gap-3">
-                            <h2 className="text-2xl font-bold">{project_title}</h2>
-                            <p className="text-sm opacity-70">{project_description}</p>
+                            <h2 className="text-2xl font-bold">
+                                {project_title}
+                            </h2>
+                            <p className="text-sm opacity-70">
+                                {project_description}
+                            </p>
                             <div className="flex gap-3 mt-2">
                                 {project_repo_url && (
                                     <a

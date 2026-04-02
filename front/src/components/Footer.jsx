@@ -1,13 +1,3 @@
-
-
 export default function Footer() {
-
-    return (
-        <nav className="">
-
-
-
-        </nav>
-    )
-
+    return <nav className=""></nav>;
 }

@@ -2,8 +2,20 @@ import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
 import { ArrowBigDown } from "lucide-react";
 
-function AccordionItem({ project_title, project_description, project_thumbnail, project_repo_url, project_live_url }) {
+function AccordionItem({
+    project_title,
+    project_description,
+    project_thumbnail,
+    project_repo_url,
+    project_live_url,
+    project_index,
+}) {
     const [isOpen, setIsOpen] = useState(false);
+    const [isHover, setIsHover] = useState(false);
+
+    function getFirstLetter(word) {
+        return word[0].toUpperCase();
+    }
 
     return (
         <div className="border-b border-white/10 last:border-none">
@@ -13,16 +25,40 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <div className="flex items-center gap-4">
-                    <div className="shrink-0 w-14 h-14 overflow-hidden rounded-lg">
+                    <div className="">
+                        <span
+                            className=""
+                            style={{
+                                position: "relative",
+                                left: "-0.5em",
+                                fontSize: "2em",
+                                verticalAlign: "super",
+                            }}
+                        >
+                            {project_index}
+                        </span>
+
+                        <span className="text-5xl">
+                            {getFirstLetter(project_title)}
+                        </span>
+                    </div>
+                    <span className="text-base font-semibold w-62.5">
+                        {project_title}
+                    </span>
+                    <div className="w-62.5 h-62.5">
                         <img
-                            className="w-full h-full object-cover"
+                            className="w-full h-full"
                             src={`${BASE_URL}/uploads/${project_thumbnail}`}
                             alt={`${project_title} Thumbnail`}
                         />
                     </div>
-                    <span className="text-base font-semibold">{project_title}</span>
                 </div>
-                <span className="text-lg transition-transform duration-200" style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                <span
+                    className="text-lg transition-transform duration-200"
+                    style={{
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                    }}
+                >
                     <ArrowBigDown />
                 </span>
             </button>
@@ -38,7 +74,9 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
                         />
                     </div>
                     <div className="flex flex-col gap-3 justify-center">
-                        <p className="text-sm opacity-70">{project_description}</p>
+                        <p className="text-sm opacity-70">
+                            {project_description}
+                        </p>
                         <div className="flex gap-3">
                             {project_repo_url && (
                                 <a
@@ -79,6 +117,7 @@ export default function ProjectsAccordion({ projects }) {
                     project_description={project.description}
                     project_repo_url={project.repo_url}
                     project_live_url={project.live_url}
+                    project_index={project.order_index}
                 />
             ))}
         </div>

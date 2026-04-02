@@ -1,12 +1,11 @@
 import Overview from "./Overview.jsx";
 
-
 function Dashboard() {
-  return (
-    <>
-      <Overview />
-    </>
-  );
+    return (
+        <>
+            <Overview />
+        </>
+    );
 }
 
 export default Dashboard;

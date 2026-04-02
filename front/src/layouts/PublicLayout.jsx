@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import TopAlert from "../components/TopAlert";
 
-
 export default function PublicLayout() {
     const location = useLocation();
     const alertMessage = location.state?.alertMessage;
@@ -13,15 +12,11 @@ export default function PublicLayout() {
             <TopAlert message={alertMessage} />
             <Navbar />
 
-                <main>
-
-                    <Outlet />
-
-                </main>
+            <main>
+                <Outlet />
+            </main>
 
             <Footer />
-            
-
         </div>
     );
 }

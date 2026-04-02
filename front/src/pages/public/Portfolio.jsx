@@ -4,74 +4,73 @@ import { getPortfolioBySlug, getProjectsBySlug } from "../../api/portfolio";
 import TemplateOne from "../../components/templates/TemplateOne";
 import TemplateTwo from "../../components/templates/TemplateTwo";
 
-
 export default function Portfolio() {
-  const { slug } = useParams();
+    const { slug } = useParams();
 
-  const { 
-    isPending: isPortfolioPending, 
-    isError: isPortfolioError, 
-    data: portfolioData, 
-    error: portfolioError, 
-  } = useQuery({
-    queryKey: ["portfolio", slug],
-    queryFn: () => getPortfolioBySlug(slug),
-    enabled: !!slug,
-  });
+    const {
+        isPending: isPortfolioPending,
+        isError: isPortfolioError,
+        data: portfolioData,
+        error: portfolioError,
+    } = useQuery({
+        queryKey: ["portfolio", slug],
+        queryFn: () => getPortfolioBySlug(slug),
+        enabled: !!slug,
+    });
 
-  const { 
-    isPending: isProjectsPending, 
-    isError: isProjectsError, 
-    data: projectsData, 
-    error: projectsError, 
-  } = useQuery({
-    queryKey: ["projects", slug],
-    queryFn: () => getProjectsBySlug(slug),
-    enabled: !!slug,
-  });
+    const {
+        isPending: isProjectsPending,
+        isError: isProjectsError,
+        data: projectsData,
+        error: projectsError,
+    } = useQuery({
+        queryKey: ["projects", slug],
+        queryFn: () => getProjectsBySlug(slug),
+        enabled: !!slug,
+    });
 
-  const isLoading = isPortfolioPending || isProjectsPending;
+    const isLoading = isPortfolioPending || isProjectsPending;
 
+    if (isLoading) {
+        return <div>Chargement en cours...</div>;
+    }
 
-  if (isLoading) {
-    return <div>Chargement en cours...</div>;
-  }
+    const isMistake = isPortfolioError || isProjectsError;
 
-  const isMistake = isPortfolioError || isProjectsError;
+    const errorMessage = portfolioError || projectsError;
 
-  const errorMessage = portfolioError || projectsError;
+    if (isMistake) {
+        return <div>Erreur : {errorMessage.message}</div>;
+    }
 
-  if (isMistake) {
-    return <div>Erreur : {errorMessage.message}</div>;
-  }
+    const template = portfolioData.data.portfolio.template;
+    const portfolio_info = portfolioData.data;
+    const projects = projectsData?.data;
 
-  const portfolio_info = portfolioData.data;
-  const projects = projectsData?.data;
+    switch (template) {
+        case 1:
+            return (
+                <TemplateOne
+                    portfolio_info={portfolio_info}
+                    projects={projects}
+                />
+            );
+            break;
 
-  console.log(projects);
+        case 2:
+            return (
+                <TemplateTwo
+                    portfolio_info={portfolio_info}
+                    projects={projects}
+                />
+            );
+            break;
 
-  switch (portfolio_info.portfolio.template) {
-
-    case 1:
-      return (
-        <TemplateOne portfolio_info={portfolio_info} projects={projects} />
-      );
-      break;
-    
-    case 2:
-      return (
-        <TemplateTwo portfolio_info={portfolio_info} projects={projects} />
-      );
-      break;
-
-    default:
-      return (
-        <>
-          <h1>no template</h1>
-        </>
-      )
-  }
-
+        default:
+            return (
+                <>
+                    <h1>no template</h1>
+                </>
+            );
+    }
 }
-
-

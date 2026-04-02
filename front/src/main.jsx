@@ -22,59 +22,68 @@ import BuilderProjects from "./pages/builder/builderPages/BuilderProjects.jsx";
 import BuilderPreview from "./pages/builder/builderPages/BuilderPreview.jsx";
 import BuilderCertificates from "./pages/builder/builderPages/BuilderCertificates.jsx";
 
-
-
-
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: Infinity,
+    defaultOptions: {
+        queries: {
+            staleTime: Infinity,
+        },
     },
-  },
 });
 
-
 createRoot(document.getElementById("root")).render(
-	<StrictMode>
-		<BrowserRouter>
-		<QueryClientProvider client={queryClient}>
-			<Routes>
+    <StrictMode>
+        <BrowserRouter>
+            <QueryClientProvider client={queryClient}>
+                <Routes>
+                    {/* Routes publiques */}
+                    <Route path="/" element={<PublicLayout />}>
+                        <Route index element={<Home />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/auth/login" element={<Login />} />
+                        <Route path="/auth/register" element={<Register />} />
+                    </Route>
 
-			{/* Routes publiques */}
-			<Route path="/" element={<PublicLayout />}>
-				<Route index element={<Home />} />
-				<Route path="/contact" element={<Contact />} />
-				<Route path="/auth/login" element={<Login />} />
-				<Route path="/auth/register" element={<Register />} />
-			</Route >
+                    {/* Routes portfolio */}
+                    <Route path="/u" element={<PortfolioLayout />}>
+                        <Route path=":slug" element={<Portfolio />} />
+                        <Route
+                            path=":slug/certificates"
+                            element={<Certificates />}
+                        />
+                    </Route>
 
-			{/* Routes portfolio */}
-			<Route path="/u" element={<PortfolioLayout />}>
-				<Route path=":slug" element={<Portfolio />} />
-				<Route path=":slug/certificates" element={<Certificates />} />
-			</Route>
+                    {/* Routes privées */}
+                    <Route
+                        path="/builder"
+                        element={
+                            <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
+                                <BuilderLayout />
+                            </RoleGuard>
+                        }
+                    >
+                        <Route index element={<Builder />} />
+                        <Route path="projects" element={<BuilderProjects />} />
+                        <Route
+                            path="certificates"
+                            element={<BuilderCertificates />}
+                        />
+                        <Route path="preview" element={<BuilderPreview />} />
+                    </Route>
 
-			{/* Routes privées */}
-			<Route path="/builder" element={ <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
-												<BuilderLayout />
-											</RoleGuard>}>
-
-				<Route index element={<Builder />} />
-				<Route path="projects" element={<BuilderProjects />} />
-				<Route path="certificates" element={<BuilderCertificates />} />
-				<Route path="preview" element={<BuilderPreview />} />
-			</Route>
-
-			<Route path="admin" element={ 	<RoleGuard allowedRoles={["ADMIN"]}>
-												<AdminLayout />
-										 	</RoleGuard> }>
-				<Route index element={<Dashboard />} />
-				<Route path="users" element={<Users />} />
-				<Route path="cms" element={<Cms />} />
-			</Route>
-
-			</Routes>
-		</QueryClientProvider>
-		</BrowserRouter>
-	</StrictMode>,
+                    <Route
+                        path="admin"
+                        element={
+                            <RoleGuard allowedRoles={["ADMIN"]}>
+                                <AdminLayout />
+                            </RoleGuard>
+                        }
+                    >
+                        <Route index element={<Dashboard />} />
+                        <Route path="users" element={<Users />} />
+                        <Route path="cms" element={<Cms />} />
+                    </Route>
+                </Routes>
+            </QueryClientProvider>
+        </BrowserRouter>
+    </StrictMode>,
 );

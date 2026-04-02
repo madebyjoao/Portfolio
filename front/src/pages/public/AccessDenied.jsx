@@ -1,13 +1,11 @@
 import { useLocation } from "react-router";
 import Navbar from "../../components/Navbar";
 
-
-export default function AccessDeniedPage({alertMessage: propAlertMessage}) {
+export default function AccessDeniedPage({ alertMessage: propAlertMessage }) {
     const location = useLocation();
     const alertMessage = propAlertMessage ?? location.state?.alertMessage;
-    
-    return (
 
+    return (
         <div>
             <Navbar />
 
@@ -19,6 +17,5 @@ export default function AccessDeniedPage({alertMessage: propAlertMessage}) {
                 )}
             </div>
         </div>
-
-    )
+    );
 }
