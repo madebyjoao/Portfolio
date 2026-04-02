@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
+import { ArrowBigDown } from "lucide-react";
 
 function AccordionItem({ project_title, project_description, project_thumbnail, project_repo_url, project_live_url }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -8,7 +9,7 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
         <div className="border-b border-white/10 last:border-none">
             {/* Header row */}
             <button
-                className="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-white/5 transition-colors"
+                className="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-white/5 transition-colors cursor-pointer"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
                 <div className="flex items-center gap-4">
@@ -22,7 +23,7 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
                     <span className="text-base font-semibold">{project_title}</span>
                 </div>
                 <span className="text-lg transition-transform duration-200" style={{ transform: isOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
-                    ↓
+                    <ArrowBigDown />
                 </span>
             </button>
 
@@ -46,7 +47,7 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
                                     rel="noopener noreferrer"
                                     className="px-4 py-2 rounded-lg border text-sm font-medium hover:bg-white/10 transition-colors"
                                 >
-                                    GitHub ↗
+                                    GitHub
                                 </a>
                             )}
                             {project_live_url && (
@@ -56,7 +57,7 @@ function AccordionItem({ project_title, project_description, project_thumbnail, 
                                     rel="noopener noreferrer"
                                     className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-colors"
                                 >
-                                    Live Demo ↗
+                                    Live Demo
                                 </a>
                             )}
                         </div>

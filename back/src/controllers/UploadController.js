@@ -80,7 +80,7 @@ async function getUploadProjects(req, res, next) {
         
         const uploadPath = `./uploads/${slug}/projects/${filename}.jpg`;
         await sharp(file.buffer)
-            .resize(800, 600)
+            .resize(600, 400)
             .jpeg({ quality: 80})
             .toFile(uploadPath);
 
