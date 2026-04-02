@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadProjects } from "../../../api/builder";
+import { uploadProjects, uploadProjectImages } from "../../../api/builder";
 
 export default function BuilderProjects() {
     const [file, setFile] = useState(null);
@@ -7,6 +7,10 @@ export default function BuilderProjects() {
     const [info, setInfo] = useState("");
     const [github, setGithub] = useState("");
     const [imageError, setImageError] = useState("");
+
+    const [savedProjectId, setSavedProjectId] = useState(null);
+    const [extraFile, setExtraFile] = useState(null);
+    const [uploading, setUploading] = useState(false);
 
     function validateImage(selected) {
         return new Promise((resolve, reject) => {
@@ -69,8 +73,8 @@ export default function BuilderProjects() {
         formData.append("github", github);
 
         try {
-            await uploadProjects(slug, formData);
-            alert("Upload successful!");
+            const res = await uploadProjects(slug, formData);
+            setSavedProjectId(res.data.project_id);
         } catch (error) {
             console.error("Upload failed:", error);
             const errorMessage =
@@ -78,6 +82,23 @@ export default function BuilderProjects() {
                 error.message ||
                 "Upload failed";
             alert(`Upload failed: ${errorMessage}`);
+        }
+    }
+
+    async function handleImageUpload() {
+        if (!extraFile) return;
+        const slug = localStorage.getItem("slug");
+        setUploading(true);
+        try {
+            await uploadProjectImages(slug, savedProjectId, extraFile);
+            setExtraFile(null);
+            document.getElementById("extra-image-input").value = "";
+        } catch (error) {
+            const errorMessage =
+                error.response?.data?.message || error.message || "Upload failed";
+            alert(`Upload failed: ${errorMessage}`);
+        } finally {
+            setUploading(false);
         }
     }
 
@@ -172,6 +193,27 @@ export default function BuilderProjects() {
                     </button>
                 </form>
             </div>
+
+            {savedProjectId && (
+                <div className="border border-gray-200 rounded-lg p-4 flex flex-col gap-3">
+                    <h2 className="text-lg font-semibold">Project saved! Add extra images</h2>
+                    <p className="text-sm text-gray-500">You can add as many images as you want to this project.</p>
+                    <input
+                        id="extra-image-input"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setExtraFile(e.target.files[0] || null)}
+                        className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
+                    />
+                    <button
+                        onClick={handleImageUpload}
+                        disabled={!extraFile || uploading}
+                        className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed w-fit"
+                    >
+                        {uploading ? "Uploading..." : "Add image"}
+                    </button>
+                </div>
+            )}
         </section>
     );
 }

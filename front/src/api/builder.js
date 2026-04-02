@@ -18,4 +18,16 @@ async function uploadProjects(slug, formData) {
     });
 }
 
-export { uploadCertificates, uploadProjects };
+async function uploadProjectImages(slug, projectId, file) {
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("project_id", projectId);
+    return await instance.post(`builder/projects/${slug}/images`, formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        timeout: 10000,
+    });
+}
+
+export { uploadCertificates, uploadProjects, uploadProjectImages };

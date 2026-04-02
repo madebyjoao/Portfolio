@@ -9,9 +9,12 @@ function AccordionItem({
     project_repo_url,
     project_live_url,
     project_index,
+    project_images,
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isHover, setIsHover] = useState(false);
+
+    console.log(project_images)
 
     function getFirstLetter(word) {
         return word[0].toUpperCase();
@@ -21,37 +24,61 @@ function AccordionItem({
         <div className="border-b border-white/10 last:border-none">
             {/* Header row */}
             <button
-                className="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-white/5 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between gap-4 p-4 text-left hover:bg-white/10 transition-colors cursor-pointer"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
-                <div className="flex items-center gap-4">
-                    <div className="">
-                        <span
-                            className=""
-                            style={{
-                                position: "relative",
-                                left: "-0.5em",
-                                fontSize: "2em",
-                                verticalAlign: "super",
-                            }}
-                        >
-                            {project_index}
-                        </span>
+                <div className="flex item-center gap-4">
+                    <div className="relative flex justify-center items-center size-62.5"
+                        onMouseEnter={() => setIsHover(true)}
+                        onMouseLeave={() => setIsHover(false)}
 
-                        <span className="text-5xl">
-                            {getFirstLetter(project_title)}
-                        </span>
+                    >
+                        {!isHover ? (
+                            <div className="inline-flex items-start">
+                                <span className="text-2xl leading-none mt-2">
+                                    {project_index}
+                                </span>
+                                <span className="text-9xl leading-none">
+                                    {getFirstLetter(project_title)}
+                                </span>
+                            </div>
+                        ) : (
+                            <div className="flex items-center justify-center">
+                                <span className="text-base font-semibold">
+                                    {project_title}
+                                </span>
+                            </div>
+                               
+                        )}
+                        
                     </div>
-                    <span className="text-base font-semibold w-62.5">
-                        {project_title}
-                    </span>
-                    <div className="w-62.5 h-62.5">
-                        <img
-                            className="w-full h-full"
-                            src={`${BASE_URL}/uploads/${project_thumbnail}`}
-                            alt={`${project_title} Thumbnail`}
-                        />
+                    
+                    <div className="flex overflow-x-scroll scroll-smooth gap-4">
+                        <div className="size-62.5">
+                            <img
+                                className="w-full h-full"
+                                src={`${BASE_URL}/uploads/${project_thumbnail}`}
+                                alt={`${project_title} Thumbnail`}
+                            />
+                        </div>
+
+                        <div className="flex gap-4 h-62.5">
+                            {project_images.map((images) => (
+                                <div>
+                                    
+                                    <img className="h-62.5 w-full"
+                                        src={`${BASE_URL}/uploads/${images.image_path}`}
+                                    />
+                                    
+                                </div>
+
+                            ))
+
+                            }
+                        </div>
+
                     </div>
+
                 </div>
                 <span
                     className="text-lg transition-transform duration-200"
@@ -66,14 +93,17 @@ function AccordionItem({
             {/* Expanded content */}
             {isOpen && (
                 <div className="flex gap-6 px-4 pb-6">
-                    <div className="shrink-0 w-48 h-32 overflow-hidden rounded-lg">
+                    <div className="shrink-0 size-62.5 overflow-hidden">
                         <img
-                            className="w-full h-full object-cover"
+                            className="w-full h-full"
                             src={`${BASE_URL}/uploads/${project_thumbnail}`}
                             alt={`${project_title} Thumbnail`}
                         />
                     </div>
                     <div className="flex flex-col gap-3 justify-center">
+                        <h1>
+                            {project_title}
+                        </h1>
                         <p className="text-sm opacity-70">
                             {project_description}
                         </p>
@@ -107,6 +137,7 @@ function AccordionItem({
 }
 
 export default function ProjectsAccordion({ projects }) {
+    
     return (
         <div className="rounded-xl border border-white/10 overflow-hidden">
             {projects.map((project) => (
@@ -118,6 +149,7 @@ export default function ProjectsAccordion({ projects }) {
                     project_repo_url={project.repo_url}
                     project_live_url={project.live_url}
                     project_index={project.order_index}
+                    project_images={project.images}
                 />
             ))}
         </div>

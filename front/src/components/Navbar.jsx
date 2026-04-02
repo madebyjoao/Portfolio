@@ -33,7 +33,10 @@ export default function Navbar() {
                     onClick={showLogout ? handleLogout : null}
                 >
                     {showLogout ? (
-                        <UserRoundXIcon color="red" strokeWidth={3} />
+                        <>
+                            <UserRoundXIcon color="red" strokeWidth={3} />
+                            <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
+                        </>
                     ) : (
                         <>
                             <LucideUserCheck2 color="white" strokeWidth={3} />

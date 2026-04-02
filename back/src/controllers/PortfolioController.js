@@ -1,6 +1,7 @@
 import Portfolio from "../models/Portfolio.js";
 import Certificate from "../models/Certificate.js";
 import Project from "../models/Project.js";
+import ProjectImage from "../models/ProjectImage.js";
 
 async function getTemplate(req, res) {
     const { slug } = req.params;
@@ -60,6 +61,7 @@ async function getProjects(req, res) {
 
         const projects = await Project.findAll({
             where: { portfolio_id: portfolio.id },
+            include: [{ model: ProjectImage, as: "images" }],
         });
 
         res.status(200).json({ projects });

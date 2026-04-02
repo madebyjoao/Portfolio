@@ -31,6 +31,20 @@ builderRouter.post(
         res.status(200).json({
             message: "Image uploaded and resized",
             image: req.body.image,
+            project_id: req.body.project_id,
+        });
+    },
+);
+
+builderRouter.post(
+    "/projects/:slug/images",
+    checkSlug,
+    upload.single("image"),
+    UploadController.getUploadProjectsImages,
+    (req, res) => {
+        res.status(200).json({
+            message: "Project image uploaded",
+            image: req.body.image,
         });
     },
 );

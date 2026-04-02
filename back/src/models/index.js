@@ -2,6 +2,7 @@ import User from "./User.js";
 import Portfolio from "./Portfolio.js";
 import Project from "./Project.js";
 import Certificate from "./Certificate.js";
+import ProjectImage from "./ProjectImage.js";
 
 User.hasOne(Portfolio, {
     foreignKey: "user_id",
@@ -23,6 +24,16 @@ Project.belongsTo(Portfolio, {
     as: "portfolio",
 });
 
+Project.hasMany(ProjectImage, {
+    foreignKey: "project_id",
+    as: "images",
+});
+
+ProjectImage.belongsTo(Project, {
+    foreignKey: "project_id",
+    as: "project",
+});
+
 Portfolio.hasMany(Certificate, {
     foreignKey: "portfolio_id",
     as: "certificates",
@@ -33,4 +44,4 @@ Certificate.belongsTo(Portfolio, {
     as: "portfolio",
 });
 
-export { User, Portfolio, Project, Certificate };
+export { User, Portfolio, Project, Certificate, ProjectImage };
