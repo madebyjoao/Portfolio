@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BASE_URL } from "../../api/config";
+import { BASE_URL } from "../../../api/config";
 
 function AccordionItem({ project_title, project_description, project_thumbnail, project_repo_url, project_live_url }) {
     const [isOpen, setIsOpen] = useState(false);

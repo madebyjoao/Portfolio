@@ -1,5 +1,5 @@
-import AboutBox from "../portfolio/AboutBox";
-import ProjectsAccordion from "../portfolio/ProjectsAccordion";
+import AboutBox from "../portfolio/templateOne/AboutBox";
+import ProjectsAccordion from "../portfolio/templateTwo/ProjectsAccordion";
 
 export default function TemplateTwo({portfolio_info, projects}) {
     const projectsData = projects.projects.slice().sort((a, b) => a.order_index - b.order_index);

@@ -1,6 +1,6 @@
 import { Outlet, useParams } from "react-router";
 import Footer from "../components/Footer";
-import NavbarPortfolio from "../components/portfolio/NavbarPortfolio";
+import NavbarPortfolio from "../components/portfolio/templateOne/NavbarPortfolio";
 import { useQuery } from "@tanstack/react-query";
 import { getPortfolioBySlug } from "../api/portfolio";
 

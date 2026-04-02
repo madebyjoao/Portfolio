@@ -1,5 +1,5 @@
-import AboutBox from "../portfolio/AboutBox";
-import ProjectsBox from "../portfolio/Projects";
+import AboutBox from "../portfolio/templateOne/AboutBox";
+import ProjectsBox from "../portfolio/templateOne/Projects";
 
 
 
