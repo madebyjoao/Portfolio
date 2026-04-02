@@ -5,7 +5,7 @@ import fs from "fs";
 import path, { dirname } from "path";
 import sequelize from "../db/connection.js";
 import { fileURLToPath } from "url";
-import createUserFolder from "../utils/createFolder.js";
+import { createUserFolderCertif, createUserFolderProjects } from "../utils/createFolder.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -93,7 +93,8 @@ try {
 	{ transaction }
 	);
 
-	await createUserFolder(normalizedSlug);
+	await createUserFolderCertif(normalizedSlug);
+	await createUserFolderProjects(normalizedSlug);
 	await transaction.commit();
 
 	const { password: _, ...safeUser } = newUser.dataValues;

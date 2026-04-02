@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { getPortfolioBySlug } from "../../api/portfolio";
+import { getPortfolioBySlug, getProjectsBySlug } from "../../api/portfolio";
 import TemplateOne from "../../components/templates/TemplateOne";
 import TemplateTwo from "../../components/templates/TemplateTwo";
 
@@ -39,23 +39,28 @@ export default function Portfolio() {
 
   const isMistake = isPortfolioError || isProjectsError;
 
+  const errorMessage = portfolioError || projectsError;
+
   if (isMistake) {
-    return <div>Erreur : {error.message}</div>;
+    return <div>Erreur : {errorMessage.message}</div>;
   }
 
-  const portfolio_info = data.data;
+  const portfolio_info = portfolioData.data;
+  const projects = projectsData?.data;
+
+  console.log(projects);
 
   switch (portfolio_info.portfolio.template) {
 
     case 1:
       return (
-        <TemplateOne portfolio_info={portfolio_info} />
+        <TemplateOne portfolio_info={portfolio_info} projects={projects} />
       );
       break;
     
     case 2:
       return (
-        <TemplateTwo portfolio_info={portfolio_info} />
+        <TemplateTwo portfolio_info={portfolio_info} projects={projects} />
       );
       break;
 

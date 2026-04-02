@@ -47,7 +47,7 @@ async function getCertificates(req, res) {
     }
 }
 
-async function getProjects() {
+async function getProjects(req, res) {
 
     const { slug } = req.params;
 

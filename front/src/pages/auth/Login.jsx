@@ -93,11 +93,11 @@ export function Login() {
           <div className="flex gap-2 flex-wrap justify-center">
             <button
               type="button"
-              onClick={() => quickLogin("client1@mbjtest.com", "123456")}
+              onClick={() => quickLogin("joao-port@test.com", "123456")}
               disabled={loginMutation.isPending}
               className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
             >
-              Client 1
+              Joao
             </button>
             <button
               type="button"
