@@ -11,9 +11,8 @@ export default function FooterPortfolio1({ portfolio_info }) {
 
             <div className="absolute top-[-12] w-screen h-12 bg-(--bg-template-one) rounded-bl-3xl rounded-br-3xl"></div>
 
-
             <div className="h-full flex items-center justify-center text-white">
-                Footer content
+                
                 <AboutBox
                     about_title={info.about_title}
                     about_text={info.about_text}
