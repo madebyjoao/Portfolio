@@ -44,7 +44,7 @@ export default function Portfolio() {
     }
 
     const template = portfolioData.data.portfolio.template;
-    const portfolio_info = portfolioData.data;
+    const portfolio_info = portfolioData?.data;
     const projects = projectsData?.data;
 
     switch (template) {

@@ -101,20 +101,20 @@ export function Login() {
                                     disabled={loginMutation.isPending}
                                     className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
                                 >
-                                    Joao
+                                    Joao Port
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() =>
                                         quickLogin(
-                                            "client2@mbjtest.com",
+                                            "joao@test.com",
                                             "123456",
                                         )
                                     }
                                     disabled={loginMutation.isPending}
                                     className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
                                 >
-                                    Client 2
+                                    Joao
                                 </button>
                                 <button
                                     type="button"

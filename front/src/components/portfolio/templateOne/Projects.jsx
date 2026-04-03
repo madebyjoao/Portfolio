@@ -14,17 +14,17 @@ export default function ProjectsBox({
         <>
             {/* Card */}
             <div
-                className="flex gap-4 rounded-xl p-3 cursor-pointer hover:bg-white/5 transition-colors"
+                className="flex flex-col gap-4 rounded-bl-3xl rounded-br-3xl w-100 cursor-pointer bg-white hover:bg-white/5 transition-colors"
                 onClick={() => setIsOpen(true)}
             >
-                <div className="shrink-0 w-48 h-32 overflow-hidden rounded-lg">
+                <div className="w-100 h-100 overflow-hidden rounded-bl-3xl rounded-br-3xl">
                     <img
                         className="w-full h-full object-cover"
                         src={`${BASE_URL}/uploads/${project_thumbnail}`}
                         alt={`${project_title} Thumbnail`}
                     />
                 </div>
-                <div className="flex flex-col justify-center gap-1">
+                <div className="flex flex-col justify-center gap-1 px-3 pb-2">
                     <h1 className="text-lg font-bold">{project_title}</h1>
                     <p className="text-sm line-clamp-2 opacity-70">
                         {project_description}

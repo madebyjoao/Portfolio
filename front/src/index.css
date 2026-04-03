@@ -3,7 +3,18 @@
 
 
 body {
-  background-color: rgb(147, 177, 166);
+  background-color: rgb(255, 255, 255);
   margin: 0;
   padding: 0;
+}
+
+:root {
+  --bg-template-one: rgb(147, 177, 166);
+  --bg-template-two: rgb(255, 255, 255);
+  --navbar: rgb(24, 61, 61);
+  --navbar-template-1: rgb(24, 61, 61);
+  --navbar-template-2: rgb(0, 0, 0);
+  --footer: rgb(24, 61, 61);
+  --footer-template-1: rgb(24,61,61);
+  --footer-template-2: rgb(0, 0, 0);
 }

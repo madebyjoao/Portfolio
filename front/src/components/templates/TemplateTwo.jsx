@@ -11,7 +11,7 @@ export default function TemplateTwo({ portfolio_info, projects }) {
         <div className="relative top-30 flex flex-col gap-6 ">
             <ProjectsAccordion projects={projectsData} />
 
-            <h1 className="text-white">
+            <h1 className="">
                 This is Your Portfolio Template {info.template}
             </h1>
             <AboutBox
