@@ -3,7 +3,7 @@ import BuilderSidebar from "../components/builder/BuilderSidebar";
 
 export default function BuilderLayout() {
     return (
-        <div className="min-h-screen flex bg-[rgb(147,177,166)]">
+        <div className="min-h-screen flex bg-(--bg-template-builder-layout)">
             <BuilderSidebar />
 
             <main className="flex-1 p-6">

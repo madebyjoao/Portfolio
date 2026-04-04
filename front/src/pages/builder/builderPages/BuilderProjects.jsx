@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { uploadProjects, uploadProjectImages } from "../../../api/builder";
+import { uploadProjects, uploadProjectImages } from "@/api/builder";
 
 export default function BuilderProjects() {
     const [file, setFile] = useState(null);

@@ -3,6 +3,7 @@ import Certificate from "../models/Certificate.js";
 import Project from "../models/Project.js";
 import ProjectImage from "../models/ProjectImage.js";
 import sharp from "sharp";
+import { randomUUID } from 'crypto';
 import {
     createUserFolderCertif,
     createUserFolderProjects,
@@ -15,7 +16,7 @@ async function getUploadCertificates(req, res, next) {
 
     const { slug } = req.params;
     const file = req.file;
-    const filename = `${Date.now()}-${slug}`;
+    const filename = `${randomUUID()}-${slug}.jpg`;
 
     try {
         const portfolio = req.portfolio;
@@ -37,7 +38,7 @@ async function getUploadCertificates(req, res, next) {
         await Certificate.create({
             portfolio_id: portfolio.id,
             title: req.body.title,
-            description: req.body.info,
+            description: req.body.description,
             image_path: imagePath,
             type: "CERTIFICATE",
             is_public: true,
@@ -63,7 +64,7 @@ async function getUploadProjects(req, res, next) {
 
     const { slug } = req.params;
     const file = req.file;
-    const filename = `${Date.now()}-${slug}`;
+    const filename = `${randomUUID()}-${slug}.jpg`;
 
     try {
         const portfolio = req.portfolio;
@@ -113,7 +114,7 @@ async function getUploadProjectsImages(req, res, next) {
     const { slug } = req.params;
     const { project_id } = req.body;
     const file = req.file;
-    const filename = `${Date.now()}-${slug}`;
+    const filename = `${randomUUID()}-${slug}.jpg`;
 
     if (!project_id) {
         return res.status(400).json({ message: "project_id is required" });
