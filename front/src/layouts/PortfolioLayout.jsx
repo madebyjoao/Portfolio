@@ -22,7 +22,7 @@ export default function PortfolioLayout() {
     switch (template) {
         case 1:
             return (
-                <div className="min-h-screen flex flex-col bg-[rgb(147,177,166)]">
+                <div className="min-h-screen flex flex-col bg-[rgb(147,177,166)] font-mono">
                     <NavbarPortfolio title={isPending ? "Loading..." : title} />
 
                     <main>

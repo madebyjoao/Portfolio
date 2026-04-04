@@ -63,6 +63,21 @@ const Portfolio = sequelize.define(
             allowNull: false,
             defaultValue: false,
         },
+
+        font_navbar: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
+
+        font_main: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
+
+        font_footer: {
+            type: DataTypes.STRING(100),
+            allowNull: true,
+        },
     },
     {
         tableName: "portfolios",

@@ -12,6 +12,7 @@ export default function ProjectsBox({
 
     return (
         <>
+
             {/* Card */}
             <div
                 className="flex flex-col gap-4 rounded-bl-3xl rounded-br-3xl w-100 cursor-pointer bg-white hover:bg-white/5 transition-colors"
