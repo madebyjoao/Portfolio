@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { ArrowBigDown } from "lucide-react";
+import { ArrowBigDown, Edit } from "lucide-react";
 import { useNavigate } from "react-router";
 
 const editCertificateSchema = z.object({
@@ -113,25 +113,48 @@ function AccordionItem({
                     <input {...register("title")} placeholder="Title" />
                     {errors.title && <span>{errors.title.message}</span>}
 
-                    <input {...register("description")} placeholder="Description" />
-                    <input {...register("issuer")} placeholder="Issuer" />
-                    <input {...register("issued_at")} type="date" />
-
-                    <select {...register("type")}>
-                        <option value="CERTIFICATE">Certification</option>
-                        <option value="FORMATION">Formation</option>
-                    </select>
-
-                    <label>
-                        <input {...register("is_public")} type="checkbox" />
-                        Public
-                    </label>
-
-                    <input {...register("order_index")} type="number" />
-
-                    <img src={`${BASE_URL}/uploads/${certificate_image_path}`} className="w-32" alt="current" />
-                    <input {...register("image")} type="file" accept="image/jpeg,image/png" />
-                    {errors.image && <span>{errors.image.message}</span>}
+                    <div>
+                        <input {...register("description")} placeholder="Description" />
+                    </div>
+                    <div>
+                        <input {...register("issuer")} placeholder="Issuer" />
+                    </div>    
+                    <div>
+                        <input {...register("issued_at")} type="date" />
+                    </div>    
+                    <div>
+                        <select {...register("type")}>
+                            <option value="CERTIFICATE">Certification</option>
+                            <option value="FORMATION">Formation</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>
+                            <input {...register("is_public")} type="checkbox" />
+                            Public
+                        </label>
+                    </div>
+                    <div>
+                        <input {...register("order_index")} type="number" />
+                    </div>
+                    <div className="relative w-32">
+                        <img src={`${BASE_URL}/uploads/${certificate_image_path}`} className="w-32" alt="current" />
+                        
+                        <label htmlFor={`image-${certificate_id}`}
+                            className="absolute top-1 right-1 p-1 shadow cursor-pointer bg-black rounded-4xl">
+                            <Edit size={20} color="white" strokeWidth={3} />
+                        </label>
+                        
+                        <input
+                            {...register("image")}
+                            id={`image-${certificate_id}`}
+                            type="file"
+                            accept="image/jpeg,image/png"
+                            className="hidden"
+                        />
+                        {errors.image && <span className="text-sm text-red-500">{errors.image.message}</span>}   
+                                                          
+                    </div>
 
                     <button type="submit" disabled={isPending}>
                         {isPending ? "Saving..." : "Save"}

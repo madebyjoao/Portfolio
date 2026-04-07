@@ -4,7 +4,6 @@ import AboutBox from "./AboutBox";
 export default function FooterPortfolio1({ portfolio_info }) {
 
     const info = portfolio_info.portfolio;
-    console.log(info)
     
     return (
         <section className="w-screen h-40 bg-[rgb(24,61,61)] z-30">

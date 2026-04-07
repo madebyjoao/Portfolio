@@ -37,7 +37,10 @@ async function getCertificates(req, res) {
         }
 
         const certificates = await Certificate.findAll({
-            where: { portfolio_id: portfolio.id },
+            where: {
+                portfolio_id: portfolio.id,
+                is_public: 1,
+            },
         });
 
         res.status(200).json({ certificates });

@@ -39,6 +39,9 @@ export default function Certificates() {
         );
     };
 
+    const length = certificates_info.length
+    
+
     return (
         <div className="relative flex items-center justify-center min-h-screen py-8 px-4">
             <button
@@ -51,6 +54,7 @@ export default function Certificates() {
 
             <CertificatesBox
                 certificates_info={certificates_info[currentCertif]}
+                certificates_length={length}
             />
 
             <button
