@@ -9,6 +9,8 @@ import {
     createUserFolderProjects,
 } from "../utils/createFolder.js";
 
+{/* CERTIFICATES */}
+
 async function getUploadCertificates(req, res, next) {
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -57,6 +59,38 @@ async function getUploadCertificates(req, res, next) {
     }
 }
 
+{/** 
+    async function updateUser(req, res) {
+    const { id } = req.params;
+    const { first_name, last_name, email, password, role } = req.body;
+
+    try {
+        const user = await User.findOne({ where: { id } });
+
+        if (!user) {
+            return res.status(404).json({ error: "Utilisateur non trouvé" });
+        }
+
+        user.first_name = first_name || user.first_name;
+        user.last_name = last_name || user.last_name;
+        user.email = email || user.email;
+        user.role = role || user.role;
+
+        // Hash password only if it's being updated
+        if (password) {
+            user.password = await hashPassword(password);
+        }
+
+        const updatedUser = await user.save();
+        const { password: _, ...safeUser } = updatedUser.dataValues;
+        res.json(safeUser);
+    } catch (error) {
+        res.status(500).json({ error: "Erreur lors de la mise à jour" });
+    }
+}
+*/}
+
+{/** PROJECTS */}
 async function getUploadProjects(req, res, next) {
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });

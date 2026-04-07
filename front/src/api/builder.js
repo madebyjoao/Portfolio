@@ -1,5 +1,7 @@
 import instance from "./config.js";
 
+
+//POST routes
 async function uploadCertificates(slug, formData) {
     return await instance.post(`builder/certificates/${slug}`, formData, {
         timeout: 10000,
@@ -21,4 +23,24 @@ async function uploadProjectImages(slug, projectId, file) {
     });
 }
 
-export { uploadCertificates, uploadProjects, uploadProjectImages };
+//GET routes
+
+async function getCertificateBuilder(slug) {
+    return await instance.get(`builder/certificates/${slug}`);
+}
+
+
+//PUT routes
+async function updateCertificate(slug, formData) {
+    return await instance.put(`builder/certificates/${slug}`, formData, {
+         timeout: 10000,
+    });
+}
+
+export { 
+    uploadCertificates, 
+    uploadProjects, 
+    uploadProjectImages, 
+    getCertificateBuilder,
+    updateCertificate 
+};

@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import CertificateForm from "@/components/builder/certificates/CertificateForm";
+import CertificatesAccordion from "../../../components/builder/certificates/CertificateEditForm";
 
 
 
@@ -53,14 +54,19 @@ export default function BuilderCertificates() {
     const onSubmit = (data) => uploadMutation.mutate(data);
 
     return (
-        <CertificateForm
-            register={register}
-            handleSubmit={handleSubmit}
-            errors={errors}
-            setValue={setValue}
-            onSubmit={onSubmit}
-            isPending={uploadMutation.isPending}
-        />
+        <div className="flex flex-col gap-5">
+            <CertificateForm
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                setValue={setValue}
+                onSubmit={onSubmit}
+                isPending={uploadMutation.isPending}
+            />
+            <CertificatesAccordion
+                
+            />
+        </div>
     )
 
 }

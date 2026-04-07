@@ -3,12 +3,28 @@ import UploadController from "../controllers/UploadController.js";
 import upload from "../middlewares/UploadMulter.js";
 import AuthMiddleware from "../middlewares/AuthMiddleware.js";
 import checkSlug from "../middlewares/CheckSlug.js";
+import BuilderController from "../controllers/BuilderController.js";
 
 const builderRouter = express.Router();
 builderRouter.use((req, res, next) =>
     AuthMiddleware(req, res, next, ["CLIENT", "ADMIN"]),
 );
 
+
+{/** GET Routes */}
+builderRouter.get("/certificates/:slug", checkSlug, BuilderController.getCertificatesBuilder);
+builderRouter.get("/projects/:slug", checkSlug, BuilderController.getProjectsBuilder);
+
+{/** PUT Routes */}
+builderRouter.put(
+    "/certificates/:slug",
+    checkSlug,
+    upload.single("image"),
+    BuilderController.updateCertificates
+);
+builderRouter.put("/projects", checkSlug, BuilderController.updateProjects)
+
+{/** Post Routes */}
 builderRouter.post(
     "/certificates/:slug",
     checkSlug,
@@ -48,5 +64,7 @@ builderRouter.post(
         });
     },
 );
+
+{/** DELETE Routes */}
 
 export default builderRouter;

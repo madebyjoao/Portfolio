@@ -6,7 +6,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
             className="flex flex-col gap-5"
             onSubmit={handleSubmit(onSubmit)}
         >
-            <div className="flex flex-col bg-amber-50">
+            <div className="flex flex-col justify-center bg-amber-50 p-2 w-fit">
                 <label
                     htmlFor="certificate-title-upload"
                     className="block mb-2"
@@ -14,13 +14,13 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     Certificate Title
                 </label>
                 <input
-                    className=""
+                    className="bg-white rounded-lg"
                     {...register("title")}
                 />
                 {errors.title && <span>{errors.title.message}</span>}
             </div>
 
-            <div className="flex flex-col bg-amber-10">
+            <div className="flex flex-col bg-amber-100 w-fit p-2">
                 <label
                     htmlFor="certificate-description-upload"
                     className="block mb-2"
@@ -28,13 +28,13 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     Certificate Description
                 </label>
                 <textarea
-                    className="bg-white"
+                    className="bg-white rounded-lg"
                     {...register("description")}
                 />
                 {errors.description && <span>{errors.description.message}</span>}
             </div>
 
-            <div className="flex flex-col bg-amber-200">
+            <div className="flex flex-col bg-amber-200 w-fit p-2">
                 <label
                     htmlFor="certificate-image-upload"
                     className="block mb-2"
@@ -42,6 +42,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     Upload Certificate Image
                 </label>
                 <input
+                    className="border p-2 rounded-lg"
                     type="file"
                     onChange={(e) => {
                         const files = e.target.files;
@@ -56,7 +57,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                 onClick={handleSubmit(onSubmit)}
                 disabled={isPending}
                 loading={isPending}
-                className="bg-amber-400"
+                className="bg-amber-400 w-fit p-2 rounded-lg font-bold"
             />
         </form>
     );
