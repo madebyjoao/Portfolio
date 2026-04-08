@@ -20,7 +20,7 @@ function AccordionItem({
     }
 
     return (
-        <div className="border-b border-white/10 last:border-none">
+        <div className="">
             {/* Header row */}
             <button
                 type="button"

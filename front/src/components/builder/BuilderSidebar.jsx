@@ -15,7 +15,7 @@ export default function BuilderSidebar() {
     const lastName = localStorage.getItem("last_name");
 
     return (
-        <aside className="w-72 min-h-screen bg-[rgb(24,61,61)] text-white flex flex-col p-6">
+        <aside className="w-72 min-h-screen bg-(--builder-SideBar) text-(--builder-Sidebar-text) flex flex-col p-6">
             <div className="mb-10">
                 <h2 className="text-2xl font-bold">Builder</h2>
                 <p className="text-sm text-gray-300 mt-2">
@@ -31,8 +31,8 @@ export default function BuilderSidebar() {
                     to="/builder"
                     end
                     className={({ isActive }) =>
-                        `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
-                            isActive ? "bg-[rgb(92,131,116)]" : ""
+                        `flex items-center gap-3 hover:bg-(--builder-buttons)/40 px-4 py-3 rounded-lg text-left transition ${
+                            isActive ? "bg-(--builder-buttons)" : ""
                         }`
                     }
                 >
@@ -43,8 +43,8 @@ export default function BuilderSidebar() {
                 <NavLink
                     to="/builder/projects"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
-                            isActive ? "bg-[rgb(92,131,116)]" : ""
+                        `flex items-center gap-3 hover:bg-(--builder-buttons)/40 px-4 py-3 rounded-lg text-left transition ${
+                            isActive ? "bg-(--builder-buttons)" : ""
                         }`
                     }
                 >
@@ -55,8 +55,8 @@ export default function BuilderSidebar() {
                 <NavLink
                     to="/builder/certificates"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
-                            isActive ? "bg-[rgb(92,131,116)]" : ""
+                        `flex items-center gap-3 hover:bg-(--builder-buttons)/40 px-4 py-3 rounded-lg text-left transition ${
+                            isActive ? "bg-(--builder-buttons)" : ""
                         }`
                     }
                 >
@@ -67,8 +67,8 @@ export default function BuilderSidebar() {
                 <NavLink
                     to="/builder/preview"
                     className={({ isActive }) =>
-                        `flex items-center gap-3 hover:bg-[rgb(92,131,116)]/40 px-4 py-3 rounded-lg text-left transition ${
-                            isActive ? "bg-[rgb(92,131,116)]" : ""
+                        `flex items-center gap-3 hover:bg-(--builder-buttons)/40 px-4 py-3 rounded-lg text-left transition ${
+                            isActive ? "bg-(--builder-buttons)" : ""
                         }`
                     }
                 >

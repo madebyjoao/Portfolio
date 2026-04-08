@@ -5,15 +5,20 @@ import { getPortfolioBySlug } from "../api/portfolio";
 import NavbarPortfolio2 from "../components/portfolio/templateTwo/NavbarPortfolio2";
 import FooterPortfolio1 from "../components/portfolio/templateOne/Footer";
 import FooterPortfolio2 from "../components/portfolio/templateTwo/Footer";
+import NoTemplate from "../pages/public/NoTemplate";
 
 export default function PortfolioLayout() {
     const { slug } = useParams();
 
-    const { isPending, data } = useQuery({
+    const { isPending, isError, data, error } = useQuery({
         queryKey: ["portfolio", slug],
         queryFn: () => getPortfolioBySlug(slug),
         enabled: !!slug,
     });
+
+    if (isError) {
+        return <div>Erreur : {error.message}</div>;
+    }
 
     const title = data?.data?.portfolio.title ?? "Portfolio Name";
     const portfolio_info = data?.data;
@@ -22,7 +27,7 @@ export default function PortfolioLayout() {
     switch (template) {
         case 1:
             return (
-                <div className="min-h-screen flex flex-col bg-[rgb(147,177,166)] font-mono">
+                <div className="min-h-screen flex flex-col bg-(--bg-template-one) font-mono">
                     <NavbarPortfolio title={isPending ? "Loading..." : title} />
 
                     <main>
@@ -38,7 +43,7 @@ export default function PortfolioLayout() {
 
         case 2:
             return (
-                <div className="min-h-screen flex flex-col bg-white">
+                <div className="min-h-screen flex flex-col bg-(--bg-template-two)">
                     <NavbarPortfolio2
                         title={isPending ? "Loading..." : title}
                     />
@@ -55,9 +60,7 @@ export default function PortfolioLayout() {
 
         default:
             return (
-                <>
-                    <h1>no template</h1>
-                </>
+               <NoTemplate />
             );
     }
 }

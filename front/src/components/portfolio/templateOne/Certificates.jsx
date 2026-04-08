@@ -19,12 +19,14 @@ export default function CertificatesBox({ certificates_info, certificates_length
 
             <div className="bg-[rgb(234,228,213)] p-6 space-y-2">
                 
-                <div className="flex">
+                <div className="flex justify-between">
                     <h1 className="text-2xl font-extrabold text-gray-900">
                         {certificates_info.title}
                     </h1>
 
-                    <p>{certificates_info.order_index}/{certificates_length}</p>
+                    <p className="font-bold text-sm">
+                        {certificates_info.order_index}/{certificates_length}
+                    </p>
                 </div>
                 <p className="text-lg font-semibold text-gray-700">
                     {certificates_info.description}
