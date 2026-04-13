@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Edit, Plus } from "lucide-react";
+import { CircleX, CircleXIcon, Edit, Plus, Upload } from "lucide-react";
 import { useNavigate } from "react-router";
 import CertificateForm from "./CertificateForm";
 
@@ -15,7 +15,7 @@ const editCertificateSchema = z.object({
     issuer: z.string().optional(),
     issued_at: z.string().optional(),
     type: z.enum(["CERTIFICATE", "FORMATION"]),
-    is_public: z.boolean(),
+    is_public: z.stringbool(),
     order_index: z.coerce.number().int().min(1),
     image: z.instanceof(FileList)
             .optional()
@@ -53,8 +53,8 @@ function AccordionItem({
             issuer: certificate_issuer ?? "",
             issued_at: certificate_issued_at ? certificate_issued_at.slice(0, 10) : "",
             type: certificate_type ?? "CERTIFICATE",
-            is_public: certificate_is_public ?? true,
-            order_index: certificat_order_index ?? 0,
+            is_public: certificate_is_public ? "1" : "0",
+            order_index: certificat_order_index ?? 1,
         },
     });
 
@@ -78,6 +78,15 @@ function AccordionItem({
         mutate(formData);
         navigate(0);
         
+    };
+    const [preview, setPreview] = useState(null);
+
+    const handleImageChange = (e) => {
+        const files = e.target.files;
+        if (files && files.length > 0) {
+            setValue("image", files, { shouldValidate: true });
+            setPreview(URL.createObjectURL(files[0]));
+        }
     };
 
 
@@ -110,57 +119,121 @@ function AccordionItem({
             </button>
 
             {isOpen && (
-                <form onSubmit={handleSubmit(onSubmit)} className="p-4 border flex flex-col gap-2">
-                    <input {...register("title")} placeholder="Title" />
-                    {errors.title && <span>{errors.title.message}</span>}
+                <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 
-                    <div>
-                        <input {...register("description")} placeholder="Description" />
-                    </div>
-                    <div>
-                        <input {...register("issuer")} placeholder="Issuer" />
-                    </div>    
-                    <div>
-                        <input {...register("issued_at")} type="date" />
-                    </div>    
-                    <div>
-                        <select {...register("type")}>
-                            <option value="CERTIFICATE">Certification</option>
-                            <option value="FORMATION">Formation</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>
-                            <input {...register("is_public")} type="checkbox" />
-                            Public
-                        </label>
-                    </div>
-                    <div>
-                        <input {...register("order_index")} type="number" />
-                    </div>
-                    <div className="relative w-32">
-                        <img src={`${BASE_URL}/uploads/${certificate_image_path}`} className="w-32" alt="current" />
-                        
-                        <label htmlFor={`image-${certificate_id}`}
-                            className="absolute top-1 right-1 p-1 shadow cursor-pointer bg-black rounded-4xl">
-                            <Edit size={20} color="white" strokeWidth={3} />
-                        </label>
-                        
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-semibold text-gray-700">Title <span className="text-red-500">*</span></label>
                         <input
-                            {...register("image")}
-                            id={`image-${certificate_id}`}
+                            {...register("title")}
+                            placeholder="Title"
+                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        />
+                        {errors.title && <span className="text-xs text-red-500">{errors.title.message}</span>}
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-semibold text-gray-700">Issuer <span className="text-red-500">*</span></label>
+                            <input
+                                {...register("issuer")}
+                                placeholder="issuer"
+                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                            />
+                            {errors.issuer && <span className="text-xs text-red-500">{errors.issuer.message}</span>}
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-semibold text-gray-700">Issued At <span className="text-red-500">*</span></label>
+                            <input
+                                {...register("issued_at")}
+                                type="date"
+                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                            />
+                            {errors.issued_at && <span className="text-xs text-red-500">{errors.issued_at.message}</span>}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-semibold text-gray-700">Type</label>
+                            <select
+                                {...register("type")}
+                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                            >
+                                <option value="CERTIFICATE">Certificate</option>
+                                <option value="FORMATION">Formation</option>
+                            </select>
+                            {errors.type && <span className="text-xs text-red-500">{errors.type.message}</span>}
+                        </div>
+                        <div className="flex flex-col gap-1">
+                            <label className="text-sm font-semibold text-gray-700">Visibility</label>
+                            <select
+                                {...register("is_public")}
+
+                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                            >
+                                <option value="1">Public</option>
+                                <option value="0">Private</option>
+                            </select>
+                            {errors.is_public && <span className="text-xs text-red-500">{errors.is_public.message}</span>}
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-semibold text-gray-700">Description <span className="text-red-500">*</span></label>
+                        <textarea
+                            {...register("description")}
+                            placeholder="Briefly describe what this certificate covers..."
+                            rows={3}
+                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        />
+                        {errors.description && <span className="text-xs text-red-500">{errors.description.message}</span>}
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-semibold text-gray-700">Display Order <span className="text-red-500">*</span></label>
+                        <input
+                            {...register("order_index")}
+                            type="number"
+                            min={1}
+                            placeholder="1"
+                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        />
+                        {errors.order_index && <span className="text-xs text-red-500">{errors.order_index.message}</span>}
+                    </div>
+
+                    <div className="flex flex-col gap-1">
+                        <label className="text-sm font-semibold text-gray-700">Certificate Image <span className="text-red-500">*</span></label>
+                        <label
+                            htmlFor="cert-image-upload"
+                            className="flex items-center justify-center border-2 border-dashed border-(--builder-Sidebar-border-modal) rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
+                        >
+                            {preview ? (
+                                <img src={preview} alt="Preview" className="h-28 object-cover rounded" />
+                            ) : (
+                                <div className="flex flex-col items-center gap-1 text-gray-400">
+                                    <Upload size={22} />
+                                    <span className="text-xs">Click to upload — JPEG or PNG</span>
+                                </div>
+                            )}
+                        </label>
+                        <input
+                            id="cert-image-upload"
                             type="file"
                             accept="image/jpeg,image/png"
                             className="hidden"
+                            onChange={handleImageChange}
                         />
-                        {errors.image && <span className="text-sm text-red-500">{errors.image.message}</span>}   
-                                                          
+                        {errors.image && <span className="text-xs text-red-500">{errors.image.message}</span>}
                     </div>
 
-                    <button type="submit" disabled={isPending}>
-                        {isPending ? "Saving..." : "Save"}
+                    <button
+                        type="submit"
+                        disabled={isPending}
+                        className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
+                    >
+                        {isPending ? "Updating..." : "Edit Certificate"}
                     </button>
-                </form>
+                 </form>
             )}
         </div>
     )
@@ -169,37 +242,37 @@ function AccordionItem({
 function CreateCertificate({ createModalOpen, setCreateModalOpen, register, handleSubmit, errors, setValue, onSubmit, isPending }) {
 
     return (
-        <>
+        <div className="py-4">
         
-        <button className="flex flex-col justify-center items-center size-62.5 self-center"
-                onClick={() => setCreateModalOpen(true)}>
+            <button className="flex flex-col justify-center items-center size-62.5 self-start "
+                    onClick={() => setCreateModalOpen(true)}>
+                
+                <div className="px-6 text-center">
+                    <span className="text-base font-semibold">
+                        New certificate
+                    </span>
+                </div>
+                <div className="flex justify-center items-center size-62.5 self-center border-none bg-(--builder-SideBar) hover:cursor-pointer  " >
+                    <Plus size={250} className="text-(--builder-buttons)"/>
+                </div>
+            </button>
 
-            <div className="px-6 text-center">
-                <span className="text-base font-semibold">
-                    New certificate
-                </span>
-            </div>
-            <div className="flex justify-center items-center size-62.5 self-center border " >
-                <Plus size={250}/>
-            </div>
-        </button>
-
-        {createModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-xl w-full max-w-md">
-                <button onClick={() => setCreateModalOpen(false)}>✕</button>
-                <CertificateForm
-                    register={register}
-                    handleSubmit={handleSubmit}
-                    errors={errors}
-                    setValue={setValue}
-                    onSubmit={onSubmit}
-                    isPending={isPending}
-                />
-            </div>
+                {createModalOpen && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-md">
+                        <button className="flex justify-self-end hover:cursor-pointer" onClick={() => setCreateModalOpen(false)}><CircleXIcon className="text-(--builder-buttons) hover:text-red-500 transition-colors"/></button>
+                        <CertificateForm
+                            register={register}
+                            handleSubmit={handleSubmit}
+                            errors={errors}
+                            setValue={setValue}
+                            onSubmit={onSubmit}
+                            isPending={isPending}
+                        />
+                    </div>
+                </div>
+            )}
         </div>
-    )}
-    </>
         
     )
 }
@@ -224,7 +297,7 @@ export default function CertificatesAccordion() {
             issuer: z.string().min(1, "Issuer is required"),
             issued_at: z.string().min(1, "Issuer is required"),
             type: z.enum(["CERTIFICATE", "FORMATION"]),
-            is_public: z.enum(["Public", "Private"]),
+            is_public: z.stringbool(),
             order_index: z.coerce.number()
                 .min(1, "Order index must be at least 1"),
             image: z.instanceof(FileList)
@@ -288,7 +361,7 @@ export default function CertificatesAccordion() {
     const certificates = data.data.certificates;
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-5 justify-items-center  ">
+        <div className="grid grid-cols-1 md:grid-cols-5 justify-items-center items-start">
 
             <CreateCertificate
                 createModalOpen={createModalOpen}

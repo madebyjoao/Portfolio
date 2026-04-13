@@ -83,7 +83,7 @@ async function updateCertificates(req, res) {
         certificate.issuer = issuer || certificate.issuer;
         certificate.issued_at = issued_at || certificate.issued_at;
         certificate.type = type || certificate.type;
-        certificate.is_public = is_public ;
+        certificate.is_public = is_public !== undefined ? is_public === "1" : certificate.is_public ;
         certificate.order_index = order_index !== undefined ? Number(order_index ) : certificate.order_index;
         await certificate.save();
         res.status(200).json({ certificate });

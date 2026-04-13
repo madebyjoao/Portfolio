@@ -20,7 +20,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                 <input
                     {...register("title")}
                     placeholder="e.g. Angular"
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                 />
                 {errors.title && <span className="text-xs text-red-500">{errors.title.message}</span>}
             </div>
@@ -31,7 +31,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     <input
                         {...register("issuer")}
                         placeholder="e.g. Codecademy"
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                     />
                     {errors.issuer && <span className="text-xs text-red-500">{errors.issuer.message}</span>}
                 </div>
@@ -40,7 +40,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     <input
                         {...register("issued_at")}
                         type="date"
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                     />
                     {errors.issued_at && <span className="text-xs text-red-500">{errors.issued_at.message}</span>}
                 </div>
@@ -51,7 +51,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     <label className="text-sm font-semibold text-gray-700">Type</label>
                     <select
                         {...register("type")}
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                     >
                         <option value="CERTIFICATE">Certificate</option>
                         <option value="FORMATION">Formation</option>
@@ -62,10 +62,10 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     <label className="text-sm font-semibold text-gray-700">Visibility</label>
                     <select
                         {...register("is_public")}
-                        className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                     >
-                        <option value="Public">Public</option>
-                        <option value="Private">Private</option>
+                        <option value="1">Public</option>
+                        <option value="0">Private</option>
                     </select>
                     {errors.is_public && <span className="text-xs text-red-500">{errors.is_public.message}</span>}
                 </div>
@@ -77,7 +77,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     {...register("description")}
                     placeholder="Briefly describe what this certificate covers..."
                     rows={3}
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                 />
                 {errors.description && <span className="text-xs text-red-500">{errors.description.message}</span>}
             </div>
@@ -89,7 +89,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     type="number"
                     min={1}
                     placeholder="1"
-                    className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
                 />
                 {errors.order_index && <span className="text-xs text-red-500">{errors.order_index.message}</span>}
             </div>
@@ -98,7 +98,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                 <label className="text-sm font-semibold text-gray-700">Certificate Image <span className="text-red-500">*</span></label>
                 <label
                     htmlFor="cert-image-upload"
-                    className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
+                    className="flex items-center justify-center border-2 border-dashed border-(--builder-Sidebar-border-modal) rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
                 >
                     {preview ? (
                         <img src={preview} alt="Preview" className="h-28 object-cover rounded" />
@@ -122,7 +122,7 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
             <button
                 type="submit"
                 disabled={isPending}
-                className="mt-1 w-full bg-gray-900 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-700 disabled:opacity-50 transition cursor-pointer"
+                className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
             >
                 {isPending ? "Uploading..." : "Create Certificate"}
             </button>

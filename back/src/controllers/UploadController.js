@@ -43,7 +43,7 @@ async function getUploadCertificates(req, res, next) {
             description: req.body.description,
             image_path: imagePath,
             type: "CERTIFICATE",
-            is_public: true,
+            is_public: req.body.is_public,
         });
 
         req.body.image = filename;

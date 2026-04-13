@@ -16,8 +16,8 @@ async function createUserFolderCertif(normalizedSlug) {
 
     try {
         await fs.mkdir(folderPath, { recursive: true });
-        console.log(`Folder created: ${folderPath}`);
-        return folderPath;
+        // console.log(`Folder created: ${folderPath}`); 
+        return folderPath;4
     } catch (err) {
         console.error("Failed to create user folder:", err);
         throw err;
