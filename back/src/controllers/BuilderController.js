@@ -103,9 +103,35 @@ async function updateProjects(req, res) {
     }
 }
 
+{/* Delete */}
+
+async function deleteCertificate(req, res) {
+  const { id } = req.params;
+
+  try {
+    await Certificate.destroy({ where: { id } });
+    res.status(204).json({ message: "Certificate Deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete Certificate" });
+  }
+}
+
+async function deleteProject(req, res) {
+  const { id } = req.params;
+
+  try {
+    await Project.destroy({ where: { id } });
+    res.status(204).json({ message: "Project Deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete Project" });
+  }
+}
+
 export default { 
     getCertificatesBuilder, 
     getProjectsBuilder,
     updateCertificates,
-    updateProjects
+    updateProjects,
+    deleteCertificate,
+    deleteProject
 }

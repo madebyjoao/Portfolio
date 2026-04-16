@@ -67,4 +67,7 @@ builderRouter.post(
 
 {/** DELETE Routes */}
 
+builderRouter.delete("certificate/:id", BuilderController.deleteCertificate);
+builderRouter.delete("project/:id", BuilderController.deleteProject);
+
 export default builderRouter;

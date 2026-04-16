@@ -37,10 +37,22 @@ async function updateCertificate(slug, formData) {
     });
 }
 
+//DELETE routes
+
+async function deleteCertificate(id) {
+    return await instance.delete(`certificate/${id}`);
+}
+
+async function deleteProject(id) {
+    return await instance.delete(`project/${id}`);
+}
+
 export { 
     uploadCertificates, 
     uploadProjects, 
     uploadProjectImages, 
     getCertificateBuilder,
-    updateCertificate 
+    updateCertificate,
+    deleteCertificate,
+    deleteProject
 };

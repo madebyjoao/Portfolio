@@ -5,7 +5,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { CircleX, CircleXIcon, Edit, Plus, Upload } from "lucide-react";
+import { CircleX, CircleXIcon, Edit, Plus, Trash, Upload } from "lucide-react";
 import { useNavigate } from "react-router";
 import CertificateForm from "./CertificateForm";
 
@@ -105,12 +105,15 @@ function AccordionItem({
                             {certificate_title}
                         </span>
                     </div>
-                    <div className="size-62.5 shrink-0 overflow-hidden bg-black/10">
+                    <div className="relative size-62.5 shrink-0 overflow-hidden bg-black/10">
                             <img
                                 className="h-full w-full"
                                 src={`${BASE_URL}/uploads/${certificate_image_path}`}
                                 alt={`${certificate_title} Thumbnail`}
                             />
+                            <div className="absolute">
+                                <Trash color="black" />
+                            </div>
                     </div>
                     
 
