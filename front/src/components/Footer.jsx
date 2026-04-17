@@ -1,3 +1,22 @@
+
+
+
+
 export default function Footer() {
-    return <nav className=""></nav>;
+
+
+    return (
+
+        <section className="">
+
+            <div>
+
+            </div>
+            <div>
+                
+            </div>
+
+        </section>
+
+    )
 }

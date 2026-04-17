@@ -13,7 +13,7 @@ export default function Navbar() {
         <nav
             role="navigation"
             aria-label="Main navigation"
-            className="flex justify-between items-center min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 hover:border-b-white"
+            className="flex justify-between items-center min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 hover:border-b-white hover:border-b-2"
         >
             <NavLink
                 to="/"
@@ -29,14 +29,14 @@ export default function Navbar() {
 
                 <NavLink
                     to="/builder"
-                    className="flex items-center text-white text-[26px] font-bold px-2 py-1 h-full hover:bg-white/10 hover:border-r-white hover:border-l-white"
+                    className="flex items-center text-(--text-website) text-[26px] font-bold px-2 py-1 h-full hover:bg-white/10 hover:border-r-white hover:border-l-white"
                 >
                     BUILDER
                 </NavLink>
 
                 {!token ? (
                     <NavLink to="/auth/login">
-                        <div className="cursor-pointer text-white p-2 h-full hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[26px] font-bold">
+                        <div className="cursor-pointer text-(--text-website) p-2 h-full hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[26px] font-bold">
                             <Users2
                                 aria-label="Login page"
                                 color="white"
@@ -48,7 +48,7 @@ export default function Navbar() {
                     <div
                         onMouseEnter={() => setShowLogout(true)}
                         onMouseLeave={() => setShowLogout(false)}
-                        className="flex items-center text-white gap-3 p-2 h-full text-[26px] font-bold hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
+                        className="flex items-center text-(--text-website) gap-3 p-2 h-full text-[26px] font-bold hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
                         onClick={showLogout ? handleLogout : null}
                     >
                         {showLogout ? (

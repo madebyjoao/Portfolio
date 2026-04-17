@@ -41,6 +41,7 @@ body {
 
 	/* Website */
 	--bg-website: rgb(147, 177, 166);
+	--text-website: rgb(255, 255, 255);
 	--navbar: rgb(24, 61, 61);
 	--footer: rgb(24, 61, 61);
 }
