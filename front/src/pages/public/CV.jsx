@@ -343,7 +343,7 @@ export default function CV() {
                             <div>
                                 <span style={{ color: "var(--punct)" }}>///</span> En{" "}
                                 <strong>reconversion</strong> vers le développement web, recherche une{" "}
-                                <strong>alternance de 2 ans</strong>.
+                                <strong>alternance de d'un an</strong>.
                             </div>
                             <div>
                                 <span style={{ color: "var(--punct)" }}>///</span> Ancien responsable travaux
