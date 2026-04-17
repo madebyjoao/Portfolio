@@ -8,7 +8,7 @@ export default function PublicLayout() {
     const alertMessage = location.state?.alertMessage;
 
     return (
-        <div className="min-h-screen flex flex-col bg-(--bg-website)">
+        <div className="h-screen flex flex-col bg-(--bg-website)">
             <TopAlert message={alertMessage} />
             <Navbar />
 

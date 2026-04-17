@@ -47,7 +47,7 @@ function Home() {
         },
     ];
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-white">
+        <div className="flex flex-col items-center justify-center h-full text-white">
             <div>
                 <h1 className="text-black bg-white">Hello</h1>
                 <div className="relative mt-4 aspect-video w-full max-w-2xl overflow-hidden rounded-lg shadow-lg">
