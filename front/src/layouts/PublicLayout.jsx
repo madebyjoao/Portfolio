@@ -11,18 +11,18 @@ export default function PublicLayout() {
     return (
         <div className="relative h-screen flex flex-col w-screen ">
             <div className="absolute inset-0 overflow-hidden" style={{ zIndex: -1 }}>
-                                <video
-                                    className="w-full h-full object-cover"
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    aria-label="Preview video showing app functionality"
-                                >
-                                    <source src={previewVideo} type="video/mp4" />
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
+                <video
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    aria-label="Preview video showing app functionality"
+                >
+                    <source src={previewVideo} type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
             <TopAlert message={alertMessage} />
             <Navbar />
 

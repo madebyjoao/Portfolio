@@ -42,7 +42,11 @@ function Home() {
                 </h1>
                 <p className="text-(--text-website)">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dignissimos sint fugiat tenetur asperiores fuga ad! Voluptate corporis fugiat at pariatur quia impedit officiis, ea maxime. Iusto autem aliquid molestiae.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore laudantium tenetur, expedita nostrum quo repudiandae nam quia recusandae eligendi commodi esse aut saepe non qui quisquam eos hic! Animi, nemo?
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore laudantium tenetur, expedita nostrum quo repudiandae nam quia recusandae eligendi commodi esse aut saepe non qui quisquam eos hic! Animi, 
+                    nemo?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam neque accusantium veritatis maxime cupiditate esse facilis illo enim praesentium, suscipit vitae nobis reiciendis velit aspernatur quas nihil, fugiat, distinctio perspiciatis.
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam cupiditate eaque nisi. A officia natus sapiente, consequuntur temporibus enim vitae. Itaque dolor numquam temporibus totam maxime! Dolor aperiam ut beatae!
+                    
                 </p>
             </div>
             <div className="relative z-10 flex gap-4 p-4">
