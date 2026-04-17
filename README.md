@@ -10,8 +10,8 @@ Full-stack portfolio builder with:
 
 The project is split into two apps:
 
-- `front/`: React + Vite + Tailwind CSS
-- `back/`: Express + Sequelize + MySQL
+- `front/`: ReactJS/Vite + Vite + Tailwind CSS
+- `back/`: NodeJS - Express + MySQL + ORM(Sequelize-CLI)
 
 ## Tech Stack
 
