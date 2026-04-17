@@ -13,55 +13,60 @@ export default function Navbar() {
         <nav
             role="navigation"
             aria-label="Main navigation"
-            className="flex justify-between items-center bg-[rgb(24,61,61)] m-8 rounded-full px-7 py-2,5 top-0 gap-4 left-0 right-0 w-full py-4 mx-auto max-w-[calc(100%-4rem)] shadow-[0_0_50px_rgba(24,61,61,0.7)] relative"
+            className="flex justify-between items-center min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 hover:border-b-white"
         >
-            {!token ? (
-                <NavLink to="/auth/login">
-                    <div className="cursor-pointer border-white/20 rounded-full p-2 backdrop-blur-md bg-white/10 shadow-lg">
-                        <Users2
-                            aria-label="Login page"
-                            color="white"
-                            strokeWidth={3}
-                        />
-                    </div>
-                </NavLink>
-            ) : (
-                <div
-                    onMouseEnter={() => setShowLogout(true)}
-                    onMouseLeave={() => setShowLogout(false)}
-                    className="flex items-center border-white/20 rounded-full gap-3 p-2 backdrop-blur-md bg-white/10 shadow-lg text-[rgb(255,255,255)] font-bold cursor-pointer"
-                    onClick={showLogout ? handleLogout : null}
-                >
-                    {showLogout ? (
-                        <>
-                            <UserRoundXIcon color="red" strokeWidth={3} />
-                            <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
-                        </>
-                    ) : (
-                        <>
-                            <LucideUserCheck2 color="white" strokeWidth={3} />
-                            <p>Welcome, {localStorage.getItem("first_name")}</p>
-                        </>
-                    )}
-                </div>
-            )}
             <NavLink
                 to="/"
-                className="absolute flex bg-[rgb(24,61,61)] left-1/2 -translate-x-1/2 border-double rounded-full p-5 w-24 h-24"
+                className="flex w-40 h-40 top-0"
             >
                 <img
-                    className="w-24 h-16 object-fill"
+                    className=" w-40 h-40 object-fill"
                     src={logo}
                     alt="Picture of the Logo"
                 />
             </NavLink>
+            <div className="flex justify-between gap-10 h-full">
 
-            <NavLink
-                to="/builder"
-                className="text-[rgb(255,255,255)] text-[26px] font-bold border-white/20 rounded-full px-2 py-1 backdrop-blur-md bg-white/10 shadow-lg"
-            >
-                BUILDER
-            </NavLink>
+                <NavLink
+                    to="/builder"
+                    className="flex items-center text-white text-[26px] font-bold px-2 py-1 h-full hover:bg-white/10 hover:border-r-white hover:border-l-white"
+                >
+                    BUILDER
+                </NavLink>
+
+                {!token ? (
+                    <NavLink to="/auth/login">
+                        <div className="cursor-pointer text-white p-2 h-full hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[26px] font-bold">
+                            <Users2
+                                aria-label="Login page"
+                                color="white"
+                                strokeWidth={3}
+                            />
+                        </div>
+                    </NavLink>
+                ) : (
+                    <div
+                        onMouseEnter={() => setShowLogout(true)}
+                        onMouseLeave={() => setShowLogout(false)}
+                        className="flex items-center text-white gap-3 p-2 h-full text-[26px] font-bold hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
+                        onClick={showLogout ? handleLogout : null}
+                    >
+                        {showLogout ? (
+                            <>
+                                <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
+                                <UserRoundXIcon color="red" strokeWidth={3} />
+                            </>
+                        ) : (
+                            <>
+                                <p>Welcome, {localStorage.getItem("first_name")}</p>
+                                <LucideUserCheck2 color="white" strokeWidth={3} />
+                            </>
+                        )}
+                    </div>
+                )}
+
+            </div>
+
         </nav>
     );
 }
