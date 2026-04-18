@@ -74,8 +74,143 @@ export function Login() {
 
     return (
         <>
-            <div className="w-full pt-42.5">
-                <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-full max-w-137.5 mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
+            <div className="h-full flex items-center justify-center">
+                <div className="flex flex-col w-full sm:w-120 px-6 py-121 box-border m-4 gap-3">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="h-full flex flex-col gap-5"
+                    >
+                        <h2 className="text-center text-[36px] sm:text-[48px] font-bold text-(--text-website)">
+                            CONNECTION
+                        </h2>
+                            {/*
+                        <div className="w-full mb-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
+                            <p className="text-[10px] text-yellow-500 mb-3 text-center tracking-[2px]">
+                                DEMO QUICK LOGIN
+                            </p>
+                            <div className="flex gap-2 flex-wrap justify-center">
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        quickLogin(
+                                            "joao-port@test.com",
+                                            "123456",
+                                        )
+                                    }
+                                    disabled={loginMutation.isPending}
+                                    className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
+                                >
+                                    Joao Port
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        quickLogin(
+                                            "joao@test.com",
+                                            "123456",
+                                        )
+                                    }
+                                    disabled={loginMutation.isPending}
+                                    className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
+                                >
+                                    Joao
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        quickLogin(
+                                            "admin@mbjtest.com",
+                                            "123456",
+                                        )
+                                    }
+                                    disabled={loginMutation.isPending}
+                                    className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
+                                >
+                                    ADMIN
+                                </button>
+                            </div> 
+                        </div>
+                        */}
+                        <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                            <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                group-focus-within:max-w-full group-focus-within:px-1
+                                group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                Enter your Email
+                            </legend>
+                            <input
+                                id="email"
+                                type="email"
+                                placeholder=""
+                                {...register("email")}
+                                className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                            />
+                            <label
+                                htmlFor="email"
+                                className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                            >
+                                Enter your Email
+                            </label>
+                        </fieldset>
+                        <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                            <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                group-focus-within:max-w-full group-focus-within:px-1
+                                group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                Enter your Password
+                            </legend>
+                            <input
+                                id="password"
+                                type="password"
+                                placeholder=""
+                                {...register("password")}
+                                className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                            />
+                            <label
+                                htmlFor="password"
+                                className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                            >
+                                Enter your Password
+                            </label>
+                        </fieldset>
+
+                        <button
+                            type="submit"
+                            disabled={loginMutation.isPending}
+                            className="flex justify-center items-center gap-4.25 text-gray-300 py-3 font-bold w-full border rounded-md border-gray-500 backdrop-blur bg-black/30 cursor-pointer"
+                        >
+                            {" "}
+                            <Send size={20} />
+                            <h2>
+                                {loginMutation.isPending
+                                    ? "Connecting..."
+                                    : "Initialiser Flux"}
+                            </h2>
+                        </button>
+                        
+                        
+                    </form>
+                    <a
+                        href="/auth/register"
+                        className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-3.75 justify-center pb-10"
+                    >
+                        <button className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-pointer">
+                            Create a new account
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+
+        {/* 
+            <div className="w-full h-full">
+                <div className="flex flex-col items-center uppercase text-(--text-website)  max-w-137.5 mx-auto bg-[rgb(24,61,61)] border border-white/10">
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="px-6 max-w-125 my-0 mx-auto sm:p-14"
@@ -84,7 +219,7 @@ export function Login() {
                             Connection
                         </h2>
 
-                        {/* ============================= */}
+                        {/* 
                         <div className="w-full mb-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
                             <p className="text-[10px] text-yellow-500 mb-3 text-center tracking-[2px]">
                                 DEMO QUICK LOGIN
@@ -131,7 +266,7 @@ export function Login() {
                                 </button>
                             </div>
                         </div>
-                        {/* =================================================================================== */}
+                        {/* ======================================================
 
                         <h2 className="w-full text-[10px] mb-3 tracking-[2px]">
                             Username
@@ -170,32 +305,7 @@ export function Login() {
                             />
                         </div>
 
-                        <div className="flex text-[10px] items-center w-full py-8 gap-2.5 tracking-[1px]">
-                            <label className="relative inline-flex items-center cursor-pointer -mb-px">
-                                <input
-                                    type="checkbox"
-                                    className="peer sr-only"
-                                />
-                                <div className="w-5 h-5 rounded-full border border-white/10 bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-[rgb(0,255,150)]">
-                                    <svg
-                                        className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            d="M5 13l4 4L19 7"
-                                        />
-                                    </svg>
-                                </div>
-                            </label>
-
-                            <h2 className="mr-auto tracking-[1px]">
-                                Keep me logged
-                            </h2>
+                        <div className="flex text-[10px] items-center w-full py-8 gap-2.5 tracking-[1px]">                            
                             <h2 className="text-[rgb(255,255,255)] tracking-[2px]  cursor-pointer">
                                 Reset ?
                             </h2>
@@ -225,6 +335,7 @@ export function Login() {
                     </a>
                 </div>
             </div>
+            */}
         </>
     );
 }
