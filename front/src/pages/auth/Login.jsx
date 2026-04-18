@@ -83,7 +83,7 @@ export function Login() {
                         <h2 className="text-center text-[36px] sm:text-[48px] font-bold text-(--text-website)">
                             CONNECTION
                         </h2>
-                            {/*
+                            
                         <div className="w-full mb-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-2xl">
                             <p className="text-[10px] text-yellow-500 mb-3 text-center tracking-[2px]">
                                 DEMO QUICK LOGIN
@@ -130,7 +130,7 @@ export function Login() {
                                 </button>
                             </div> 
                         </div>
-                        */}
+                        
                         <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
                             <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
                                 group-focus-within:max-w-full group-focus-within:px-1

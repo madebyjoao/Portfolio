@@ -8,6 +8,8 @@ export default function Navbar() {
     const token = localStorage.getItem("token");
 
     const [showLogout, setShowLogout] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+    const [menuPos, setMenuPos] = useState({ x: 0, y: 0 });
 
     return (
         <nav
@@ -29,6 +31,7 @@ export default function Navbar() {
 
                 <NavLink
                     to="/builder"
+                    onMouseEnter={() => setShowLogout(false)}
                     className="flex items-center text-(--text-website) text-[26px] font-bold px-2 py-1 hover:bg-white/10 hover:border-r-white hover:border-l-white"
                 >
                     BUILDER
@@ -36,7 +39,7 @@ export default function Navbar() {
 
                 {!token ? (
                     <NavLink to="/auth/login" className="flex">
-                        <div className="flex items-center justify-center cursor-pointer box-border text-(--text-website) p-2 h-full hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[18px] sm:text-[26px] font-bold">
+                        <div className="flex items-center justify-center cursor-pointer box-border text-(--text-website) p-2 h-full sm:w-50 hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[18px] sm:text-[26px] font-bold">
                             <Users2
                                 aria-label="Login page"
                                 color="white"
@@ -44,29 +47,69 @@ export default function Navbar() {
                             />
                         </div>
                     </NavLink>
-                ) : (
+                ) : 
+                (
                     <div
                         onMouseEnter={() => setShowLogout(true)}
                         onMouseLeave={() => setShowLogout(false)}
-                        className="flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
-                        onClick={showLogout ? handleLogout : null}
+                        className="relative flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] font-bold cursor-pointer sm:w-60 hover:bg-white/10 hover:border-r-white hover:border-l-white"
                     >
-                        {showLogout ? (
-                            <>
-                                <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
-                                <UserRoundXIcon color="red" strokeWidth={3} />
-                            </>
-                        ) : (
-                            <>
+                       
+                        <div className={`flex items-center gap-3 transition-opacity duration-500 ${showLogout ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+                            <p>Welcome, {localStorage.getItem("first_name")}</p>
+                            <LucideUserCheck2 color="white" strokeWidth={3} />
+                        </div>
+
+                        
+                        <div className={`absolute flex flex-col gap-2 w-full transition-opacity duration-500 ${showLogout ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                            <button
+                                className="flex items-center justify-start mx-2 w-[calc(full-8px)] text-left py-2 text-red-400 hover:bg-white/20"
+                                onClick={handleLogout}
+                            >
+                                Logout
+                            </button>
+                            <div className="flex items-center justify-start gap-3 mx-2">
                                 <p>Welcome, {localStorage.getItem("first_name")}</p>
                                 <LucideUserCheck2 color="white" strokeWidth={3} />
-                            </>
-                        )}
+                            </div>
+                        </div>
                     </div>
-                )}
+                )
+                
+            }
 
             </div>
 
         </nav>
     );
 }
+
+{/*
+
+(
+    <div
+        onMouseEnter={() => setShowLogout(true)}
+        onMouseLeave={() => setShowLogout(false)}
+        className="flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
+        onClick={showLogout ? handleLogout : null}
+    >
+        {showLogout ? (
+            <div className="flex flex-col >
+                <div>
+                    <p>Welcome, {localStorage.getItem("first_name")}</p>
+                    <LucideUserCheck2 color="white" strokeWidth={3} />
+                </div>
+                <div>       
+                    <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
+                    <UserRoundXIcon color="red" strokeWidth={3} />
+                </div>
+
+            </div>
+        ) : (
+            <>
+                <p>Welcome, {localStorage.getItem("first_name")}</p>
+                <LucideUserCheck2 color="white" strokeWidth={3} />
+            </>
+        )}
+    </div>
+)  */} 
