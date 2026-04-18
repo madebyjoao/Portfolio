@@ -17,10 +17,10 @@ export default function Navbar() {
         >
             <NavLink
                 to="/"
-                className="flex w-40 h-40 top-0"
+                className="flex w-16 h-16 sm:w-40 sm:h-40 top-0"
             >
                 <img
-                    className=" w-40 h-40 object-fill"
+                    className="w-16 h-16 sm:w-40 sm:h-40 object-fill"
                     src={logo}
                     alt="Picture of the Logo"
                 />
@@ -36,7 +36,7 @@ export default function Navbar() {
 
                 {!token ? (
                     <NavLink to="/auth/login" className="flex">
-                        <div className="flex items-center justify-center cursor-pointer box-border text-(--text-website) p-2 h-full min-w-2xs hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[26px] font-bold">
+                        <div className="flex items-center justify-center cursor-pointer box-border text-(--text-website) p-2 h-full hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 text-[18px] sm:text-[26px] font-bold">
                             <Users2
                                 aria-label="Login page"
                                 color="white"
@@ -48,7 +48,7 @@ export default function Navbar() {
                     <div
                         onMouseEnter={() => setShowLogout(true)}
                         onMouseLeave={() => setShowLogout(false)}
-                        className="flex items-center justify-center text-(--text-website) gap-3 p-2 min-w-2xs text-[26px] hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
+                        className="flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
                         onClick={showLogout ? handleLogout : null}
                     >
                         {showLogout ? (

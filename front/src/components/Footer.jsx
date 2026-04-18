@@ -40,7 +40,7 @@ export default function Footer() {
 
     return (
 
-        <section className="flex backdrop-blur bg-white/5 min-h-50 text-(--text-website)">
+        <section className="flex flex-wrap backdrop-blur bg-white/5 min-h-50 text-(--text-website) overflow-hidden">
 
             <div className="relative z-10 flex gap-4 p-4">
                 {stats.map((stat) => (

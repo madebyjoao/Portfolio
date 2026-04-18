@@ -2,14 +2,14 @@
 .GridPublic {
 	display: grid;
 	width: 100%;
-	grid-template-rows: auto 1fr auto;
+	max-width: 100%;
+	grid-template-rows: 1fr auto 1fr;
 	grid-template-areas:
 		"header"
-		"addsright"
-		"main"
-		"addsleft"
+		"main"		
 		"footer";
 	height: 100vh;
+	overflow-x: hidden;
 		
 }
 
@@ -33,10 +33,12 @@
 
 .AddsRight {
 	grid-area: addsright;
+	display: none;
 }
 
 .AddsLeft {
 	grid-area: addsleft;
+	display: none;
 }
 
 .Footer {
@@ -51,5 +53,10 @@
 			"header header header"
 			"addsleft main addsright"
 			"footer footer footer";
+	}
+
+	.AddsLeft,
+	.AddsRight {
+		display: block;
 	}
 }

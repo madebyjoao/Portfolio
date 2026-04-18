@@ -7,8 +7,8 @@ function Home() {
     return (
         <div className="relative flex flex-col items-center justify-center h-full text-(--text-website)">
                 
-            <div className="relative z-10 mx-50">
-                <h1 className="text-(--text-website) text-6xl font-spectral">
+            <div className="relative z-10 mx-4 sm:mx-20 lg:mx-50">
+                <h1 className="text-(--text-website) text-3xl sm:text-6xl font-spectral">
                     Made By Joao Portfolio builder
                 </h1>
                 <p className="text-(--text-website)">
