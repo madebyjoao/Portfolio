@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
-import { getCertificateBuilder, updateCertificate, uploadCertificates } from "../../../api/builder";
+import { deleteCertificate, getCertificateBuilder, updateCertificate, uploadCertificates } from "../../../api/builder";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,6 +64,21 @@ function AccordionItem({
     });
     const navigate = useNavigate();
 
+    const deleteMutation = useMutation({
+        mutationFn: async (id) => {
+        return await deleteCertificate(id);
+        },
+        onSuccess: (data, variables, context) => {
+        window.location.reload();
+        },
+    });
+
+    function handleDelete(id) {
+        if (confirm("You sure you want to delete this certificate?")) {
+        deleteMutation.mutate(id);
+        }
+    }
+
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append("id", certificate_id);
@@ -90,36 +105,39 @@ function AccordionItem({
     };
 
 
+
     return (
 
         <div className="py-4">
-            <button
-                type="button"
-                aria-expanded={isOpen}
-                className=""
-                onClick={onToggle}
-            >
-                <div className="flex flex-col">
+            <div className="flex flex-col">
+                <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    className=""
+                    onClick={onToggle}
+                >
                     <div className="flex items-center justify-center px-6 text-center">
                         <span className="text-base font-semibold">
                             {certificate_title}
                         </span>
                     </div>
                     <div className="relative size-62.5 shrink-0 overflow-hidden bg-black/10">
-                            <img
-                                className="h-full w-full"
-                                src={`${BASE_URL}/uploads/${certificate_image_path}`}
-                                alt={`${certificate_title} Thumbnail`}
-                            />
-                            <div className="absolute">
-                                <Trash color="black" />
-                            </div>
+                        <img
+                            className="h-full w-full"
+                            src={`${BASE_URL}/uploads/${certificate_image_path}`}
+                            alt={`${certificate_title} Thumbnail`}
+                        />
                     </div>
-                    
+                </button>
 
-                </div>
-
-            </button>
+                <button
+                    type='button'
+                    aria-label='Delete certificate'
+                    onClick={(e) => { e.stopPropagation(); handleDelete(certificate_id); }}
+                >
+                    <CircleX />
+                </button>
+            </div>
 
             {isOpen && (
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>

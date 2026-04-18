@@ -9,15 +9,10 @@ function Home() {
                 
             <div className="relative z-10 mx-4 sm:mx-20 lg:mx-50">
                 <h1 className="text-(--text-website) text-3xl sm:text-6xl font-spectral">
-                    Made By Joao Portfolio builder
+                    Made By Joao Portfolio Builder
                 </h1>
-                <p className="text-(--text-website)">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id dignissimos sint fugiat tenetur asperiores fuga ad! Voluptate corporis fugiat at pariatur quia impedit officiis, ea maxime. Iusto autem aliquid molestiae.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore laudantium tenetur, expedita nostrum quo repudiandae nam quia recusandae eligendi commodi esse aut saepe non qui quisquam eos hic! Animi, 
-                    nemo?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam neque accusantium veritatis maxime cupiditate esse facilis illo enim praesentium, suscipit vitae nobis reiciendis velit aspernatur quas nihil, fugiat, distinctio perspiciatis.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Totam cupiditate eaque nisi. A officia natus sapiente, consequuntur temporibus enim vitae. Itaque dolor numquam temporibus totam maxime! Dolor aperiam ut beatae!
-
+                <p className="text-(--text-website) mt-4 text-lg sm:text-xl leading-relaxed">
+                    Create your professional portfolio in minutes. Pick a template, add your projects and experience, and share a polished page with the world — no design skills required.
                 </p>
             </div>
             
