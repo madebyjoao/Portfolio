@@ -37,7 +37,7 @@ function AccordionItem({
     certificate_is_public,
     certificate_image_path,
     certificat_order_index,
-    isOpen, 
+    editModalOpen,
     onToggle
 
 }) {
@@ -45,7 +45,7 @@ function AccordionItem({
     const slug = localStorage.getItem("slug");
     const queryClient = useQueryClient();
 
-    const { register, handleSubmit, formState: { errors } } = useForm({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: zodResolver(editCertificateSchema),
         defaultValues: {
             title: certificate_title ?? "",
@@ -109,10 +109,10 @@ function AccordionItem({
     return (
 
         <div className="py-4">
-            <div className="flex flex-col">
+            <div className="relative flex flex-col">
                 <button
                     type="button"
-                    aria-expanded={isOpen}
+                    aria-expanded={editModalOpen}
                     className=""
                     onClick={onToggle}
                 >
@@ -134,128 +134,137 @@ function AccordionItem({
                     type='button'
                     aria-label='Delete certificate'
                     onClick={(e) => { e.stopPropagation(); handleDelete(certificate_id); }}
+                    className="absolute self-end top-10 right-5 cursor-pointer bg-black rounded-full p-1"
                 >
-                    <CircleX />
+                    <CircleX color="white"/>
                 </button>
             </div>
 
-            {isOpen && (
-                <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
+            
+                {editModalOpen && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-md">
+                        <button className="flex justify-self-end hover:cursor-pointer" onClick={onToggle}><CircleXIcon className="text-(--builder-buttons) hover:text-red-500 transition-colors"/></button>
+                        <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-semibold text-gray-700">Title <span className="text-red-500">*</span></label>
-                        <input
-                            {...register("title")}
-                            placeholder="Title"
-                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                        />
-                        {errors.title && <span className="text-xs text-red-500">{errors.title.message}</span>}
-                    </div>
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-semibold text-gray-700">Title <span className="text-red-500">*</span></label>
+                                <input
+                                    {...register("title")}
+                                    placeholder="Title"
+                                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                />
+                                {errors.title && <span className="text-xs text-red-500">{errors.title.message}</span>}
+                            </div>
 
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="flex flex-col gap-1">
-                            <label className="text-sm font-semibold text-gray-700">Issuer <span className="text-red-500">*</span></label>
-                            <input
-                                {...register("issuer")}
-                                placeholder="issuer"
-                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                            />
-                            {errors.issuer && <span className="text-xs text-red-500">{errors.issuer.message}</span>}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                            <label className="text-sm font-semibold text-gray-700">Issued At <span className="text-red-500">*</span></label>
-                            <input
-                                {...register("issued_at")}
-                                type="date"
-                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                            />
-                            {errors.issued_at && <span className="text-xs text-red-500">{errors.issued_at.message}</span>}
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="flex flex-col gap-1">
-                            <label className="text-sm font-semibold text-gray-700">Type</label>
-                            <select
-                                {...register("type")}
-                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                            >
-                                <option value="CERTIFICATE">Certificate</option>
-                                <option value="FORMATION">Formation</option>
-                            </select>
-                            {errors.type && <span className="text-xs text-red-500">{errors.type.message}</span>}
-                        </div>
-                        <div className="flex flex-col gap-1">
-                            <label className="text-sm font-semibold text-gray-700">Visibility</label>
-                            <select
-                                {...register("is_public")}
-
-                                className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                            >
-                                <option value="1">Public</option>
-                                <option value="0">Private</option>
-                            </select>
-                            {errors.is_public && <span className="text-xs text-red-500">{errors.is_public.message}</span>}
-                        </div>
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-semibold text-gray-700">Description <span className="text-red-500">*</span></label>
-                        <textarea
-                            {...register("description")}
-                            placeholder="Briefly describe what this certificate covers..."
-                            rows={3}
-                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                        />
-                        {errors.description && <span className="text-xs text-red-500">{errors.description.message}</span>}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-semibold text-gray-700">Display Order <span className="text-red-500">*</span></label>
-                        <input
-                            {...register("order_index")}
-                            type="number"
-                            min={1}
-                            placeholder="1"
-                            className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
-                        />
-                        {errors.order_index && <span className="text-xs text-red-500">{errors.order_index.message}</span>}
-                    </div>
-
-                    <div className="flex flex-col gap-1">
-                        <label className="text-sm font-semibold text-gray-700">Certificate Image <span className="text-red-500">*</span></label>
-                        <label
-                            htmlFor="cert-image-upload"
-                            className="flex items-center justify-center border-2 border-dashed border-(--builder-Sidebar-border-modal) rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
-                        >
-                            {preview ? (
-                                <img src={preview} alt="Preview" className="h-28 object-cover rounded" />
-                            ) : (
-                                <div className="flex flex-col items-center gap-1 text-gray-400">
-                                    <Upload size={22} />
-                                    <span className="text-xs">Click to upload — JPEG or PNG</span>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-sm font-semibold text-gray-700">Issuer <span className="text-red-500">*</span></label>
+                                    <input
+                                        {...register("issuer")}
+                                        placeholder="issuer"
+                                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                    />
+                                    {errors.issuer && <span className="text-xs text-red-500">{errors.issuer.message}</span>}
                                 </div>
-                            )}
-                        </label>
-                        <input
-                            id="cert-image-upload"
-                            type="file"
-                            accept="image/jpeg,image/png"
-                            className="hidden"
-                            onChange={handleImageChange}
-                        />
-                        {errors.image && <span className="text-xs text-red-500">{errors.image.message}</span>}
-                    </div>
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-sm font-semibold text-gray-700">Issued At <span className="text-red-500">*</span></label>
+                                    <input
+                                        {...register("issued_at")}
+                                        type="date"
+                                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                    />
+                                    {errors.issued_at && <span className="text-xs text-red-500">{errors.issued_at.message}</span>}
+                                </div>
+                            </div>
 
-                    <button
-                        type="submit"
-                        disabled={isPending}
-                        className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
-                    >
-                        {isPending ? "Updating..." : "Edit Certificate"}
-                    </button>
-                 </form>
+                            <div className="grid grid-cols-2 gap-3">
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-sm font-semibold text-gray-700">Type</label>
+                                    <select
+                                        {...register("type")}
+                                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                    >
+                                        <option value="CERTIFICATE">Certificate</option>
+                                        <option value="FORMATION">Formation</option>
+                                    </select>
+                                    {errors.type && <span className="text-xs text-red-500">{errors.type.message}</span>}
+                                </div>
+                                <div className="flex flex-col gap-1">
+                                    <label className="text-sm font-semibold text-gray-700">Visibility</label>
+                                    <select
+                                        {...register("is_public")}
+
+                                        className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                    >
+                                        <option value="1">Public</option>
+                                        <option value="0">Private</option>
+                                    </select>
+                                    {errors.is_public && <span className="text-xs text-red-500">{errors.is_public.message}</span>}
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-semibold text-gray-700">Description <span className="text-red-500">*</span></label>
+                                <textarea
+                                    {...register("description")}
+                                    placeholder="Briefly describe what this certificate covers..."
+                                    rows={3}
+                                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                />
+                                {errors.description && <span className="text-xs text-red-500">{errors.description.message}</span>}
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-semibold text-gray-700">Display Order <span className="text-red-500">*</span></label>
+                                <input
+                                    {...register("order_index")}
+                                    type="number"
+                                    min={1}
+                                    placeholder="1"
+                                    className="border border-(--builder-Sidebar-border-modal) rounded-lg px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+                                />
+                                {errors.order_index && <span className="text-xs text-red-500">{errors.order_index.message}</span>}
+                            </div>
+
+                            <div className="flex flex-col gap-1">
+                                <label className="text-sm font-semibold text-gray-700">Certificate Image <span className="text-red-500">*</span></label>
+                                <label
+                                    htmlFor="cert-image-upload"
+                                    className="flex items-center justify-center border-2 border-dashed border-(--builder-Sidebar-border-modal) rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
+                                >
+                                    {preview ? (
+                                        <img src={preview} alt="Preview" className="h-28 object-cover rounded" />
+                                    ) : (
+                                        <div className="flex flex-col items-center gap-1 text-gray-400">
+                                            <Upload size={22} />
+                                            <span className="text-xs">Click to upload — JPEG or PNG</span>
+                                        </div>
+                                    )}
+                                </label>
+                                <input
+                                    id="cert-image-upload"
+                                    type="file"
+                                    accept="image/jpeg,image/png"
+                                    className="hidden"
+                                    onChange={handleImageChange}
+                                />
+                                {errors.image && <span className="text-xs text-red-500">{errors.image.message}</span>}
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={isPending}
+                                className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
+                            >
+                                {isPending ? "Updating..." : "Edit Certificate"}
+                            </button>
+                        </form>
+                    </div>
+                </div>
             )}
+                
+            
         </div>
     )
 }
@@ -407,7 +416,7 @@ export default function CertificatesAccordion() {
                     certificate_is_public={certificate.is_public}
                     certificate_image_path={certificate.image_path}
                     certificat_order_index={certificate.order_index}
-                    isOpen={openIndex === index}
+                    editModalOpen={openIndex === index}
                     onToggle={() => setOpenIndex(openIndex === index ? null : index)}
                 />
                 
