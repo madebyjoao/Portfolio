@@ -1,7 +1,9 @@
+import { Navigate, useNavigate } from "react-router";
 
 
 
 function Home() {
+    const navigate = useNavigate();
    
 
     return (
@@ -12,7 +14,10 @@ function Home() {
                     Made By Joao Portfolio Builder
                 </h1>
                 <p className="text-(--text-website) mt-4 text-lg sm:text-xl leading-relaxed">
-                    Create your professional portfolio in minutes. Pick a template, add your projects and experience, and share a polished page with the world — no design skills required.
+                    <span 
+                        className="hover:underline font-bold hover:cursor-pointer"
+                        onClick={() => navigate("/builder")}>Create
+                    </span> your professional portfolio in minutes. Pick a template, add your projects and experience, and share a polished page with the world — no design skills required.
                 </p>
             </div>
             

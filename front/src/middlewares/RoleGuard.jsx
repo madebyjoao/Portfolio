@@ -57,7 +57,7 @@ export function RoleGuard({ allowedRoles, children }) {
                 replace
                 state={{
                     alertMessage:
-                        "Access denied: your role is not allowed here.",
+                        "Access denied: You have to be logged in to have access.",
                 }}
             />
         );

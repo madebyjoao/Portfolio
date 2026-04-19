@@ -15,7 +15,7 @@ export default function Navbar() {
         <nav
             role="navigation"
             aria-label="Main navigation"
-            className="flex justify-between items-stretch min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 hover:border-b-white hover:border-b-2 box-border"
+            className="flex justify-between items-stretch min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 "
         >
             <NavLink
                 to="/"

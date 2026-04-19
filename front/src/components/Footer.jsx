@@ -40,7 +40,7 @@ export default function Footer() {
 
     return (
 
-        <section className="flex flex-wrap backdrop-blur bg-white/5 min-h-50 text-(--text-website) overflow-hidden">
+        <section className="flex flex-wrap backdrop-blur bg-white/5 sm:min-h-50 sm:flex-row sm:justify-between sm:px-10 text-(--text-website)">
 
             <div className="relative z-10 flex gap-4 p-4">
                 {stats.map((stat) => (
@@ -56,13 +56,26 @@ export default function Footer() {
                     />
                 ))}
             </div>
-            <div className="flex items-center px-4">
-                <Link 
-                    to="/cv" 
-                    className="text-(--text-website) hover:underline transition-all"
-                >
-                    View CV
-                </Link>
+            <div className="flex flex-col items-center justify-around px-4">
+                <div>
+                    <h2>
+                        about me
+                    </h2>
+                    <Link 
+                        to="/cv" 
+                        className="text-(--text-website) hover:underline transition-all"
+                    >
+                        View CV
+                    </Link>
+                </div>
+                <div>
+                    <Link
+                        to="/contact"
+                        className="hover:underline"             
+                    >
+                        Contact Me
+                    </Link>
+                </div>
             </div>
 
         </section>

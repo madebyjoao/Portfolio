@@ -142,8 +142,10 @@ function AccordionItem({
 
             
                 {editModalOpen && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded-xl w-full max-w-md">
+                <div
+                    onClick={onToggle}
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
                         <button className="flex justify-self-end hover:cursor-pointer" onClick={onToggle}><CircleXIcon className="text-(--builder-buttons) hover:text-red-500 transition-colors"/></button>
                         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 
@@ -288,8 +290,10 @@ function CreateCertificate({ createModalOpen, setCreateModalOpen, register, hand
             </button>
 
                 {createModalOpen && (
-                <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded-xl w-full max-w-md">
+                <div 
+                    onClick={() => setCreateModalOpen(false)}
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+                    <div className="bg-white p-6 rounded-xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
                         <button className="flex justify-self-end hover:cursor-pointer" onClick={() => setCreateModalOpen(false)}><CircleXIcon className="text-(--builder-buttons) hover:text-red-500 transition-colors"/></button>
                         <CertificateForm
                             register={register}
