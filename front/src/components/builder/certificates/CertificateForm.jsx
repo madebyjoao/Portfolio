@@ -105,14 +105,14 @@ export default function CertificateForm({ register, handleSubmit, errors, setVal
                     ) : (
                         <div className="flex flex-col items-center gap-1 text-gray-400">
                             <Upload size={22} />
-                            <span className="text-xs">Click to upload — JPEG or PNG</span>
+                            <span className="text-xs">Click to upload — JPEG, PNG or WEBP</span>
                         </div>
                     )}
                 </label>
                 <input
                     id="cert-image-upload"
                     type="file"
-                    accept="image/jpeg,image/png"
+                    accept="image/jpeg,image/png,image/webp"
                     className="hidden"
                     onChange={handleImageChange}
                 />

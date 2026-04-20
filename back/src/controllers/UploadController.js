@@ -41,8 +41,11 @@ async function getUploadCertificates(req, res, next) {
             portfolio_id: portfolio.id,
             title: req.body.title,
             description: req.body.description,
+            issuer: req.body.issuer,
+            issued_at: req.body.issued_at,
             image_path: imagePath,
-            type: "CERTIFICATE",
+            order_index: req.body.order_index,
+            type: req.body.type,
             is_public: req.body.is_public,
         });
 

@@ -52,7 +52,7 @@ export default function Navbar() {
                     <div
                         onMouseEnter={() => setShowLogout(true)}
                         onMouseLeave={() => setShowLogout(false)}
-                        className="relative flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] font-bold cursor-pointer sm:w-60 hover:bg-white/10 hover:border-r-white hover:border-l-white"
+                        className="relative flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] font-bold sm:w-60 hover:bg-white/10 hover:border-r-white hover:border-l-white"
                     >
                        
                         <div className={`flex items-center gap-3 transition-opacity duration-500 ${showLogout ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
@@ -63,12 +63,12 @@ export default function Navbar() {
                         
                         <div className={`absolute flex flex-col gap-2 w-full transition-opacity duration-500 ${showLogout ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                             <button
-                                className="flex items-center justify-start mx-2 w-[calc(full-8px)] text-left py-2 text-red-400 hover:bg-white/20"
+                                className="flex items-center justify-start mx-2 w-[calc(full-8px)] text-left py-2 text-red-400 hover:bg-white/20 cursor-pointer"
                                 onClick={handleLogout}
                             >
                                 Logout
                             </button>
-                            <div className="flex items-center justify-start gap-3 mx-2">
+                            <div className="flex items-center justify-start gap-3 mx-2 cursor-default">
                                 <p>Welcome, {localStorage.getItem("first_name")}</p>
                                 <LucideUserCheck2 color="white" strokeWidth={3} />
                             </div>

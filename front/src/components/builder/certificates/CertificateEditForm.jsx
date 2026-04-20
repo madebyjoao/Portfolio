@@ -20,7 +20,7 @@ const editCertificateSchema = z.object({
     image: z.instanceof(FileList)
             .optional()
             .refine(
-                (files) => !files || files.length === 0 || ["image/jpeg", "image/png"].includes(files[0].type), "Only JPEG and PNG allowed"
+                (files) => !files || files.length === 0 || ["image/jpeg", "image/png", "image/webp"].includes(files[0].type), "Only JPEG, PNG and WEBP allowed"
             )
             .transform((files) => (files && files.length > 0 ? files[0] : undefined)),
 
@@ -79,6 +79,8 @@ function AccordionItem({
         }
     }
 
+    
+
     const onSubmit = (data) => {
         const formData = new FormData();
         formData.append("id", certificate_id);
@@ -94,7 +96,7 @@ function AccordionItem({
         navigate(0);
         
     };
-    const [preview, setPreview] = useState(null);
+    const [preview, setPreview] = useState(certificate_image_path ? `${BASE_URL}/uploads/${certificate_image_path}` : null);
 
     const handleImageChange = (e) => {
         const files = e.target.files;
@@ -103,6 +105,8 @@ function AccordionItem({
             setPreview(URL.createObjectURL(files[0]));
         }
     };
+
+    console.log(onSubmit.data)
 
 
 
@@ -236,18 +240,18 @@ function AccordionItem({
                                     className="flex items-center justify-center border-2 border-dashed border-(--builder-Sidebar-border-modal) rounded-lg p-4 cursor-pointer hover:border-gray-500 transition"
                                 >
                                     {preview ? (
-                                        <img src={preview} alt="Preview" className="h-28 object-cover rounded" />
+                                        <img src={preview} alt="Preview" className="h-28 object-cover rounded hover:cursor-pointer" />
                                     ) : (
                                         <div className="flex flex-col items-center gap-1 text-gray-400">
                                             <Upload size={22} />
-                                            <span className="text-xs">Click to upload — JPEG or PNG</span>
+                                            <span className="text-xs">Click to upload — JPEG, PNG or WEBP</span>
                                         </div>
                                     )}
                                 </label>
                                 <input
                                     id="cert-image-upload"
                                     type="file"
-                                    accept="image/jpeg,image/png"
+                                    accept="image/jpeg,image/png,image/webp"
                                     className="hidden"
                                     onChange={handleImageChange}
                                 />
@@ -284,7 +288,7 @@ function CreateCertificate({ createModalOpen, setCreateModalOpen, register, hand
                         New certificate
                     </span>
                 </div>
-                <div className="flex justify-center items-center size-62.5 self-center border-none bg-(--builder-SideBar) hover:cursor-pointer  " >
+                <div className="flex justify-center items-center size-62.5 self-center shadow-[2px_2px_3_rgba(255,255,255,0.5)] bg-(--builder-SideBar) hover:cursor-pointer  " >
                     <Plus size={250} className="text-(--builder-buttons)"/>
                 </div>
             </button>
@@ -336,7 +340,7 @@ export default function CertificatesAccordion() {
                 .min(1, "Order index must be at least 1"),
             image: z.instanceof(FileList)
                 .refine(files => files.length > 0, "Image is required")
-                .refine(files => ['image/jpeg', 'image/png'].includes(files[0].type), "Only JPEG and PNG allowed")
+                .refine(files => ['image/jpeg', 'image/png', 'image/webp'].includes(files[0].type), "Only JPEG, PNG and WEBP allowed")
                 .transform(files => files[0]),
     
         });
@@ -395,7 +399,7 @@ export default function CertificatesAccordion() {
     const certificates = data.data.certificates;
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-5 justify-items-center items-start">
+        <div className="grid grid-cols-1 md:grid-cols-5 justify-items-center place-items-center">
 
             <CreateCertificate
                 createModalOpen={createModalOpen}

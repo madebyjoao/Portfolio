@@ -190,7 +190,7 @@ export function Login() {
                             <h2>
                                 {loginMutation.isPending
                                     ? "Connecting..."
-                                    : "Initialiser Flux"}
+                                    : "Log In"}
                             </h2>
                         </button>
                         
