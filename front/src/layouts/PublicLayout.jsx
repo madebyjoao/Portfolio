@@ -26,6 +26,7 @@ export default function PublicLayout() {
                     Your browser does not support the video tag.
                 </video>
             </div>
+            
             <TopAlert message={alertMessage} />
             <header className={`${Styles.Header} `}>
                 <Navbar />

@@ -198,11 +198,9 @@ export function Login() {
                     </form>
                     <a
                         href="/auth/register"
-                        className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-3.75 justify-center pb-10"
-                    >
-                        <button className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-pointer">
-                            Create a new account
-                        </button>
+                        className="flex justify-center text-(--text-website) w-full cursor-pointer gap-3"
+                    >                
+                            <span className="cursor-default">Haven't register yet? </span>Create a new account                       
                     </a>
                 </div>
             </div>

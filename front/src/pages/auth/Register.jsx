@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { signIn } from "../../api/auth.js";
-import { LogIn, Send } from "lucide-react";
+import { Info, LogIn, Send } from "lucide-react";
 import { UserPlus } from "lucide-react";
 
 
@@ -175,7 +175,7 @@ export function Register() {
                                         group-focus-within:max-w-full group-focus-within:px-1
                                         group-[:has(input:not(:placeholder-shown))]:max-w-full
                                         group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
-                                        Enter a your first name
+                                        Enter a your First Name
                                     </legend>
                                     <input
                                         id="first_name"
@@ -192,7 +192,7 @@ export function Register() {
                                         peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
                                         peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
                                     >
-                                        Enter your first name
+                                        Enter your First Name
                                     </label>
                                 </fieldset>
                                 <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
@@ -220,7 +220,7 @@ export function Register() {
                                         Enter your Last Name
                                     </label>
                                 </fieldset>
-                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                <fieldset className="group relative flex items-baseline w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
                                     <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
                                         group-focus-within:max-w-full group-focus-within:px-1
                                         group-[:has(input:not(:placeholder-shown))]:max-w-full
@@ -244,18 +244,36 @@ export function Register() {
                                     >
                                         Enter an Unique Slug
                                     </label>
+                                    <div className="relative group flex right-2 box-border top-1/2 translate-y-1/12">
+                                        <button
+                                            type="button"
+                                            aria-label="More information about the slug field"
+                                            aria-describedby="slug-tooltip"
+                                            className=" text-gray-500 focus:outline-none  rounded-md cursor-help"
+                                        >
+                                            <Info aria-hidden="true" />
+                                        </button>
+                                        <span
+                                            id="slug-tooltip"
+                                            role="tooltip"
+                                            className="absolute right-2 top-full z-10 mt-2 hidden w-48 rounded-md border border-gray-500 bg-black/90 p-2 text-xs text-gray-300 group-hover:block group-focus-within:block"
+                                        >
+                                            Your slug is a unique URL identifier for your portfolio (e.g., "joao or joao-silva or even joaosilva"). It will appear in your portfolio URL: madebyjoao.fr/u/your-slug
+                                        </span>
+                                    </div>
                                 </fieldset>
 
                             </div>
                         </div>
-                        <div>
+                        <div className="flex content-center">
                             <input
                                 id="tos"
                                 type="checkbox"
-                                className=""
+                                className="mr-2"
                                 required
                             />
-                            <label htmlFor="tos">
+                            <label htmlFor="tos"
+                                className="text-gray-500">
                                 I accept all the terms and conditions
                             </label>
                         </div>
