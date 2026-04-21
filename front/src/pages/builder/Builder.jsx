@@ -6,6 +6,20 @@ import * as z from "zod";
 
 function Builder() {
 
+    const fonts = [
+        { value: "abeezee",    label: "ABeeZee" },
+        { value: "alumni",     label: "Alumni Sans" },
+        { value: "bodoni",     label: "Bodoni Moda" },
+        { value: "cormorant",  label: "Cormorant" },
+        { value: "epilogue",   label: "Epilogue" },
+        { value: "fraunces",   label: "Fraunces" },
+        { value: "geologica",  label: "Geologica" },
+        { value: "spartan",    label: "League Spartan" },
+        { value: "newsreader", label: "Newsreader" },
+        { value: "rationale",  label: "Rationale" },
+        { value: "spectral",   label: "Spectral" },
+    ];
+
 
     return (
 
@@ -48,29 +62,22 @@ function Builder() {
 
                             <div className="flex flex-col">
 
-                                <label htmlFor="">
-                                    Top Content text font
-                                </label>
-
-                                <select name="" id="">
-                                    <option value="1">Template 1</option>
-                                    <option value="2">Template 2</option>
+                                <select {...register("font_navbar")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                                 </select>
 
                             </div>
 
                             <div className="flex flex-col">
-                                <label htmlFor="">
-                                    Central Content text font
-                                </label>
-                                <input type="text" />
+                                <select {...register("font_main")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                                </select>
                             </div>
 
                             <div className="flex flex-col">
-                                <label htmlFor="">
-                                    Bottom Content text font
-                                </label>
-                                <input type="text" />
+                                <select {...register("font_footer")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                                </select>
                             </div>
                         </div>    
                     </div>

@@ -21,3 +21,18 @@ export default function FooterPortfolio1({ portfolio_info }) {
     );
     
 }
+
+
+/*
+    <nav style={{ fontFamily: `var(--font-${portfolio.font_navbar})` }}>
+    ...
+    </nav>
+
+    <main style={{ fontFamily: `var(--font-${portfolio.font_main})` }}>
+    ...
+    </main>
+
+    <footer style={{ fontFamily: `var(--font-${portfolio.font_footer})` }}>
+    ...
+    </footer>
+*/

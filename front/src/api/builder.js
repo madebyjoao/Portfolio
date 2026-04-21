@@ -2,6 +2,10 @@ import instance from "./config.js";
 
 
 //POST routes
+async function updatePortfolio(slug, data) {
+    return await instance.put(`builder/portfolio/${slug}`, data);
+}
+
 async function uploadCertificates(slug, formData) {
     return await instance.post(`builder/certificates/${slug}`, formData, {
         timeout: 10000,
