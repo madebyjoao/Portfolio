@@ -7,6 +7,7 @@ import { signIn } from "../../api/auth.js";
 import { LogIn, Send } from "lucide-react";
 import { UserPlus } from "lucide-react";
 
+
 // Schéma de validation Zod
 const registerSchema = z
     .object({
@@ -77,197 +78,218 @@ export function Register() {
 
     return (
         <>
-            <div className="w-full pt-[170px]">
-                <div className="flex flex-col items-center uppercase text-[rgb(255,255,255)] w-fit mx-auto bg-[rgb(24,61,61)] border border-white/10 rounded-3xl shadow-[0_0_30px_rgba(24,61,61,0.5)]">
+            <div className="h-full flex items-center justify-center lg:w-260" >
+                <div className="flex flex-col w-full px-6 py-121 box-border m-4 gap-3">
                     <form
                         onSubmit={handleSubmit(onSubmit)}
-                        className="px-6 w-fit mx-auto sm:px-[56px] sm:pt-[56px] sm:pb-[30px] "
+                        className="h-full flex flex-col gap-5 justify-center items-center"
                     >
-                        <h2 className="text-center text-[36px] sm:text-[48px] mb-[20px] font-bold bg-[rgb(255,255,255)] bg-clip-text text-transparent tracking-[-2.4px]">
-                            INSCRIPTION
+                        <h2 className="text-center text-[36px] sm:text-[48px] font-bold text-(--text-website)">
+                            REGISTER
                         </h2>
 
-                        <div className="flex gap-10">
-                            <div>
-                                <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-                                    First Name
-                                </h2>
+                        <div className="flex flex-col sm:flex-row justify-center content-around gap-5 w-full">                          
+                            <div className="flex flex-col gap-5 w-1/2">
 
-                                <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-                                    <img
-                                        className="flex items-center px-[15px]"
-                                        src="/src/assets/login_svg/Icon (2).svg"
-                                        alt=""
-                                    />
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Enter a valid Email
+                                    </legend>
                                     <input
-                                        placeholder="John"
-                                        {...register("first_name")}
-                                        className="w-full h-[56px] outline-none  placeholder-white/40"
-                                        type="text"
-                                        required
-                                    />
-                                </div>
-
-                                <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-                                    Nom
-                                </h2>
-
-                                <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-                                    <img
-                                        className="flex items-center px-[15px]"
-                                        src="/src/assets/login_svg/Icon (2).svg"
-                                        alt=""
-                                    />
-                                    <input
-                                        placeholder="Doe"
-                                        {...register("last_name")}
-                                        className="w-full h-[56px] outline-none  placeholder-white/40"
-                                        type="text"
-                                        required
-                                    />
-                                </div>
-
-                                <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-                                    Slug
-                                </h2>
-
-                                <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-                                    <img
-                                        className="flex items-center px-[15px]"
-                                        src="/src/assets/login_svg/Icon (2).svg"
-                                        alt=""
-                                    />
-                                    <input
-                                        placeholder="slug unique"
-                                        {...register("slug")}
-                                        className="w-full h-[56px] outline-none  placeholder-white/40"
-                                        type="text"
-                                        required
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <h2 className="w-full text-[10px] mb-[12px] tracking-[2px]">
-                                    EMAIL
-                                </h2>
-
-                                <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full mb-[24px]">
-                                    <img
-                                        className="flex items-center px-[15px]"
-                                        src="/src/assets/login_svg/Icon (2).svg"
-                                        alt=""
-                                    />
-                                    <input
-                                        placeholder="nom@exemple.com"
-                                        {...register("email")}
-                                        className="w-full h-[56px] outline-none  placeholder-white/40"
+                                        id="email"
                                         type="email"
+                                        placeholder=""
+                                        {...register("email")}
                                         required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
                                     />
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-[24px] w-full">
-                                    <div className="w-full">
-                                        <h2 className=" tracking-[2px] text-[10px] mb-[12px]">
-                                            Password
-                                        </h2>
-                                        <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
-                                            <input
-                                                placeholder="●●●●●●"
-                                                {...register("password")}
-                                                className="w-full h-[56px] w-full pl-[15px] outline-none  placeholder-white/40"
-                                                type="password"
-                                                required
-                                            />
-                                            <img
-                                                className="flex items-center"
-                                                src="/src/assets/login_svg/Icon (2).svg"
-                                                alt=""
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <h2 className="tracking-[2px] text-[10px] mb-[12px]">
-                                            Password Verification
-                                        </h2>
-
-                                        <div className="flex bg-black/40 border border-white/10 rounded-[28px] w-full">
-                                            <input
-                                                placeholder="●●●●●●"
-                                                {...register("confirmpassword")}
-                                                className=" pl-[15px] w-full h-[56px] outline-none  placeholder-white/40"
-                                                type="password"
-                                                required
-                                            />
-                                            <img
-                                                className="flex items-center "
-                                                src="/src/assets/login_svg/Icon (2).svg"
-                                                alt=""
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="flex text-[10px] items-center w-full pt-[20px] pb-[11px] gap-[10px] tracking-[1px]">
-                                    <label className="relative inline-flex items-center cursor-pointer mb-[1px]">
-                                        <input
-                                            type="checkbox"
-                                            className="peer sr-only"
-                                            required
-                                        />
-
-                                        <div className="w-5 h-5 rounded-full border-2 border-white bg-black/40 flex items-center justify-center transition-colors duration-200 peer-checked:bg-[rgb(0,255,150)]">
-                                            <svg
-                                                className="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
-                                                fill="none"
-                                                stroke="currentColor"
-                                                strokeWidth="2"
-                                                viewBox="0 0 24 24"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M5 13l4 4L19 7"
-                                                />
-                                            </svg>
-                                        </div>
+                                    <label
+                                        htmlFor="email"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Enter a valid Email
                                     </label>
+                                </fieldset>
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Enter a valid Password
+                                    </legend>
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        placeholder=""
+                                        {...register("password")}
+                                        required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                                    />
+                                    <label
+                                        htmlFor="password"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Enter a valid Password
+                                    </label>
+                                </fieldset>
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Confirm your Password
+                                    </legend>
+                                    <input
+                                        id="condirm_password"
+                                        type="password"
+                                        placeholder=""
+                                        {...register("confirmpassword")}
+                                        required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                                    />
+                                    <label
+                                        htmlFor="confirm_password"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Confirm your Password
+                                    </label>
+                                </fieldset>
 
-                                    <h2 className="">
-                                        I accept all the terms and conditions
-                                    </h2>
-                                </div>
+                            </div>
+                            <div className="flex flex-col gap-5 w-1/2">
 
-                                <button
-                                    type="submit"
-                                    disabled={registerMutation.isPending}
-                                    className="flex justify-center items-center gap-[17px] font-bold w-full bg-white text-black rounded-[28px] tracking-[2.75px] uppercase text-[11px] h-[56px] trackincg-[2.75px]"
-                                >
-                                    {" "}
-                                    <Send size={20} />{" "}
-                                    <h2>
-                                        {registerMutation.isPending
-                                            ? "Loading..."
-                                            : "Initialiser Flux"}
-                                    </h2>
-                                </button>
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Enter a your first name
+                                    </legend>
+                                    <input
+                                        id="first_name"
+                                        type="text"
+                                        placeholder=""
+                                        {...register("first_name")}
+                                        required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                                    />
+                                    <label
+                                        htmlFor="first_name"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Enter your first name
+                                    </label>
+                                </fieldset>
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Enter your Last Name
+                                    </legend>
+                                    <input
+                                        id="last_name"
+                                        type="text"
+                                        placeholder=""
+                                        {...register("last_name")}
+                                        required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                                    />
+                                    <label
+                                        htmlFor="last_name"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Enter your Last Name
+                                    </label>
+                                </fieldset>
+                                <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                                    <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
+                                        group-focus-within:max-w-full group-focus-within:px-1
+                                        group-[:has(input:not(:placeholder-shown))]:max-w-full
+                                        group-[:has(input:not(:placeholder-shown))]:px-1 text-transparent">
+                                        Enter an Unique Slug
+                                    </legend>
+                                    <input
+                                        id="slug"
+                                        type="text"
+                                        placeholder=""
+                                        {...register("slug")}
+                                        required
+                                        className="peer w-full p-3 outline-none bg-transparent text-(--text-website)"
+                                    />
+                                    <label
+                                        htmlFor="slug"
+                                        className="absolute left-2 top-5.5 text-xs px-1 text-gray-500 transition-all
+                                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
+                                        peer-focus:-top-4.5 peer-focus:text-xs peer-focus:text-gray-300
+                                        peer-[:not(:placeholder-shown)]:-top-2.5 peer-[:not(:placeholder-shown)]:text-xs"
+                                    >
+                                        Enter an Unique Slug
+                                    </label>
+                                </fieldset>
+
                             </div>
                         </div>
-                    </form>
-                    <div className="flex flex-row items-center w-full gap-1 justify-center sm:flex-row sm:pb-12.5 ">
-                        <h2 className="text-[11px] white-[80px] tracking-[2.2px]">
-                            Already Registered?
-                        </h2>
-                        <Link
-                            to="/auth/login"
-                            className="cursor-pointer self-center"
+                        <div>
+                            <input
+                                id="tos"
+                                type="checkbox"
+                                className=""
+                                required
+                            />
+                            <label htmlFor="tos">
+                                I accept all the terms and conditions
+                            </label>
+                        </div>
+                        <button
+                            type="submit"
+                            disabled={registerMutation.isPending}
+                            className="flex justify-center items-center w-1/2 gap-4.25 text-gray-300 py-3 font-bold p-10 border rounded-md border-gray-500 backdrop-blur bg-black/30 cursor-pointer"
                         >
-                            <LogIn size={20} />
-                        </Link>
+                            {" "}
+                            <Send size={20} />
+                            <h2>
+                                {registerMutation.isPending
+                                    ? "Connecting..."
+                                    : "Create account"}
+                            </h2>
+                        </button>
+
+                        
+                        
+                    </form>
+                    <div                        
+                        className="flex items-center sm:items-end flex-col sm:flex-row w-full gap-3.75 justify-center pb-10"
+                    >
+                        <span className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-default">Already have an account?</span>
+                        <a
+                        href="/auth/login" className="text-[11px] text-[rgb(255,255,255)] tracking-[2.2px] cursor-pointer">
+                            Log In
+                        </a>
                     </div>
                 </div>
             </div>
+
         </>
     );
 }
+
+ 

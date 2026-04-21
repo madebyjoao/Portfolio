@@ -1,4 +1,8 @@
-
+import { useNavigate } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
 
 function Builder() {
 
@@ -30,7 +34,7 @@ function Builder() {
                         <div className="flex flex-col">
 
                             <label htmlFor="">
-                                Top Content font
+                                Top Content text font
                             </label>
 
                             <select name="" id="">
@@ -42,14 +46,14 @@ function Builder() {
 
                         <div className="flex flex-col">
                             <label htmlFor="">
-                                Central Content font
+                                Central Content text font
                             </label>
                             <input type="text" />
                         </div>
 
                         <div className="flex flex-col">
                             <label htmlFor="">
-                                Bottom Content font
+                                Bottom Content text font
                             </label>
                             <input type="text" />
                         </div>
@@ -68,6 +72,45 @@ function Builder() {
                         </select>
                     </div>
                     
+                    <div className="flex flex-col">
+
+                        <label htmlFor="">
+                            Portfolio Name
+                        </label>
+
+                        <input type="text" />
+
+                    </div>
+                    <div className="flex flex-col">
+
+                        <label htmlFor="">
+                            Title
+                        </label>
+
+                        <input type="text" />
+
+                    </div>
+
+                    <div className="flex flex-col">
+
+                        <label htmlFor="">
+                            About you
+                        </label>
+
+                        <input type="text" />
+
+                    </div>
+
+                    <div className="flex flex-col">
+
+                        <label htmlFor="">
+                            Upload you CV
+                        </label>
+
+                        <input type="text" />
+
+                    </div>
+
                     <div className="flex flex-col">
 
                         <label htmlFor="">
