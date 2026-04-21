@@ -106,9 +106,6 @@ function AccordionItem({
         }
     };
 
-    console.log(onSubmit.data)
-
-
 
     return (
 

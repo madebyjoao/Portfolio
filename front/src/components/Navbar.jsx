@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink, useParams } from "react-router";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
+
 import { LucideUserCheck2, UserRoundXIcon, Users2 } from "lucide-react";
 import handleLogout from "../utils/helpers";
 

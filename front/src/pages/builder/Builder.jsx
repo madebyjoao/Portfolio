@@ -9,68 +9,73 @@ function Builder() {
 
     return (
 
-        <div className="">
+        <div className="flex flex-col border rounded-md p-6 max-h-full h-full">
 
             <h1 className="text-white">This is the Dashboard</h1>
             <div>
                 <form 
                     className="flex flex-col gap-5"
                 >
-
-                    <div className="flex flex-col">
-                        <label htmlFor="">
-                            Select your template
-                        </label>
-                        <select name="" id="">
-                            <option value="1">Template 1</option>
-                            <option value="2">Template 2</option>
-                        </select>
-                    </div>
-
-                    <div className="flex flex-col gap-5">
-
-                        <h2>Select your Font families here:</h2>
-
+                    <div className="flex gap-5">
                         <div className="flex flex-col">
-
                             <label htmlFor="">
-                                Top Content text font
+                                Select your template
                             </label>
-
                             <select name="" id="">
                                 <option value="1">Template 1</option>
                                 <option value="2">Template 2</option>
                             </select>
-
                         </div>
-
                         <div className="flex flex-col">
                             <label htmlFor="">
-                                Central Content text font
+                                Ready to show your Portfolio to the world?
                             </label>
-                            <input type="text" />
-                        </div>
+                            
+                            <select name="" id="">
 
-                        <div className="flex flex-col">
-                            <label htmlFor="">
-                                Bottom Content text font
-                            </label>
-                            <input type="text" />
+                                <option value="1">Yes, I'm ready</option>
+                                <option value="0">No, i'm shy</option>
+
+                            </select>
                         </div>
                     </div>
 
-                    <div className="flex flex-col">
-                        <label htmlFor="">
-                            Ready to show your Portfolio to the world?
-                        </label>
+                    <div className="flex flex-col gap-5">
+                            
+                        <h2>Select your Font families here:</h2>
                         
-                        <select name="" id="">
+                        <div className="flex gap-5">
 
-                            <option value="1">Yes, I'm ready</option>
-                            <option value="0">No, i'm shy</option>
+                            <div className="flex flex-col">
 
-                        </select>
+                                <label htmlFor="">
+                                    Top Content text font
+                                </label>
+
+                                <select name="" id="">
+                                    <option value="1">Template 1</option>
+                                    <option value="2">Template 2</option>
+                                </select>
+
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label htmlFor="">
+                                    Central Content text font
+                                </label>
+                                <input type="text" />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <label htmlFor="">
+                                    Bottom Content text font
+                                </label>
+                                <input type="text" />
+                            </div>
+                        </div>    
                     </div>
+
+                    
                     
                     <div className="flex flex-col">
 
