@@ -323,8 +323,7 @@ export default function CertificatesAccordion() {
 
     const [openIndex, setOpenIndex] = useState(null);
     const [createModalOpen, setCreateModalOpen] = useState(false);
-
-        const slug = localStorage.getItem("slug");
+    const slug = localStorage.getItem("slug");
     
     const certificateSchema = z.object({
             title: z.string().min(1, "Title is required"),

@@ -17,10 +17,10 @@ async function createUserFolderCertif(normalizedSlug) {
     try {
         await fs.mkdir(folderPath, { recursive: true });
         // console.log(`Folder created: ${folderPath}`); 
-        return folderPath;4
-    } catch (err) {
-        console.error("Failed to create user folder:", err);
-        throw err;
+        return folderPath;
+    } catch (error) {
+        console.error("Failed to create user certificates folder:", error);
+        throw error;
     }
 }
 
@@ -34,12 +34,30 @@ async function createUserFolderProjects(normalizedSlug) {
 
     try {
         await fs.mkdir(folderPath, { recursive: true });
-        console.log(`Folder created: ${folderPath}`);
+
         return folderPath;
-    } catch (err) {
-        console.error("Failed to create user folder:", err);
-        throw err;
+    } catch (error) {
+        console.error("Failed to create user projects folder:", error);
+        throw error;
     }
 }
 
-export { createUserFolderCertif, createUserFolderProjects };
+async function createUserFolderCv(normalizedSlug) {
+    const folderPath = path.join(
+        __dirname,
+        "../../uploads",
+        normalizedSlug,
+        "cv",
+    );
+
+    try {
+        await fs.mkdir(folderPath, { recursive: true });
+        console.log(`Folder created: ${folderPath}`); 
+        return folderPath;
+    } catch (err) {
+        console.error("Failed to create User CV folder", error);
+        throw error;
+    }
+}
+
+export { createUserFolderCertif, createUserFolderProjects, createUserFolderCv };

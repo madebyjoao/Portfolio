@@ -3,6 +3,7 @@ import Certificate from "../models/Certificate.js";
 import Project from "../models/Project.js";
 import ProjectImage from "../models/ProjectImage.js";
 import sharp from "sharp";
+import fs from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -51,6 +52,45 @@ async function getProjectsBuilder(req, res) {
         res.status(200).json({ projects });
     } catch (error) {
         res.status(500).json({ error: "failed to fetch Projects" });
+    }
+}
+
+/* UPDATES */
+
+async function updatePortfolio(req, res) {
+
+    const { slug } = req.params;
+    const { id, title, about_title, about_text, is_published, template, font_navbar, font_main, font_footer } = req.body;
+    const file = req.file;
+
+    try {
+        const portfolio = await Portfolio.findOne ({ where: { id }})
+
+        if(!portfolio) {
+            return res.status(404).json({ error: "Portfolio not found"})
+        }
+
+        if (file) {
+            const filename = uuidv4();
+            const uploadPath = `./uploads/${slug}/cv/${filename}.pdf`;
+            await fs.writeFile(uploadPath, file.buffer);
+            portfolio.cv_path = `${slug}/cv/${filename}.pdf`;
+        }
+
+        portfolio.title = title || portfolio.title;
+        portfolio.about_title = about_title || portfolio.about_title;
+        portfolio.about_text = about_text || portfolio.about_text;
+        portfolio.is_published = is_published !== undefined ? is_published === "1" : portfolio.is_published;
+        portfolio.template = template || portfolio.template;
+        portfolio.font_navbar = font_navbar || portfolio.font_navbar;
+        portfolio.font_main = font_main || portfolio.font_main;
+        portfolio.font_footer = font_footer || portfolio.font_footer;
+
+        await portfolio.save();
+        res.status(200).json({ portfolio });
+
+    } catch (error) {
+        res.status(500).json({ error: "Failed to update portfolio" });
     }
 }
 
@@ -130,6 +170,7 @@ async function deleteProject(req, res) {
 export default { 
     getCertificatesBuilder, 
     getProjectsBuilder,
+    updatePortfolio,
     updateCertificates,
     updateProjects,
     deleteCertificate,

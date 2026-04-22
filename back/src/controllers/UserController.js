@@ -105,6 +105,7 @@ async function createUser(req, res) {
 
         await createUserFolderCertif(normalizedSlug);
         await createUserFolderProjects(normalizedSlug);
+        await createUserFolderCv(normalizedSlug)
         await transaction.commit();
 
         const { password: _, ...safeUser } = newUser.dataValues;

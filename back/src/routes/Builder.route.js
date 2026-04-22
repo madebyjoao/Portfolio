@@ -12,10 +12,19 @@ builderRouter.use((req, res, next) =>
 
 
 {/** GET Routes */}
+
 builderRouter.get("/certificates/:slug", checkSlug, BuilderController.getCertificatesBuilder);
 builderRouter.get("/projects/:slug", checkSlug, BuilderController.getProjectsBuilder);
 
 {/** PUT Routes */}
+
+builderRouter.put(
+    "/certificates/:slug",
+    checkSlug,
+    upload.single("file"),
+    BuilderController.updatePortfolio
+);
+
 builderRouter.put(
     "/certificates/:slug",
     checkSlug,
