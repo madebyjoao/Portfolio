@@ -394,6 +394,7 @@ export default function CertificatesAccordion() {
     }
     const certificates = data.data.certificates;
 
+
     return (
         <div className="grid grid-cols-1 md:grid-cols-5 justify-items-center place-items-center">
 

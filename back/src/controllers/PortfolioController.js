@@ -9,12 +9,17 @@ async function getTemplate(req, res) {
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ["template", "title", "about_title", "about_text"],
+            attributes: ["id", "template", "title", "about_title", "about_text", "font_navbar", "font_main", "font_footer", "is_published"],
         });
 
         if (!portfolio) {
             return res.status(404).json({ error: "Portfolio not found" });
         }
+
+        if (!portfolio.is_published) {
+            return res.status(403).json({ error: "Portfolio not published" });
+        }
+
         res.status(200).json({
             portfolio: portfolio,
         });
@@ -29,11 +34,15 @@ async function getCertificates(req, res) {
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ["id"],
+            attributes: ["id", "is_published"],
         });
 
         if (!portfolio) {
             return res.status(404).json({ error: "Portfolio not found" });
+        }
+
+        if (!portfolio.is_published) {
+            return res.status(403).json({ error: "Portfolio not published" });
         }
 
         const certificates = await Certificate.findAll({
@@ -55,11 +64,15 @@ async function getProjects(req, res) {
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ["id"],
+            attributes: ["id", "is_published"],
         });
 
         if (!portfolio) {
             return res.status(404).json({ error: "Portfolio not found" });
+        }
+
+        if (!portfolio.is_published) {
+            return res.status(403).json({ error: "Portfolio not published" });
         }
 
         const projects = await Project.findAll({

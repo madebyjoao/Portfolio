@@ -27,7 +27,7 @@ export default function PortfolioLayout() {
     switch (template) {
         case 1:
             return (
-                <div className="min-h-screen flex flex-col bg-(--bg-template-one) font-mono">
+                <div className="min-h-screen flex flex-col bg-(--bg-template-one)4">
                     <NavbarPortfolio title={isPending ? "Loading..." : title} />
 
                     <main>
@@ -52,7 +52,7 @@ export default function PortfolioLayout() {
                         <Outlet />
                     </main>
                     <footer className="fixed bottom-0">
-                        <FooterPortfolio2 />
+                        <FooterPortfolio2 portfolio_info={portfolio_info} />
                     </footer>
                 </div>
             );

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPortfolioBySlug, getProjectsBySlug } from "../../api/portfolio";
 import TemplateOne from "../../components/templates/TemplateOne";
 import TemplateTwo from "../../components/templates/TemplateTwo";
+import AccessDeniedPage from "./AccessDenied";
 
 export default function Portfolio() {
     const { slug } = useParams();
@@ -35,8 +36,11 @@ export default function Portfolio() {
         return <div>Chargement en cours...</div>;
     }
 
-    const isMistake = isPortfolioError || isProjectsError;
+    if (portfolioError?.response?.status === 403 || projectsError?.response?.status === 403) {
+        return <AccessDeniedPage alertMessage="This portfolio is not published." />;
+    }
 
+    const isMistake = isPortfolioError || isProjectsError;
     const errorMessage = portfolioError || projectsError;
 
     if (isMistake) {

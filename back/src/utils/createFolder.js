@@ -47,7 +47,7 @@ async function createUserFolderCv(normalizedSlug) {
         __dirname,
         "../../uploads",
         normalizedSlug,
-        "cv",
+        "/cv",
     );
 
     try {

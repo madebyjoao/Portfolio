@@ -7,6 +7,26 @@ import fs from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
 
 
+/* GET */
+
+async function getPortfolioBuilder(req, res) {
+    const { slug } = req.params;
+
+    try {
+        const portfolio = await Portfolio.findOne({
+            where: { slug }
+        })
+
+        if (!portfolio) {
+            return res.status(404).json({ error: "Portfolio not found" });
+        }
+        res.status(200).json({ portfolio });
+
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch Portfolio"})
+    }
+}
+
 async function getCertificatesBuilder(req, res) {
     const { slug } = req.params;
 
@@ -168,6 +188,7 @@ async function deleteProject(req, res) {
 }
 
 export default { 
+    getPortfolioBuilder,
     getCertificatesBuilder, 
     getProjectsBuilder,
     updatePortfolio,

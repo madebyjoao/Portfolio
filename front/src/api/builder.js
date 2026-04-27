@@ -26,9 +26,14 @@ async function uploadProjectImages(slug, projectId, file) {
 
 //GET routes
 
+async function getPortfolioBuilder(slug) {
+    return await instance.get(`builder/portfolio/${slug}`);
+}
+
 async function getCertificateBuilder(slug) {
     return await instance.get(`builder/certificates/${slug}`);
 }
+
 
 
 //PUT routes
@@ -52,11 +57,13 @@ async function deleteProject(id) {
     return await instance.delete(`builder/projects/${id}`);
 }
 
-export { 
-    uploadCertificates, 
-    uploadProjects, 
-    uploadProjectImages, 
+export {
+    uploadCertificates,
+    uploadProjects,
+    uploadProjectImages,
+    getPortfolioBuilder,
     getCertificateBuilder,
+    updatePortfolio,
     updateCertificate,
     deleteCertificate,
     deleteProject
