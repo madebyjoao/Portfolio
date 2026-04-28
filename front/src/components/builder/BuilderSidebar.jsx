@@ -7,12 +7,14 @@ import {
     Settings,
     Award,
     Home,
+    ScanBarcode,
 } from "lucide-react";
 import { Link, NavLink } from "react-router";
 
 export default function BuilderSidebar() {
     const firstName = localStorage.getItem("first_name");
     const lastName = localStorage.getItem("last_name");
+    const slug = localStorage.getItem("slug")
 
     return (
         <aside className="w-72 min-h-screen bg-(--builder-SideBar) text-(--builder-Sidebar-text) flex flex-col p-6">
@@ -85,6 +87,14 @@ export default function BuilderSidebar() {
                 >
                     <Home size={19} />
                     <p>Go home</p>
+                </Link>
+                <Link 
+                    to={`/u/${slug}`} target="_blank"
+                    aria-label="Button to your Public Portfolio"
+                    className="flex gap-1 p-1 text-sm"
+                    >
+                    <ScanBarcode size={19 }/>
+                    <p>Check your Portfolio</p>
                 </Link>
 
                 <p className="text-sm text-gray-300 p-1">

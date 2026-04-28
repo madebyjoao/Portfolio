@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { getPortfolioBuilder, updatePortfolio } from "../../api/builder";
 import { fonts } from "../../utils/fonts";
+import Styles from "@/index.module.css"
 
 const fontValues = fonts.map(f => f.value);
 
@@ -101,16 +102,13 @@ function Builder() {
 
     return (
 
-        <div className="flex flex-col border rounded-md p-6 max-h-full h-full">
-
-            <h1 className="text-white">This is the Dashboard</h1>
-            <div>
+        
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-5"
+                    className={`${Styles.builderGrid} h-full p-3 shadow-[inset_0_0_0_2px_theme(colors.gray.500)] rounded-lg `}
                 >
-                    <div className="flex gap-5">
-                        <div className="flex flex-col">
+                    
+                        <div className={`${Styles.templateBuilder} flex flex-col`}>
                             <label htmlFor="">
                                 Select your template
                             </label>
@@ -119,7 +117,7 @@ function Builder() {
                                 <option value="2">Template 2</option>
                             </select>
                         </div>
-                        <div className="flex flex-col">
+                        <div className={`${Styles.publicBuilder} flex flex-col`}>
                             <label htmlFor="">
                                 Ready to show your Portfolio to the world?
                             </label>
@@ -131,39 +129,54 @@ function Builder() {
 
                             </select>
                         </div>
-                    </div>
-
-                    <div className="flex flex-col gap-5">
-
-                        <h2>Select your Font families here:</h2>
-
-                        <div className="flex gap-5">
-
-                            <div className="flex flex-col">
-
-                                <select {...register("font_navbar")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
-                                </select>
-
-                            </div>
-
-                            <div className="flex flex-col">
-                                <select {...register("font_main")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
-                                </select>
-                            </div>
-
-                            <div className="flex flex-col">
-                                <select {...register("font_footer")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
-                                </select>
-                            </div>
+                   
+                        <div className={`${Styles.navFontTitleBuilder}`}>
+                            <h2>
+                                Nav bar
+                            </h2>
                         </div>
-                    </div>
+
+                        <div className={`${Styles.navFontBuilder}`}>
+
+                            <select {...register("font_navbar")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            </select>
+
+                        </div>
+                        <div className={`${Styles.navFontImgBuilder}`}></div>
+
+                        <div className={`${Styles.mainFontTitleBuilder}`}>
+                            <h2>
+                                Main
+                            </h2>
+                        </div>
+
+                        <div className={`${Styles.mainFontBuilder}`}>
+                            <select {...register("font_main")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            </select>
+                        </div>
+                        <div className={`${Styles.mainFontImgBuilder}`}></div>
+
+                        <div className={`${Styles.footerFontTitleBuilder}`}>
+                            <h2>
+                                Footer
+                            </h2>
+                        </div>
+
+                        <div className={`${Styles.footerFontBuilder}`}>
+                            <select {...register("font_footer")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            </select>
+                        </div>
+                        <div className={`${Styles.footerFontImgBuilder}`}></div>
+                        
+                       
+                    
 
 
 
-                    <div className="flex flex-col">
+                    <div className={`${Styles.nameBuilder}`}>
 
                         <label htmlFor="title">
                             Portfolio Name
@@ -172,7 +185,7 @@ function Builder() {
                         <input id="title" type="text" {...register("title")} />
 
                     </div>
-                    <div className="flex flex-col">
+                    <div className={`${Styles.titleBuilder}`}>
 
                         <label htmlFor="about_title">
                             Title
@@ -182,7 +195,7 @@ function Builder() {
 
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className={`${Styles.aboutBuilder}`}>
 
                         <label htmlFor="about_text">
                             About you
@@ -192,7 +205,7 @@ function Builder() {
 
                     </div>
 
-                    <div className="flex flex-col">
+                    <div className={`${Styles.cvBuilder}`}>
 
                         <label htmlFor="file">
                             Upload your CV
@@ -202,29 +215,19 @@ function Builder() {
 
                     </div>
 
-                    <div className="flex flex-col">
 
-                        <label htmlFor="">
-                            something
-                        </label>
-
-                        <input type="text" />
-
-                    </div>
 
                     <button
                         type="submit"
                         disabled={isPending}
-                        className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
+                        className={`${Styles.buttonBuilder} mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer`}
                     >
                         {isPending ? "Updating..." : "Save Changes"}
                     </button>
 
 
                 </form>
-            </div>
-
-        </div>
+           
 
     );
 }

@@ -1,6 +1,6 @@
 import StatsBox from "@/components/StatsBox";
 import { useQuery } from "@tanstack/react-query";
-import { BookHeart, School2, School2Icon, UserCheck2 } from "lucide-react";
+import { PersonStanding, ScanBarcode, School2, School2Icon } from "lucide-react";
 import { getStats } from "@/api/overview";
 import { Link } from "react-router";
 
@@ -27,22 +27,22 @@ export default function Footer() {
             id: "1",
             title: "Total Clients",
             number: performance.clientCount,
-            icon: UserCheck2,
+            icon: PersonStanding,
         },
         {
             id: "2",
             title: "Total Portfolios",
             number: performance.portfolioCount,
-            icon: BookHeart,
+            icon: ScanBarcode,
         },
     ];
 
 
     return (
 
-        <section className="flex flex-wrap backdrop-blur bg-white/5 sm:min-h-50 sm:flex-row sm:justify-between sm:px-10 text-(--text-website)">
+        <section className="relative flex justify-center backdrop-blur bg-white/5 sm:min-h-50 sm:flex-row sm:justify-between text-(--text-website)">
 
-            <div className="relative z-10 flex gap-4 p-4">
+            <div className="relative z-10 flex justify-around py-4 w-1/2">
                 {stats.map((stat) => (
                     <StatsBox
                         key={stat.id}
@@ -56,16 +56,17 @@ export default function Footer() {
                     />
                 ))}
             </div>
-            <div className="flex flex-col items-center justify-around px-4">
+            <div className="absolute left-1/2 -translate-x-1/2 h-auto top-0.5 bottom-0.5 overflow-y-hidden bg-white/25 w-px box-border"></div>
+            <div className="flex justify-around w-1/2 px-4">
                 <div>
                     <h2>
-                        about me
+                        My cv
                     </h2>
                     <Link 
                         to="/cv" 
                         className="text-(--text-website) hover:underline transition-all"
                     >
-                        View CV
+                        View CV 
                     </Link>
                 </div>
                 <div>

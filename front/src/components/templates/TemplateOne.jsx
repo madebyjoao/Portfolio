@@ -5,7 +5,7 @@ export default function TemplateOne({ projects }) {
 
 
     return (
-        <div className="relative top-20">
+        <div className="relative top-20 h-full">
             <div className="relative left-[3%] h-[30%] my-5 max-w-100">
                 <h1 className=" text-4xl font-bold">
                     My Projects

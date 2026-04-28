@@ -45,6 +45,105 @@
 	grid-area: footer;
 }
 
+
+.builderGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 8px;
+}
+    
+.templateBuilder {
+    grid-column: span 3 / span 3;
+}
+
+.publicBuilder {
+    grid-column: span 3 / span 3;
+    grid-column-start: 4;
+}
+
+.navFontBuilder {
+    grid-column-start: 1;
+    grid-row-start: 3;
+}
+
+.navFontImgBuilder {
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+
+.mainFontBuilder {
+    grid-column-start: 3;
+    grid-row-start: 3;
+}
+
+.mainFontImgBuilder {
+    grid-column-start: 4;
+    grid-row-start: 3;
+}
+
+.footerFontBuilder {
+    grid-column-start: 5;
+    grid-row-start: 3;
+}
+
+.footerFontImgBuilder {
+    grid-column-start: 6;
+    grid-row-start: 3;
+}
+
+.nameBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 1;
+    grid-row-start: 4;
+}
+
+.titleBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 4;
+}
+
+.aboutBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 5;
+    grid-row-start: 4;
+}
+
+.cvBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 5;
+}
+
+.buttonBuilder {
+    grid-column: span 6 / span 6;
+    grid-column-start: 1;
+    grid-row-start: 6;
+}
+        
+.navFontTitleBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.mainFontTitleBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 3;
+    grid-row-start: 2;
+}
+
+.footerFontTitleBuilder {
+    grid-column: span 2 / span 2;
+    grid-column-start: 5;
+    grid-row-start: 2;
+}
+
+
+
+
+
 @media screen and (min-width: 640px) {
 	.GridPublic {
 		grid-template-columns: 1fr auto 1fr;
