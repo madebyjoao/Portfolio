@@ -51,6 +51,7 @@ export default function Portfolio() {
     const portfolio_info = portfolioData?.data;
     const projects = projectsData?.data;
 
+
     switch (template) {
         case 1:
             return (

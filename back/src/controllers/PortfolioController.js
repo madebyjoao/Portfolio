@@ -79,8 +79,12 @@ async function getProjects(req, res) {
             where: { portfolio_id: portfolio.id },
             include: [{ model: ProjectImage, as: "images" }],
         });
+        const font = await Portfolio.findOne({
+            where: { id: portfolio.id },
+            attributes: ["font_main"],
+        });
 
-        res.status(200).json({ projects });
+        res.status(200).json({ projects, font });
     } catch (error) {
         res.status(500).json({ error: "failed to fetch Projects" });
     }

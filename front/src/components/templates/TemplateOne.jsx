@@ -1,16 +1,22 @@
 import ProjectsBox from "../portfolio/templateOne/Projects";
+import { fontFamilies } from "@/utils/fonts";
 
 export default function TemplateOne({ projects }) {
     const projectsData = projects.projects;
+    const mainFont = projects.font.font_main
+    const font = fontFamilies[mainFont];
 
 
     return (
-        <div className="relative top-20 h-full">
+        <div 
+            style={{ fontFamily: font }}
+            className="relative top-20 h-full">
             <div className="relative left-[3%] h-[30%] my-5 max-w-100">
                 <h1 className=" text-4xl font-bold">
                     My Projects
                 </h1>
             </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center">
                 {projectsData
                     .slice()
