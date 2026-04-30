@@ -30,6 +30,7 @@
 	
 	/* Builder */
 	--bg-template-builder-layout: rgb(147, 177, 166);
+	--builder-dashboard-border-inputs: rgb(102, 109, 106);
 	--builder-SideBar: rgb(24, 61, 61);
 	--builder-buttons: rgb(92, 131, 116);
 	--builder-Sidebar-text: rgb(255, 255, 255);

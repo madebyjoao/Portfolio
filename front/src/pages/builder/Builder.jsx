@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { getPortfolioBuilder, updatePortfolio } from "../../api/builder";
-import { fonts } from "../../utils/fonts";
+import { fonts, fontFamilies } from "../../utils/fonts";
 import Styles from "@/index.module.css"
 
 const fontValues = fonts.map(f => f.value);
@@ -39,7 +39,7 @@ function Builder() {
         enabled: !!slug,
     });
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, formState: { errors }, watch } = useForm({
         resolver: zodResolver(editPortfolioSchema),
     });
 
@@ -100,134 +100,158 @@ function Builder() {
 
     }
 
-    return (
+    const [font_navbar, font_main, font_footer] = watch(["font_navbar", "font_main", "font_footer"]);
 
-        
-                <form
+    return (        
+     
+                <form 
                     onSubmit={handleSubmit(onSubmit)}
-                    className={`${Styles.builderGrid} h-full p-3 shadow-[inset_0_0_0_2px_theme(colors.gray.500)] rounded-lg `}
-                >
-                    
-                        <div className={`${Styles.templateBuilder} flex flex-col`}>
-                            <label htmlFor="">
+                    className="grid grid-cols-6 grid-rows-5 gap-x-4 gap-y-4 max-h-screen h-full">
+
+                    <div className="col-span-3">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-yellow-500" >
                                 Select your template
-                            </label>
-                            <select {...register("template")}>
+                            </h2>
+                            <select 
+                                {...register("template")}
+                                className="bg-green-500 row-start-2 hover:cursor-pointer" >
+                                
                                 <option value="1">Template 1</option>
                                 <option value="2">Template 2</option>
-                            </select>
-                        </div>
-                        <div className={`${Styles.publicBuilder} flex flex-col`}>
-                            <label htmlFor="">
-                                Ready to show your Portfolio to the world?
-                            </label>
 
-                            <select {...register("is_published")}>
+                            </select> 
+                        </div>
+                    </div>
+
+                    <div className="col-start-4 col-span-3">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-teal-500" >
+                                Ready to show your Portfolio to the world?
+                            </h2>
+                            <select 
+                                className="bg-yellow-500 row-start-2 hover:cursor-pointer" 
+                                {...register("is_published")}>
 
                                 <option value="1">Yes, I'm ready</option>
                                 <option value="0">No, i'm shy</option>
 
                             </select>
+
                         </div>
-                   
-                        <div className={`${Styles.navFontTitleBuilder}`}>
-                            <h2>
+                    </div>
+
+                    <div className="row-start-2 col-span-2">
+                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-yellow-500 col-span-2">
                                 Nav bar
                             </h2>
-                        </div>
-
-                        <div className={`${Styles.navFontBuilder}`}>
-
-                            <select {...register("font_navbar")}>
-                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            <select className="bg-rose-500 row-start-2 hover:cursor-pointer"
+                                {...register("font_navbar")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                             </select>
+                            <div 
+                                className="bg-yellow-500 col-start-2 row-start-2"
+                                style={{ fontFamily: fontFamilies[font_navbar] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
+                                >
+                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
 
+                            </div>
                         </div>
-                        <div className={`${Styles.navFontImgBuilder}`}></div>
+                    </div>
 
-                        <div className={`${Styles.mainFontTitleBuilder}`}>
-                            <h2>
+                    <div className="col-start-3 row-start-2 col-span-2">
+                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-green-500 col-span-2">
                                 Main
                             </h2>
-                        </div>
-
-                        <div className={`${Styles.mainFontBuilder}`}>
-                            <select {...register("font_main")}>
-                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            <select 
+                                className="bg-rose-500 row-start-2 hover:cursor-pointer" 
+                                {...register("font_main")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                             </select>
-                        </div>
-                        <div className={`${Styles.mainFontImgBuilder}`}></div>
+                            <div 
+                                className="bg-orange-500 col-start-2 row-start-2"
+                                style={{ fontFamily: fontFamilies[font_main] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
+                                >
+                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
 
-                        <div className={`${Styles.footerFontTitleBuilder}`}>
-                            <h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="col-start-5 row-start-2 col-span-2">
+                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-yellow-500 col-span-2">
                                 Footer
                             </h2>
-                        </div>
-
-                        <div className={`${Styles.footerFontBuilder}`}>
-                            <select {...register("font_footer")}>
-                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            <select className="bg-green-500 row-start-2 hover:cursor-pointer"
+                                {...register("font_footer")}>
+                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                             </select>
+                            <div className="bg-teal-500 col-start-2 row-start-2"
+                                style={{ fontFamily: fontFamilies[font_footer] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
+                                >
+                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
+
+                            </div>
                         </div>
-                        <div className={`${Styles.footerFontImgBuilder}`}></div>
-                        
-                       
-                    
-
-
-
-                    <div className={`${Styles.nameBuilder}`}>
-
-                        <label htmlFor="title">
-                            Portfolio Name
-                        </label>
-
-                        <input id="title" type="text" {...register("title")} />
-
-                    </div>
-                    <div className={`${Styles.titleBuilder}`}>
-
-                        <label htmlFor="about_title">
-                            Title
-                        </label>
-
-                        <input id="about_title" type="text" {...register("about_title")} />
-
                     </div>
 
-                    <div className={`${Styles.aboutBuilder}`}>
-
-                        <label htmlFor="about_text">
-                            About you
-                        </label>
-
-                        <input id="about_text" type="text" {...register("about_text")} />
-
+                    <div className="row-start-3 col-span-2">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-cyan-500">
+                                Portfolio Name
+                            </h2>
+                            <input 
+                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
+                                id="title" type="text" {...register("title")} />
+                        </div>
                     </div>
 
-                    <div className={`${Styles.cvBuilder}`}>
-
-                        <label htmlFor="file">
-                            Upload your CV
-                        </label>
-
-                        <input id="file" type="file" accept=".pdf" {...register("file")} />
-
+                    <div className="col-start-3 row-start-3 col-span-2">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-green-500">
+                                Title
+                            </h2>
+                            <input 
+                                placeholder=""
+                                className="row-start-2  border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition"
+                                id="about_title" type="text" {...register("about_title")} 
+                            />
+                        </div>
                     </div>
 
+                    <div className="col-start-5 row-start-3 col-span-2">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="bg-yellow-500">
+                                About You
+                            </h2>
+                            <input 
+                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
+                                id="about_text" type="text" {...register("about_text")}
+                            />
+                        </div>
+                    </div>
 
+                    <div className="col-start-3 row-start-4 col-span-2">
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
+                            <h2 className="flex items-center justify-center">
+                                Upload you CV
+                            </h2>
+                            <input 
+                                placeholder="Upload your CV"
+                                className="row-start-2 text-center hover:cursor-pointer border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
+                                id="file" type="file" accept=".pdf" {...register("file")}
+                            />
+                        </div>
+                    </div>
 
-                    <button
-                        type="submit"
-                        disabled={isPending}
-                        className={`${Styles.buttonBuilder} mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer`}
+                    <button className="col-start-2 row-start-5 col-span-4 mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
                     >
                         {isPending ? "Updating..." : "Save Changes"}
                     </button>
-
-
                 </form>
-           
 
     );
 }
