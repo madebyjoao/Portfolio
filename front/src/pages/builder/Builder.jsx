@@ -109,13 +109,13 @@ function Builder() {
                     className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_auto_auto] gap-x-4 gap-y-4 max-h-screen h-full">
 
                     <div className="col-span-3">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-yellow-500" >
+                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full  p-2">
+                            <h2 className="text-lg font-semibold" >
                                 Select your template
                             </h2>
                             <select 
                                 {...register("template")}
-                                className="bg-green-500 row-start-2 hover:cursor-pointer" >
+                                className="row-start-2 max-w-1/2 w-fit hover:cursor-pointer">
                                 
                                 <option value="1">Template 1</option>
                                 <option value="2">Template 2</option>
@@ -126,11 +126,11 @@ function Builder() {
 
                     <div className="col-start-4 col-span-3">
                         <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-teal-500" >
+                            <h2 className="text-lg font-semibold" >
                                 Ready to show your Portfolio to the world?
                             </h2>
                             <select 
-                                className="bg-yellow-500 row-start-2 hover:cursor-pointer" 
+                                className="row-start-2 max-w-1/2 w-fit hover:cursor-pointer" 
                                 {...register("is_published")}>
 
                                 <option value="1">Yes, I'm ready</option>
@@ -241,7 +241,7 @@ function Builder() {
                             </h2>
                             <input 
                                 placeholder="Upload your CV"
-                                className="row-start-2 text-center hover:cursor-pointer border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
+                                className="row-start-2 text-center hover:cursor-pointer border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md" 
                                 id="file" type="file" accept=".pdf" {...register("file")}
                             />
                         </div>
