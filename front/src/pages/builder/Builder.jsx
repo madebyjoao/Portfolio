@@ -106,7 +106,7 @@ function Builder() {
      
                 <form 
                     onSubmit={handleSubmit(onSubmit)}
-                    className="grid grid-cols-6 grid-rows-5 gap-x-4 gap-y-4 max-h-screen h-full">
+                    className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_auto_auto] gap-x-4 gap-y-4 max-h-screen h-full">
 
                     <div className="col-span-3">
                         <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
@@ -143,7 +143,7 @@ function Builder() {
 
                     <div className="row-start-2 col-span-2">
                         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-yellow-500 col-span-2">
+                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 Nav bar
                             </h2>
                             <select className="bg-rose-500 row-start-2 hover:cursor-pointer"
@@ -162,7 +162,7 @@ function Builder() {
 
                     <div className="col-start-3 row-start-2 col-span-2">
                         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-green-500 col-span-2">
+                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 Main
                             </h2>
                             <select 
@@ -182,7 +182,7 @@ function Builder() {
 
                     <div className="col-start-5 row-start-2 col-span-2">
                         <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-yellow-500 col-span-2">
+                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 Footer
                             </h2>
                             <select className="bg-green-500 row-start-2 hover:cursor-pointer"
@@ -199,8 +199,8 @@ function Builder() {
                     </div>
 
                     <div className="row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-cyan-500">
+                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
+                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 Portfolio Name
                             </h2>
                             <input 
@@ -210,27 +210,27 @@ function Builder() {
                     </div>
 
                     <div className="col-start-3 row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-green-500">
+                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
+                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 Title
                             </h2>
                             <input 
                                 placeholder=""
-                                className="row-start-2  border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition"
+                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition"
                                 id="about_title" type="text" {...register("about_title")} 
                             />
                         </div>
                     </div>
 
                     <div className="col-start-5 row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="bg-yellow-500">
+                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
+                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
                                 About You
                             </h2>
-                            <input 
+                            <textarea 
                                 className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
-                                id="about_text" type="text" {...register("about_text")}
-                            />
+                                id="about_text" {...register("about_text")}
+                            ></textarea>
                         </div>
                     </div>
 
