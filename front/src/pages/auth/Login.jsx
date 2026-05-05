@@ -155,7 +155,7 @@ export function Login() {
                                 Enter your Email
                             </label>
                         </fieldset>
-                        <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-black/30">
+                        <fieldset className="group relative w-full border rounded-md border-gray-500 backdrop-blur bg-(--builder-SideBar)">
                             <legend className="ml-2 text-xs max-w-0 overflow-hidden whitespace-nowrap transition-all
                                 group-focus-within:max-w-full group-focus-within:px-1
                                 group-[:has(input:not(:placeholder-shown))]:max-w-full

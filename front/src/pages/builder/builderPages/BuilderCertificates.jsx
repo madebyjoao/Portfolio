@@ -17,7 +17,7 @@ export default function BuilderCertificates() {
         <div className="flex flex-col gap-5">
             
             <div>
-                <h1 className="font-bold text-3xl">
+                <h1 className="font-bold text-3xl text-(--builder-Sidebar-text)">
                     My Certificates
                 </h1>
                 <CertificatesAccordion />                

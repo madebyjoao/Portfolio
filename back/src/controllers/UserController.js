@@ -7,6 +7,7 @@ import sequelize from "../db/connection.js";
 import { fileURLToPath } from "url";
 import {
     createUserFolderCertif,
+    createUserFolderCv,
     createUserFolderProjects,
 } from "../utils/createFolder.js";
 

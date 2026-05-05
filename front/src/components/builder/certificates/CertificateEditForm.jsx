@@ -114,7 +114,7 @@ function AccordionItem({
                 <button
                     type="button"
                     aria-expanded={editModalOpen}
-                    className=""
+                    className="hover:cursor-pointer"
                     onClick={onToggle}
                 >
                     <div className="flex items-center justify-center px-6 text-center">

@@ -17,7 +17,7 @@ export default function BuilderSidebar() {
     const slug = localStorage.getItem("slug")
 
     return (
-        <aside className="w-72 min-h-screen bg-(--builder-SideBar) text-(--builder-Sidebar-text) flex flex-col p-6">
+        <aside className="flex flex-col p-6 w-1/6 min-h-screen rounded-md backdrop-blur bg-black/30 text-(--builder-Sidebar-text) ">
             <div className="mb-10">
                 <h2 className="text-2xl font-bold">Builder</h2>
                 <p className="text-sm text-gray-300 mt-2">

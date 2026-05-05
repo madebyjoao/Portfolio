@@ -54,7 +54,7 @@ async function createUserFolderCv(normalizedSlug) {
         await fs.mkdir(folderPath, { recursive: true });
         console.log(`Folder created: ${folderPath}`); 
         return folderPath;
-    } catch (err) {
+    } catch (error) {
         console.error("Failed to create User CV folder", error);
         throw error;
     }
