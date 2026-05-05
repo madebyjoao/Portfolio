@@ -30,7 +30,7 @@ export default function PortfolioLayout() {
                 <div className="min-h-screen flex flex-col bg-(--bg-template-one)">
                     <NavbarPortfolio title={isPending ? "Loading..." : title} />
 
-                    <main>
+                    <main className="flex-1 pb-32 mb-20">
                         <Outlet />
                     </main>
 

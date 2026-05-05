@@ -10,14 +10,14 @@ export default function TemplateOne({ projects }) {
     return (
         <div 
             style={{ fontFamily: font }}
-            className="relative top-20 h-full">
-            <div className="relative left-[3%] h-[30%] my-5 max-w-100">
+            className="w-full pt-20 pb-16">
+            <div className="relative left-[3%] my-5 max-w-100">
                 <h1 className=" text-4xl font-bold">
                     My Projects
                 </h1>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 justify-items-center gap-y-10 gap-x-4 px-4 pb-16">
                 {projectsData
                     .slice()
                     .sort((a, b) => a.order_index - b.order_index)

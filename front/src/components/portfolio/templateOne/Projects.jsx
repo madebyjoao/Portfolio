@@ -43,10 +43,10 @@ export default function ProjectsBox({
                     onClick={() => setIsOpen(false)}
                 >
                     <div
-                        className="bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden max-w-lg w-full mx-4 shadow-2xl"
+                        className="bg-white  rounded-2xl max-w-2xl w-full mx-4 shadow-2xl m-4"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        <div className="w-full h-56 overflow-hidden">
+                        <div className="w-full h-auto overflow-hidden  rounded-b-3xl">
                             <img
                                 className="w-full h-full object-cover"
                                 src={`${BASE_URL}/uploads/${project_thumbnail}`}

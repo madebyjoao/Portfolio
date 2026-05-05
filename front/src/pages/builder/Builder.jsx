@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,6 +51,9 @@ function Builder() {
         },
     });
 
+    const [font_navbar, font_main, font_footer] = watch(["font_navbar", "font_main", "font_footer"]);
+    const [selectedFile, setSelectedFile] = useState(null);
+
     useEffect(() => {
         if (data?.data?.portfolio) {
             const p = data.data.portfolio;
@@ -100,159 +103,197 @@ function Builder() {
 
     }
 
-    const [font_navbar, font_main, font_footer] = watch(["font_navbar", "font_main", "font_footer"]);
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+        setSelectedFile(file.name);
+        } else {
+        setSelectedFile(null);
+        }
+    };
 
     return (        
-     
                 <form 
                     onSubmit={handleSubmit(onSubmit)}
-                    className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_auto_auto] gap-x-4 gap-y-4 max-h-screen h-full">
+                    className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_1fr_auto] gap-4 max-h-screen h-full p-4">
 
-                    <div className="col-span-3">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full  p-2">
-                            <h2 className="text-lg font-semibold" >
+                    {/* Template Selection */}
+                    <div className="col-span-3 bg-white/90 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h2 className="text-2xl font-bold text-(--builder-SideBar)">
                                 Select your template
                             </h2>
                             <select 
                                 {...register("template")}
-                                className="row-start-2 max-w-1/2 w-fit hover:cursor-pointer">
-                                
+                                className="bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base font-medium hover:border-(--builder-buttons) focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) transition cursor-pointer">
                                 <option value="1">Template 1</option>
                                 <option value="2">Template 2</option>
-
                             </select> 
                         </div>
                     </div>
 
-                    <div className="col-start-4 col-span-3">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="text-lg font-semibold" >
+                    {/* Publish Status */}
+                    <div className="col-start-4 col-span-3 bg-white/90 rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h2 className="text-2xl font-bold text-(--builder-SideBar)">
                                 Ready to show your Portfolio to the world?
                             </h2>
                             <select 
-                                className="row-start-2 max-w-1/2 w-fit hover:cursor-pointer" 
+                                className="bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base font-medium hover:border-(--builder-buttons) focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) transition cursor-pointer" 
                                 {...register("is_published")}>
-
                                 <option value="1">Yes, I'm ready</option>
-                                <option value="0">No, i'm shy</option>
-
+                                <option value="0">No, I'm shy</option>
                             </select>
-
                         </div>
                     </div>
 
-                    <div className="row-start-2 col-span-2">
-                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
-                                Nav bar
-                            </h2>
-                            <select className="bg-rose-500 row-start-2 hover:cursor-pointer"
-                                {...register("font_navbar")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
-                            </select>
-                            <div 
-                                className="bg-yellow-500 col-start-2 row-start-2"
-                                style={{ fontFamily: fontFamilies[font_navbar] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
-                                >
-                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-start-3 row-start-2 col-span-2">
-                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
-                                Main
-                            </h2>
+                    {/* Navbar Font */}
+                    <div className="row-start-2 col-span-2 bg-white/90 rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-3 h-full">
+                            <h3 className="text-xl font-bold text-center text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2">
+                                Navbar Font
+                            </h3>
                             <select 
-                                className="bg-rose-500 row-start-2 hover:cursor-pointer" 
-                                {...register("font_main")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                                className="bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-sm font-medium hover:border-(--builder-buttons) focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) transition cursor-pointer"
+                                {...register("font_navbar")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                             </select>
                             <div 
-                                className="bg-orange-500 col-start-2 row-start-2"
-                                style={{ fontFamily: fontFamilies[font_main] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
-                                >
-                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
-
+                                className="flex-1 bg-gradient-to-br from-(--builder-buttons)/30 to-(--builder-buttons)/10 border border-(--builder-dashboard-border-inputs) rounded-lg p-3 flex items-center justify-center text-center"
+                                style={{ fontFamily: fontFamilies[font_navbar] || fontFamilies.abeezee, fontSize: '16px' }}>
+                                <p className="text-(--builder-SideBar) leading-relaxed">
+                                    A Preview of the Font you are selecting, Have FUN!
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="col-start-5 row-start-2 col-span-2">
-                        <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="col-span-2 flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
-                                Footer
-                            </h2>
-                            <select className="bg-green-500 row-start-2 hover:cursor-pointer"
-                                {...register("font_footer")}>
-                                    {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                    {/* Main Font */}
+                    <div className="col-start-3 row-start-2 col-span-2 bg-white/90 rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-3 h-full">
+                            <h3 className="text-xl font-bold text-center text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2">
+                                Main Font
+                            </h3>
+                            <select 
+                                className="bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-sm font-medium hover:border-(--builder-buttons) focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) transition cursor-pointer"
+                                {...register("font_main")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
                             </select>
-                            <div className="bg-teal-500 col-start-2 row-start-2"
-                                style={{ fontFamily: fontFamilies[font_footer] || fontFamilies.abeezee, fontSize: '18px', padding: '10px' }}
-                                >
-                                    A Preview of the Font you are selecting, <br/> Have FUN!!!!
-
+                            <div 
+                                className="flex-1 bg-gradient-to-br from-(--builder-buttons)/30 to-(--builder-buttons)/10 border border-(--builder-dashboard-border-inputs) rounded-lg p-3 flex items-center justify-center text-center"
+                                style={{ fontFamily: fontFamilies[font_main] || fontFamilies.abeezee, fontSize: '16px' }}>
+                                <p className="text-(--builder-SideBar) leading-relaxed">
+                                    A Preview of the Font you are selecting, Have FUN!
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div className="row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
-                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
-                                Portfolio Name
-                            </h2>
-                            <input 
-                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
-                                id="title" type="text" {...register("title")} />
+                    {/* Footer Font */}
+                    <div className="col-start-5 row-start-2 col-span-2 bg-white/90 rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-3 h-full">
+                            <h3 className="text-xl font-bold text-center text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2">
+                                Footer Font
+                            </h3>
+                            <select 
+                                className="bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-sm font-medium hover:border-(--builder-buttons) focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) transition cursor-pointer"
+                                {...register("font_footer")}>
+                                {fonts.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
+                            </select>
+                            <div 
+                                className="flex-1 bg-gradient-to-br from-(--builder-buttons)/30 to-(--builder-buttons)/10 border border-(--builder-dashboard-border-inputs) rounded-lg p-3 flex items-center justify-center text-center"
+                                style={{ fontFamily: fontFamilies[font_footer] || fontFamilies.abeezee, fontSize: '16px' }}>
+                                <p className="text-(--builder-SideBar) leading-relaxed">
+                                    A Preview of the Font you are selecting, Have FUN!
+                                </p>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="col-start-3 row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
-                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
-                                Title
-                            </h2>
+                    {/* Portfolio Name */}
+                    <div className="row-start-3 col-span-2 bg-white/90 rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2 px-3 text-center">
+                                Portfolio Name
+                            </h3>
                             <input 
-                                placeholder=""
-                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition"
-                                id="about_title" type="text" {...register("about_title")} 
+                                className="flex-1 bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-400" 
+                                id="title" 
+                                type="text" 
+                                placeholder="Enter your portfolio name"
+                                {...register("title")} 
                             />
                         </div>
                     </div>
 
-                    <div className="col-start-5 row-start-3 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-[auto_0.7fr] gap-5 h-full w-full p-5">
-                            <h2 className="flex items-center justify-center bg-gray-400/90 text-3xl font-semibold outline outline-none rounded-lg px-3 py-2 box-border">
+                    {/* About Title */}
+                    <div className="col-start-3 row-start-3 col-span-2 bg-white/90 rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2 px-3 text-center">
+                                About Title
+                            </h3>
+                            <input 
+                                className="flex-1 bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-400"
+                                id="about_title" 
+                                type="text" 
+                                placeholder="e.g., About Me"
+                                {...register("about_title")} 
+                            />
+                        </div>
+                    </div>
+
+                    {/* About Text */}
+                    <div className="col-start-5 row-start-3 col-span-2 bg-white/90 rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-SideBar) bg-(--builder-buttons)/20 rounded-lg py-2 px-3 text-center">
                                 About You
-                            </h2>
+                            </h3>
                             <textarea 
-                                className="row-start-2 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md focus:outline-none focus:ring-4 focus:ring-(--builder-dashboard-border-inputs) transition" 
-                                id="about_text" {...register("about_text")}
+                                className="flex-1 bg-white border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition resize-none placeholder:text-gray-400" 
+                                id="about_text" 
+                                placeholder="Tell the world about yourself..."
+                                {...register("about_text")}
                             ></textarea>
                         </div>
                     </div>
 
-                    <div className="col-start-3 row-start-4 col-span-2">
-                        <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full p-2">
-                            <h2 className="flex items-center justify-center">
-                                Upload you CV
-                            </h2>
-                            <input 
-                                placeholder="Upload your CV"
-                                className="row-start-2 text-center hover:cursor-pointer border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg px-3 py-2 text-md" 
-                                id="file" type="file" accept=".pdf" {...register("file")}
-                            />
-                        </div>
+                    {/* CV Upload */}
+                    <div className="col-start-3 row-start-4 col-span-2 bg-white/90 rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-SideBar) text-center">Upload your CV</h3>
+                            <label 
+                                htmlFor="dropzone-file" 
+                                className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg hover:border-(--builder-buttons) hover:bg-(--builder-buttons)/5 transition cursor-pointer group">
+                                <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
+                                    <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
+                                    </svg>
+                                    <p className="mb-2 text-sm text-(--builder-SideBar)">
+                                        <span className="font-semibold">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p className="text-base font-medium text-(--builder-buttons)">
+                                        {selectedFile ? selectedFile : 'Your CV (.pdf)'}
+                                    </p>
+                                </div>
+                                <input 
+                                    id="dropzone-file" 
+                                    type="file" 
+                                    className="hidden" 
+                                    accept=".pdf" 
+                                    {...register("file")} 
+                                    onChange={handleFileChange}
+                                />
+                            </label>
+                        </div>                        
                     </div>
 
-                    <button className="col-start-2 row-start-5 col-span-4 mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
-                    >
+                    {/* Submit Button */}
+                    <button 
+                        type="submit"
+                        className="col-start-2 row-start-5 col-span-4 bg-(--builder-buttons) text-white py-4 rounded-xl text-lg font-bold hover:bg-(--builder-SideBar) disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         {isPending ? "Updating..." : "Save Changes"}
                     </button>
                 </form>
-
     );
 }
 

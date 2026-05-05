@@ -38,7 +38,9 @@ async function getCertificateBuilder(slug) {
 
 //PUT routes
 async function updatePortfolio(slug, formData) {
-    return await instance.put(`builder/portfolio/${slug}`, formData);
+    return await instance.put(`builder/portfolio/${slug}`, formData, {
+         timeout: 10000,
+    });
 }
 
 async function updateCertificate(slug, formData) {
