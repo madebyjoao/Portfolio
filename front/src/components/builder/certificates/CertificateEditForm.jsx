@@ -118,7 +118,7 @@ function AccordionItem({
                     onClick={onToggle}
                 >
                     <div className="flex items-center justify-center px-6 text-center">
-                        <span className="text-base font-semibold">
+                        <span className="text-base font-semibold text-(--builder-Sidebar-text)">
                             {certificate_title}
                         </span>
                     </div>
@@ -147,7 +147,7 @@ function AccordionItem({
                     onClick={onToggle}
                     className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
                     <div className="bg-white p-6 rounded-xl w-full max-w-md" onClick={(e) => e.stopPropagation()}>
-                        <button className="flex justify-self-end hover:cursor-pointer" onClick={onToggle}><CircleXIcon className="text-(--builder-buttons) hover:text-red-500 transition-colors"/></button>
+                        <button className="flex justify-self-end hover:cursor-pointer" onClick={onToggle}><CircleXIcon className="text-(--builder-edit-buttons) hover:text-red-500 transition-colors"/></button>
                         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 
                             <div className="flex flex-col gap-1">
@@ -258,7 +258,7 @@ function AccordionItem({
                             <button
                                 type="submit"
                                 disabled={isPending}
-                                className="mt-1 w-full bg-(--builder-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-buttons)/50 disabled:opacity-50 transition cursor-pointer"
+                                className="mt-1 w-full bg-(--builder-edit-buttons) text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-(--builder-edit-buttons)/50 disabled:opacity-50 transition cursor-pointer"
                             >
                                 {isPending ? "Updating..." : "Edit Certificate"}
                             </button>
@@ -281,7 +281,7 @@ function CreateCertificate({ createModalOpen, setCreateModalOpen, register, hand
                     onClick={() => setCreateModalOpen(true)}>
                 
                 <div className="px-6 text-center">
-                    <span className="text-base font-semibold">
+                    <span className="text-base font-semibold text-(--builder-Sidebar-text)">
                         New certificate
                     </span>
                 </div>
