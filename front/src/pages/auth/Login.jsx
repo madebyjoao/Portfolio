@@ -93,6 +93,19 @@ export function Login() {
                                     type="button"
                                     onClick={() =>
                                         quickLogin(
+                                            "joao@test.com",
+                                            "123456",
+                                        )
+                                    }
+                                    disabled={loginMutation.isPending}
+                                    className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
+                                >
+                                    Template One
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        quickLogin(
                                             "joao-port@test.com",
                                             "123456",
                                         )
@@ -106,15 +119,15 @@ export function Login() {
                                     type="button"
                                     onClick={() =>
                                         quickLogin(
-                                            "joao@test.com",
+                                            "template3@test.com",
                                             "123456",
                                         )
                                     }
                                     disabled={loginMutation.isPending}
                                     className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-[10px] font-bold tracking-[1.5px] transition-colors disabled:opacity-50"
                                 >
-                                    Template One
-                                </button>
+                                    Template Three
+                                </button>                           
                                 <button
                                     type="button"
                                     onClick={() =>

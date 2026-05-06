@@ -4,6 +4,7 @@ import { getPortfolioBySlug, getProjectsBySlug } from "../../api/portfolio";
 import TemplateOne from "../../components/templates/TemplateOne";
 import TemplateTwo from "../../components/templates/TemplateTwo";
 import AccessDeniedPage from "./AccessDenied";
+import TemplateThree from "../../components/templates/TemplateThree";
 
 export default function Portfolio() {
     const { slug } = useParams();
@@ -67,6 +68,14 @@ export default function Portfolio() {
                 <TemplateTwo
                     portfolio_info={portfolio_info}
                     projects={projects}
+                />
+            );
+            break;
+
+        case 3:
+            return (
+                <TemplateThree
+                    
                 />
             );
             break;
