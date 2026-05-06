@@ -69,22 +69,24 @@ export default function Footer() {
             </div>
             <section className="col-start-4 col-span-2">
                 <div className="grid grid-cols-2 grid-rows-[1fr_1fr_auto] gap-2 h-full w-full p-2">
-                    <Link className="grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-box hover:bg-white/15"
+                    <Link className="grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
                         >
                         Contact
                     </Link>
-                    <Link className="col-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-box hover:bg-white/15"
+                    <Link className="col-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
                         >
                         Contact
                     </Link>
-                    <Link className="row-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-box hover:bg-white/15"
+                    <Link 
+                        to="/cv"
+                        className="row-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
                         >
-                        Contact
+                        About me
                     </Link>
                     
                     <Link 
                         to="/contact"
-                        className="col-start-2 row-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-box hover:bg-white/15"
+                        className="col-start-2 row-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
                         >
                         Contact
                     </Link>
