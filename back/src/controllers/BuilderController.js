@@ -14,8 +14,8 @@ async function getPortfolioBuilder(req, res) {
 
     try {
         const portfolio = await Portfolio.findOne({
-            where: { slug }
-        })
+            where: { slug },
+        });
 
         if (!portfolio) {
             return res.status(404).json({ error: "Portfolio not found" });
@@ -80,7 +80,7 @@ async function getProjectsBuilder(req, res) {
 async function updatePortfolio(req, res) {
 
     const { slug } = req.params;
-    const { id, title, about_title, about_text, is_published, template, font_navbar, font_main, font_footer } = req.body;
+    const { id, title, about_title, about_text, is_published, template, font_navbar, font_main, font_footer, full_name, position, region, technologies } = req.body;
     const file = req.file;
 
     try {
@@ -105,6 +105,10 @@ async function updatePortfolio(req, res) {
         portfolio.font_navbar = font_navbar || portfolio.font_navbar;
         portfolio.font_main = font_main || portfolio.font_main;
         portfolio.font_footer = font_footer || portfolio.font_footer;
+        portfolio.full_name = full_name !== undefined ? full_name : portfolio.full_name;
+        portfolio.position = position !== undefined ? position : portfolio.position;
+        portfolio.region = region !== undefined ? region : portfolio.region;
+        portfolio.technologies = Array.isArray(technologies) ? technologies : portfolio.technologies;
 
         await portfolio.save();
         res.status(200).json({ portfolio });

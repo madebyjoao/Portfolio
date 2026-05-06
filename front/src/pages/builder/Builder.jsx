@@ -16,7 +16,7 @@ const editPortfolioSchema = z.object({
     about_title: z.string().min(1, "About title is required"),
     about_text: z.string().min(1, "About You text is required"),
     is_published: z.stringbool(),
-    template: z.enum(["1", "2"]).transform(Number),
+    template: z.enum(["1", "2", "3"]).transform(Number),
     font_navbar: z.enum(fontValues),
     font_main:   z.enum(fontValues),
     font_footer: z.enum(fontValues),
@@ -133,7 +133,8 @@ function Builder() {
                                         onChange={field.onChange}
                                         options={[
                                             { value: "1", label: "Template 1" },
-                                            { value: "2", label: "Template 2" }
+                                            { value: "2", label: "Template 2" },
+                                            { value: "3", label: "Template 3" }
                                         ]}
                                     />
                                 )}

@@ -78,6 +78,27 @@ const Portfolio = sequelize.define(
             type: DataTypes.STRING(100),
             allowNull: true,
         },
+
+        full_name: {
+            type: DataTypes.STRING(120),
+            allowNull: true,
+        },
+
+        position: {
+            type: DataTypes.STRING(120),
+            allowNull: true,
+        },
+
+        region: {
+            type: DataTypes.STRING(120),
+            allowNull: true,
+        },
+
+        technologies: {
+            type: DataTypes.JSON,
+            allowNull: true,
+            defaultValue: null,
+        },
     },
     {
         tableName: "portfolios",

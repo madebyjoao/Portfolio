@@ -27,6 +27,12 @@
 	--bg-template-two: rgb(255, 255, 255);
 	--navbar-template-2: rgb(0, 0, 0);
 	--footer-template-2: rgb(0, 0, 0);
+
+	/* Template Three*/
+	--bg-template-three: rgb(22, 27, 37);
+	--navbar-template-three: rgb(30, 37, 53);
+	--border-template-three: rgb(42, 51, 71);
+	--template-three-text-title: rgb(255, 255, 255);
 	
 	/* Builder */
 	--bg-template-builder-layout: rgb(147, 177, 166);

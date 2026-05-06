@@ -7,6 +7,7 @@ import FooterPortfolio1 from "../components/portfolio/templateOne/Footer";
 import FooterPortfolio2 from "../components/portfolio/templateTwo/Footer";
 import NoTemplate from "../pages/public/NoTemplate";
 import NavBarTemplateThree from "../components/portfolio/templateThree/NavBarTemplate3";
+import FooterTemplateThree from "../components/portfolio/templateThree/FooterTemplate3";
 
 export default function PortfolioLayout() {
     const { slug } = useParams();
@@ -61,15 +62,17 @@ export default function PortfolioLayout() {
 
         case 3:
             return (
-                <div className="grid grid-cols-4 grid-rows-[auto_1fr_1fr_auto] min-h-screen">
+                <div className="grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-y-2 min-h-screen bg-(--bg-template-three)">
                     <header className="col-span-4">
-                        <NavBarTemplateThree />
+                        <NavBarTemplateThree 
+                            title={isPending ? "Loading..." : title}
+                        />
                     </header>
-                    <main className="bg-purple-500 row-start-2 col-span-4 row-span-2">
+                    <main className="row-start-2 col-span-4 h-full">
                         <Outlet />
                     </main>
-                    <footer className="row-start-4 col-span-4">
-
+                    <footer className="row-start-3 col-span-4">
+                        <FooterTemplateThree />
                     </footer>
                 </div>
 
