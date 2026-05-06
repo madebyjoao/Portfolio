@@ -108,7 +108,8 @@ async function updatePortfolio(req, res) {
         portfolio.full_name = full_name !== undefined ? full_name : portfolio.full_name;
         portfolio.position = position !== undefined ? position : portfolio.position;
         portfolio.region = region !== undefined ? region : portfolio.region;
-        portfolio.technologies = Array.isArray(technologies) ? technologies : portfolio.technologies;
+        const parsedTechnologies = typeof technologies === "string" ? JSON.parse(technologies) : technologies;
+        portfolio.technologies = Array.isArray(parsedTechnologies) ? parsedTechnologies : portfolio.technologies;
 
         await portfolio.save();
         res.status(200).json({ portfolio });

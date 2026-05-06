@@ -14,12 +14,16 @@ const fontValues = fonts.map(f => f.value);
 const editPortfolioSchema = z.object({
     title: z.string().min(1, "title is required"),
     about_title: z.string().min(1, "About title is required"),
-    about_text: z.string().min(1, "About You text is required"),
+    about_text: z.string().min(1, "About You text is required").max(1024, "Max number of characters: 1024"),
     is_published: z.stringbool(),
     template: z.enum(["1", "2", "3"]).transform(Number),
     font_navbar: z.enum(fontValues),
     font_main:   z.enum(fontValues),
     font_footer: z.enum(fontValues),
+    full_name: z.string().optional(),
+    position: z.string().optional(),
+    region: z.string().optional(),
+    technologies: z.array(z.string()).optional().default([]),
     file: z.instanceof(FileList)
             .optional()
             .refine(
@@ -40,7 +44,7 @@ function Builder() {
         enabled: !!slug,
     });
 
-    const { register, handleSubmit, reset, control, formState: { errors }, watch } = useForm({
+    const { register, handleSubmit, reset, control, getValues, formState: { errors }, watch } = useForm({
         resolver: zodResolver(editPortfolioSchema),
     });
 
@@ -54,6 +58,10 @@ function Builder() {
 
     const [font_navbar, font_main, font_footer] = watch(["font_navbar", "font_main", "font_footer"]);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [techInput, setTechInput] = useState("");
+    const [charCount, setCharCount] = useState(getValues("about_text")?.length || 0);   
+    const MAX_LENGTH = 1024
+    
 
     useEffect(() => {
         if (data?.data?.portfolio) {
@@ -67,9 +75,14 @@ function Builder() {
                 font_navbar: p.font_navbar ?? fonts[0].value,
                 font_main:   p.font_main ?? fonts[0].value,
                 font_footer: p.font_footer ?? fonts[0].value,
+                full_name: p.full_name ?? "",
+                position: p.position ?? "",
+                region: p.region ?? "",
+                technologies: p.technologies ?? [],
             });
+            setCharCount(p.about_text?.length || 0);
         }
-    }, [data]);
+    }, [data, reset]);
 
     if (isPending) {
         return <div>Charging...</div>;
@@ -99,6 +112,10 @@ function Builder() {
         formData.append("font_navbar", data.font_navbar);
         formData.append("font_main", data.font_main);
         formData.append("font_footer", data.font_footer);
+        formData.append("full_name", data.full_name ?? "");
+        formData.append("position", data.position ?? "");
+        formData.append("region", data.region ?? "");
+        formData.append("technologies", JSON.stringify(data.technologies ?? []));
         if (data.file) formData.append("file", data.file);
         mutate(formData);
 
@@ -113,10 +130,14 @@ function Builder() {
         }
     };
 
-    return (        
+    const handleInputChange = (e) => {
+            setCharCount(e.target.value.length);
+        };    
+        
+    return (    
                 <form 
                     onSubmit={handleSubmit(onSubmit)}
-                    className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_1fr_auto] gap-4 max-h-screen h-full p-4">
+                    className="grid grid-cols-6 grid-rows-[auto_1fr_1fr_1fr_1fr_auto_auto] gap-4 max-h-screen h-full p-4">
 
                     {/* Template Selection */}
                     <div className="col-span-3 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
@@ -165,8 +186,183 @@ function Builder() {
                         </div>
                     </div>
 
+                    {/* Full Name */}
+                    <div className="row-start-2 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) rounded-lg py-2 px-3 text-center">
+                                Full Name
+                            </h3>
+                            <input
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
+                                type="text"
+                                placeholder="e.g., João Silva"
+                                {...register("full_name")}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Position */}
+                    <div className="row-start-2 col-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) rounded-lg py-2 px-3 text-center">
+                                Position
+                            </h3>
+                            <input
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
+                                type="text"
+                                placeholder="e.g., Full Stack Developer"
+                                {...register("position")}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Region */}
+                    <div className="row-start-2 col-start-5 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) rounded-lg py-2 px-3 text-center">
+                                Region
+                            </h3>
+                            <input
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
+                                type="text"
+                                placeholder="e.g., Lisbon, PT / Remote"
+                                {...register("region")}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="row-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) rounded-lg py-2 px-3 text-center">
+                                Technologies
+                            </h3>
+                            <Controller
+                                name="technologies"
+                                control={control}
+                                render={({ field }) => (
+                                    <div className="flex flex-col gap-3 h-full">
+                                        <div className="flex flex-wrap gap-2 min-h-8">
+                                            {field.value?.map((t) => (
+                                                <span key={t} className="flex items-center gap-1 px-3 py-1 rounded-full bg-(--builder-buttons)/30 border border-(--builder-dashboard-border-inputs) text-(--builder-Sidebar-text) text-sm">
+                                                    {t}
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => field.onChange(field.value.filter(v => v !== t))}
+                                                        className="ml-1 hover:text-red-400 transition">
+                                                        ×
+                                                    </button>
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <input
+                                            type="text"
+                                            value={techInput}
+                                            onChange={(e) => setTechInput(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === "Enter" && techInput.trim()) {
+                                                    e.preventDefault();
+                                                    if (!field.value?.includes(techInput.trim())) {
+                                                        field.onChange([...(field.value ?? []), techInput.trim()]);
+                                                    }
+                                                    setTechInput("");
+                                                }
+                                            }}
+                                            placeholder="Type a technology and press Enter"
+                                            className="bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
+                                        />
+                                    </div>
+                                )}
+                            />
+                        </div>
+                    </div> 
+                    {/* Portfolio Name */}
+                    <div className="row-start-3 col-span-2 col-start-3 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
+                                Portfolio Name
+                            </h3>
+                            <input 
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)" 
+                                id="title" 
+                                type="text" 
+                                placeholder="Enter your portfolio name"
+                                {...register("title")} 
+                            />
+                        </div>
+                    </div>
+
+                    {/* About Title */}
+                    <div className="col-start-5 row-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
+                                About Title
+                            </h3>
+                            <input 
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
+                                id="about_title" 
+                                type="text" 
+                                placeholder="e.g., About Me"
+                                {...register("about_title")} 
+                            />
+                        </div>
+                    </div>
+
+                    {/* About Text */}
+                    <div className="row-start-4 col-start-3 col-span-2 row-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
+                                About You
+                            </h3>
+                            <textarea 
+                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition resize-none placeholder:text-gray-200 text-(--builder-Sidebar-text)" 
+                                id="about_text" 
+                                placeholder="Tell the world about yourself..."
+                                maxLength={MAX_LENGTH}
+                                {...register("about_text")}
+                                onChange={(e) => {
+                                    register("about_text").onChange(e);
+                                    handleInputChange(e);
+                                }}
+                            ></textarea>
+                            <div className="text-right text-sm text-(--builder-Sidebar-text)">
+                                {MAX_LENGTH - charCount} characters left
+                            </div>
+                        </div>
+                    </div>        
+
+                    {/* CV Upload */}
+                    <div className="row-start-4 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) text-center">Upload your CV</h3>
+                            <label 
+                                htmlFor="dropzone-file" 
+                                className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg hover:border-(--builder-buttons) hover:bg-(--builder-buttons)/5 transition cursor-pointer group">
+                                <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
+                                    <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
+                                    </svg>
+                                    <p className="mb-2 text-sm text-(--builder-Sidebar-text)">
+                                        <span className="font-semibold">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p className="text-base font-medium text-(--builder-Sidebar-text)">
+                                        {selectedFile ? selectedFile : 'Your CV (.pdf)'}
+                                    </p>
+                                </div>
+                                <input 
+                                    id="dropzone-file" 
+                                    type="file" 
+                                    className="hidden" 
+                                    accept=".pdf" 
+                                    {...register("file")} 
+                                    onChange={handleFileChange}
+                                />
+                            </label>
+                        </div>                        
+                    </div>        
+
                     {/* Navbar Font */}
-                    <div className="row-start-2 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                    <div className="row-start-4 col-span-2 col-start-5 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
                         <div className="flex flex-col gap-3 h-full">
                             <h3 className="text-xl font-bold text-center text-(--builder-Sidebar-text)  rounded-lg py-2">
                                 Navbar Font
@@ -194,7 +390,7 @@ function Builder() {
                     </div>
 
                     {/* Main Font */}
-                    <div className="col-start-3 row-start-2 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                    <div className="row-start-5 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
                         <div className="flex flex-col gap-3 h-full">
                             <h3 className="text-xl font-bold text-center text-(--builder-Sidebar-text)  rounded-lg py-2">
                                 Main Font
@@ -222,7 +418,7 @@ function Builder() {
                     </div>
 
                     {/* Footer Font */}
-                    <div className="col-start-5 row-start-2 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
+                    <div className="col-start-5 row-start-5 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">
                         <div className="flex flex-col gap-3 h-full">
                             <h3 className="text-xl font-bold text-center text-(--builder-Sidebar-text)  rounded-lg py-2">
                                 Footer Font
@@ -249,87 +445,14 @@ function Builder() {
                         </div>
                     </div>
 
-                    {/* Portfolio Name */}
-                    <div className="row-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
-                        <div className="flex flex-col gap-4 h-full">
-                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
-                                Portfolio Name
-                            </h3>
-                            <input 
-                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)" 
-                                id="title" 
-                                type="text" 
-                                placeholder="Enter your portfolio name"
-                                {...register("title")} 
-                            />
-                        </div>
-                    </div>
-
-                    {/* About Title */}
-                    <div className="col-start-3 row-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
-                        <div className="flex flex-col gap-4 h-full">
-                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
-                                About Title
-                            </h3>
-                            <input 
-                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition placeholder:text-gray-200 text-(--builder-Sidebar-text)"
-                                id="about_title" 
-                                type="text" 
-                                placeholder="e.g., About Me"
-                                {...register("about_title")} 
-                            />
-                        </div>
-                    </div>
-
-                    {/* About Text */}
-                    <div className="col-start-5 row-start-3 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
-                        <div className="flex flex-col gap-4 h-full">
-                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text)  rounded-lg py-2 px-3 text-center">
-                                About You
-                            </h3>
-                            <textarea 
-                                className="flex-1 bg-(--builder-buttons)/30 border-2 border-(--builder-dashboard-border-inputs) rounded-lg px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-(--builder-buttons) focus:border-(--builder-buttons) transition resize-none placeholder:text-gray-200 text-(--builder-Sidebar-text)" 
-                                id="about_text" 
-                                placeholder="Tell the world about yourself..."
-                                {...register("about_text")}
-                            ></textarea>
-                        </div>
-                    </div>
-
-                    {/* CV Upload */}
-                    <div className="col-start-3 row-start-4 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
-                        <div className="flex flex-col gap-4 h-full">
-                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) text-center">Upload your CV</h3>
-                            <label 
-                                htmlFor="dropzone-file" 
-                                className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg hover:border-(--builder-buttons) hover:bg-(--builder-buttons)/5 transition cursor-pointer group">
-                                <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
-                                    <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
-                                    </svg>
-                                    <p className="mb-2 text-sm text-(--builder-Sidebar-text)">
-                                        <span className="font-semibold">Click to upload</span> or drag and drop
-                                    </p>
-                                    <p className="text-base font-medium text-(--builder-Sidebar-text)">
-                                        {selectedFile ? selectedFile : 'Your CV (.pdf)'}
-                                    </p>
-                                </div>
-                                <input 
-                                    id="dropzone-file" 
-                                    type="file" 
-                                    className="hidden" 
-                                    accept=".pdf" 
-                                    {...register("file")} 
-                                    onChange={handleFileChange}
-                                />
-                            </label>
-                        </div>                        
-                    </div>
+                    
+                                      
+                    
 
                     {/* Submit Button */}
                     <button 
                         type="submit"
-                        className="col-start-2 row-start-5 col-span-4 backdrop-blur bg-black/30  text-white py-4 rounded-xl text-lg font-bold hover:bg-(--builder-buttons) disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                        className="col-start-2 row-start-6 col-span-4 backdrop-blur bg-black/30  text-white py-4 rounded-xl text-lg font-bold hover:bg-(--builder-buttons) disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
                         {isPending ? "Updating..." : "Save Changes"}
                     </button>
                 </form>
