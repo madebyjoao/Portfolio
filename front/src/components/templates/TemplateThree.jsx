@@ -7,10 +7,11 @@ import { scrollToTop } from "@/utils/helpers.js"
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getPortfolioTemplateThree } from "../../api/portfolio";
+import { BASE_URL } from "../../api/config";
 
 
 
-export default function TemplateThree({ portfolio_info }) {
+export default function TemplateThree() {
 
     const { slug } = useParams()
 
@@ -30,17 +31,18 @@ export default function TemplateThree({ portfolio_info }) {
     if (!data) {
         return <div>No portfolio</div>;
     }
+    
     const dataTemplate3 = data.data.portfolio;
-    const certificatesT3 = data.data.certificates
-    const projectsT3 = data.data.projects
-
-    // const portfolio = portfolio_info.portfolio;
+    const certificatesT3 = data.data.certificates.slice().sort((a, b) => a.order_index - b.order_index);
+    const projectsT3 = data.data.projects.slice().sort((a, b) => a.order_index - b.order_index);
+    const mainFont = fontFamilies[dataTemplate3.font_main];
+    const techs = data.data.portfolio.technologies;
+    
     console.log(dataTemplate3);
     console.log(certificatesT3);
     console.log(projectsT3);
-    /* const techs = portfolio_info.portfolio.technologies;
-    console.log(techs);
-    const mainFont = fontFamilies[portfolio.font_main]; */
+    
+    
 
 
 
@@ -75,13 +77,13 @@ export default function TemplateThree({ portfolio_info }) {
                     </div>
                     <div className="col-start-2 place-content-center">
                         <h2 className="text-5xl tracking-widest">
-                            {portfolio.full_name}
+                            {dataTemplate3.full_name}
                         </h2>
                     </div>
                     <div className="col-start-2 row-start-2">
                        <div className="flex flex-col gap-2 justify-start items-start">
                             <p className="tracking-widest">
-                                {portfolio.position}<span className="pr-2 pl-1">·</span>{portfolio.region}
+                                {dataTemplate3.position}<span className="pr-2 pl-1">·</span>{dataTemplate3.region}
                             </p>
                             <div className="flex gap-2 justify-center items-center">
                                 {techs.map((tech, index) => (
@@ -95,7 +97,7 @@ export default function TemplateThree({ portfolio_info }) {
                     </div>
                     <div className="col-start-2 row-start-3 border-2 border-(--border-template-three) rounded-xl mr-2">
                         <p className="p-4">
-                            {portfolio.about_text}
+                            {dataTemplate3.about_text}
                         </p>
                     </div>
             
@@ -110,8 +112,16 @@ export default function TemplateThree({ portfolio_info }) {
                     <div className="text-4xl tracking-widest">
                         <h2>Projects</h2>
                     </div>
-                    <div className="bg-gray-500 row-start-2">
-                        <ProjectTemplateThree />
+
+                    <div className="row-start-2">
+                        {projectsT3.map((project) => {
+                            const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
+                            return (
+                                <ProjectTemplateThree 
+                                    thumbnail={`${BASE_URL}/uploads/${project.thumbnail}`}
+                                />
+                            );
+                        })}
                     </div>
 
                 </div>

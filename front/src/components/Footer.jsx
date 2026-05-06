@@ -98,50 +98,5 @@ export default function Footer() {
             </section>
         </section>
 
-/* 
-
-
-
-        <section className="relative flex justify-center backdrop-blur bg-white/5 sm:min-h-50 sm:flex-row sm:justify-between text-(--text-website)">
-
-            <div className="relative z-10 flex justify-around py-4 w-1/2">
-                {stats.map((stat) => (
-                    <StatsBox
-                        key={stat.id}
-                        title={stat.title}
-                        number={stat.number}
-                        icon={
-                            stat.icon ? (
-                                <stat.icon className="text-(--text-website)" />
-                            ) : undefined
-                        }
-                    />
-                ))}
-            </div>
-            <div className="absolute left-1/2 -translate-x-1/2 h-auto top-0.5 bottom-0.5 overflow-y-hidden bg-white/25 w-px box-border"></div>
-            <div className="flex justify-around w-1/2 px-4">
-                <div>
-                    <h2>
-                        My cv
-                    </h2>
-                    <Link 
-                        to="/cv" 
-                        className="text-(--text-website) hover:underline transition-all"
-                    >
-                        View CV 
-                    </Link>
-                </div>
-                <div>
-                    <Link
-                        to="/contact"
-                        className="hover:underline"             
-                    >
-                        Contact Me
-                    </Link>
-                </div>
-            </div>
-
-        </section>
- */
     )
 }

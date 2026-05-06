@@ -26,6 +26,7 @@ async function getPortfolioThree(req, res) {
         const certificates = await Certificate.findAll({
             where: {
                 portfolio_id: portfolio.id,
+                is_public: 1,
             },
         });
 
