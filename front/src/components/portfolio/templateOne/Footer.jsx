@@ -1,5 +1,5 @@
 import AboutBox from "./AboutBox";
-import { fontFamilies } from "../../../utils/fonts";
+import { fontFamilies } from "@/utils/fonts";
 
 export default function FooterPortfolio1({ portfolio_info }) {
 

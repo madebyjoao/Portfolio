@@ -3,6 +3,49 @@ import Certificate from "../models/Certificate.js";
 import Project from "../models/Project.js";
 import ProjectImage from "../models/ProjectImage.js";
 
+
+/* Routes Per Portfolio */
+
+async function getPortfolioThree(req, res) {
+    const { slug } = req.params;
+
+    try {
+        const portfolio = await Portfolio.findOne({
+            where: { slug },
+            attributes: ["id", "template", "title", "about_title", "about_text", "font_navbar", "font_main", "font_footer", "is_published", "full_name", "position", "region", "technologies"],
+        });
+
+        if (!portfolio) {
+            return res.status(404).json({ error: "Portfolio not found" });
+        }
+
+        if (!portfolio.is_published) {
+            return res.status(403).json({ error: "Portfolio not published" });
+        }
+
+        const certificates = await Certificate.findAll({
+            where: {
+                portfolio_id: portfolio.id,
+            },
+        });
+
+        const projects = await Project.findAll({
+            where: { portfolio_id: portfolio.id },
+            include: [{ model: ProjectImage, as: "images" }],
+        });
+
+        res.status(200).json({
+            portfolio: portfolio,
+            certificates: certificates,
+            projects: projects,
+        });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to fetch template" });
+    }
+}
+
+
+/* open routes */
 async function getTemplate(req, res) {
     const { slug } = req.params;
 
@@ -90,4 +133,4 @@ async function getProjects(req, res) {
     }
 }
 
-export default { getTemplate, getCertificates, getProjects };
+export default { getPortfolioThree, getTemplate, getCertificates, getProjects };

@@ -30,7 +30,10 @@ export default function PortfolioLayout() {
         case 1:
             return (
                 <div className="min-h-screen flex flex-col bg-(--bg-template-one)">
-                    <NavbarPortfolio title={isPending ? "Loading..." : title} />
+                    <NavbarPortfolio 
+                        title={isPending ? "Loading..." : title} 
+                        portfolio_info={portfolio_info}
+                    />
 
                     <main className="flex-1 pb-32 mb-20">
                         <Outlet />
@@ -46,15 +49,18 @@ export default function PortfolioLayout() {
         case 2:
             return (
                 <div className="min-h-screen flex flex-col bg-(--bg-template-two)">
-                    <NavbarPortfolio2
-                        title={isPending ? "Loading..." : title}
-                    />
+                        <NavbarPortfolio2
+                            title={isPending ? "Loading..." : title}
+                            portfolio_info={portfolio_info}
+                        />
 
                     <main>
                         <Outlet />
                     </main>
                     <footer className="fixed bottom-0">
-                        <FooterPortfolio2 portfolio_info={portfolio_info} />
+                        <FooterPortfolio2 
+                            portfolio_info={portfolio_info}
+                        />
                     </footer>
                 </div>
             );
@@ -63,24 +69,21 @@ export default function PortfolioLayout() {
         case 3:
             return (
                 <div className="grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-y-2 min-h-screen bg-(--bg-template-three)">
-                    <header className="col-span-4">
+                    <header className="sticky top-1 col-span-4 z-10 w-full">
                         <NavBarTemplateThree 
                             title={isPending ? "Loading..." : title}
+                            portfolio_info={portfolio_info}
                         />
                     </header>
                     <main className="row-start-2 col-span-4 h-full">
                         <Outlet />
                     </main>
-                    <footer className="row-start-3 col-span-4">
-                        <FooterTemplateThree />
+                    <footer className="sticky bottom-0 row-start-3 col-span-4 bg-(--bg-template-three) z-95">
+                        <FooterTemplateThree 
+                            portfolio_info={portfolio_info}
+                        />
                     </footer>
-                </div>
-
-                
-                
-
-                    
-                
+                </div>   
             );
             break;
 

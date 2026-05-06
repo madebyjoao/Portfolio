@@ -75,7 +75,7 @@ export default function Portfolio() {
         case 3:
             return (
                 <TemplateThree
-                    portfolio_info={portfolio_info}
+                    
                 />
             );
             break;

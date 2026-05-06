@@ -3,7 +3,7 @@ import { NavLink, useParams } from "react-router";
 import logo from "../assets/logo.svg";
 
 import { LucideUserCheck2, UserRoundXIcon, Users2 } from "lucide-react";
-import handleLogout from "../utils/helpers";
+import { handleLogout } from "@/utils/helpers";
 
 export default function Navbar() {
     const token = localStorage.getItem("token");

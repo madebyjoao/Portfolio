@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Form, NavLink, useLocation } from "react-router";
 
-import handleLogout from "@/utils/helpers";
+import { handleLogout } from "@/utils/helpers";
 import { ThemeToggle } from "../ThemeToggle";
 
 const navItems = [

@@ -392,7 +392,7 @@ export default function CertificatesAccordion() {
     if (!data) {
         return <div>No certificates</div>;
     }
-    const certificates = data.data.certificates;
+    const certificates = data.data.certificates.slice().sort((a, b) => a.order_index - b.order_index);;
 
 
     return (

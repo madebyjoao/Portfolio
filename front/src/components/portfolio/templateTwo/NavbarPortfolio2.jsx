@@ -1,7 +1,9 @@
 import { NavLink, useParams } from "react-router";
 
-export default function NavbarPortfolio2({ title }) {
+export default function NavbarPortfolio2({ title, portfolio_info }) {
     const { slug } = useParams();
+
+    const navFont = portfolio_info
 
     return (
         <nav
