@@ -1,7 +1,14 @@
 import { Github, Globe } from "lucide-react";
 import { BASE_URL } from "../../../api/config";
+import { useState } from "react";
 
 export default function ProjectTemplateThree(props) {
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    function toggleModal() {
+        setIsOpen(!isOpen);
+    }
 
     const ensureHttps = (url) => {
         if (!url) return url;
@@ -11,15 +18,15 @@ export default function ProjectTemplateThree(props) {
         return `https://${url}`;
     };
 
+    console.log(props.images)
 
     return (
 
-        <div className="grid grid-cols-1 grid-rows-1 gap-x-4 gap-y-4 h-full">
-            <div className="">
+        <div className="grid grid-cols-1 grid-rows-1 gap-x-4 gap-y-4 h-full border-2 border-(--border-template-three) rounded-xl">
+            
+                <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr_auto] gap-2 h-full w-full p-2 ">
 
-                <div className="grid grid-cols-[auto_1fr] grid-rows-3 gap-2 h-full w-full p-2">
-
-                    <div className="bg-teal-500 row-span-2 h-fit w-fit">
+                    <div className="row-span-2 h-fit w-fit border-2 border-(--border-template-three) rounded-xl p-2">
 
                         <img 
                             className="h-65 w-65"                   
@@ -28,16 +35,26 @@ export default function ProjectTemplateThree(props) {
 
                     </div>
 
-                    <div className="bg-yellow-500 col-start-2 ">
-                        {props.title} 
-                        {props.technologies.map( (tech) => <strong>{tech}</strong>)}
+                    <div className="flex col-start-2 flex-col gap-2 border-2 border-(--border-template-three) rounded-xl p-2">
+                        <div className="text-4xl tracking-widest">{props.title} </div>
+                        <div className="flex gap-2 pl-2">
+                            {props.technologies.map( (tech) => (
+                                <strong 
+                                    key={props.order_index}
+                                    className="flex justify-center gap-2 min-w-20 border-2 border-(--border-template-three) rounded-full p-2"
+                                >
+                                    {tech}
+                                </strong>
+                            ))}
+                        </div>
+                        
                     </div>
 
-                    <div className="bg-rose-500 col-start-2 row-start-2">
+                    <div className="col-start-2 row-start-2 border-2 border-(--border-template-three) rounded-xl p-2">
                         {props.description}
                     </div>
                     
-                    <div className="row-start-3 col-span-2 flex justify-between">
+                    <div className="row-start-3 col-span-2 flex justify-between border-2 border-(--border-template-three) rounded-xl p-4 min-h-fit">
                         <div className="flex gap-4">
                             {props.github &&
                                 <div className="size-fit">
@@ -60,32 +77,53 @@ export default function ProjectTemplateThree(props) {
                                 </div>}
                         </div>
                         <div className="">
+                                <button
+                                    onClick={toggleModal}
+                                    className="flex gap-2 border-2 border-(--border-template-three) rounded-full p-2 hover:cursor-pointer"
+                                >
+                                    Images
+                                </button>
+
+                                {isOpen && 
+
+                                    <div 
+                                        onClick={toggleModal}
+                                        className="fixed inset-0 bg-black/90 flex items-center justify-center z-999"  
+                                    >
+                                        <div
+                                            className="flex flex-col w-1/2 h-2/3 bg-white"
+                                        >
+                                            <div
+                                                className="flex w-full h-full"
+                                            >
+                                                {props.images.map( (image) => (
+
+                                                    <div
+                                                        
+                                                        key={image.order_index}
+                                                    >
+                                                        <img 
+                                                            className="h-40 w-40"
+                                                            src={`${BASE_URL}/uploads/${image.image_path}`} alt="" />
+                                                    </div>
+                                                ))
+                                                }
+                                            </div>
+                                            <div className="text-black h-fit w-full p-4">
+                                                {props.description}
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 
+                                }
                         </div>
 
                     </div>
 
                 </div>
 
-            </div>
-
         </div>  
 
-       /*  <div>
-            {projects.map((project) => {
-                const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
-                return (
-                    <div 
-                        className="w-full"
-                        key={project.id}
-                    >
-                            <h1>{project.title}</h1>
-                        {images.map((img) => (
-                            <img key={img.id} src={`${BASE_URL}/uploads/${project.thumbnail}`} alt={project.title} />
-                        ))}
-                    </div>
-                );
-            })}
-        </div>   */
     )
 }

@@ -36,7 +36,7 @@ export default function NavBarTemplateThree({ title, portfolio_info }) {
                             to="projects"
                             smooth={true} 
                             duration={500} 
-                            offset={-70} 
+                            offset={-140} 
                             spy={true} 
                             activeClass="active"
                         >
@@ -47,7 +47,7 @@ export default function NavBarTemplateThree({ title, portfolio_info }) {
                             to="certificates"
                             smooth={true} 
                             duration={500} 
-                            offset={-70} 
+                            offset={-140} 
                             spy={true} 
                             activeClass="active"
                         >

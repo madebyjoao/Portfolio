@@ -18,7 +18,7 @@ async function getUploadCertificates(req, res, next) {
 
     const { slug } = req.params;
     const file = req.file;
-    const filename = `${randomUUID()}-${slug}.jpg`;
+    const filename = `${randomUUID()}-${slug}`;
 
     try {
         const portfolio = req.portfolio;
@@ -101,7 +101,7 @@ async function getUploadProjects(req, res, next) {
 
     const { slug } = req.params;
     const file = req.file;
-    const filename = `${randomUUID()}-${slug}.jpg`;
+    const filename = `${randomUUID()}-${slug}`;
 
     try {
         const portfolio = req.portfolio;
@@ -151,7 +151,7 @@ async function getUploadProjectsImages(req, res, next) {
     const { slug } = req.params;
     const { project_id } = req.body;
     const file = req.file;
-    const filename = `${randomUUID()}-${slug}.jpg`;
+    const filename = `${randomUUID()}-${slug}`;
 
     if (!project_id) {
         return res.status(400).json({ message: "project_id is required" });

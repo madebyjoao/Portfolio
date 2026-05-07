@@ -116,21 +116,25 @@ export default function TemplateThree() {
                         <h2>Projects</h2>
                     </div>
 
-                    <div className="row-start-2">
-                        {projectsT3.map((project) => {
-                            const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
-                            return (
-                                <ProjectTemplateThree 
-                                    key={project.order_index}
-                                    thumbnail={`${BASE_URL}/uploads/${project.thumbnail}`}
-                                    title={project.title}
-                                    description={project.description}
-                                    github={project.repo_url}
-                                    technologies={project.technologies}
-                                    website={project.live_url}
-                                />
-                            );
-                        })}
+                    <div className="grid row-start-2 border-2 border-(--border-template-three) rounded-xl p-5 gap-5 ">
+
+                            {projectsT3.map((project) => {
+                                const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
+                                return (
+                                    <ProjectTemplateThree 
+                                        key={project.order_index}
+                                        thumbnail={`${BASE_URL}/uploads/${project.thumbnail}`}
+                                        title={project.title}
+                                        description={project.description}
+                                        github={project.repo_url}
+                                        technologies={project.technologies}
+                                        website={project.live_url}
+                                        images={project.images}
+                                        />
+                                        
+                                );
+                            })}
+
                     </div>
 
                 </div>
