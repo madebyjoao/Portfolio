@@ -49,7 +49,7 @@ export default function TemplateThree() {
     return (
         <div 
             style={{ fontFamily: mainFont }}
-            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-4 h-full text-(--template-three-text-title) mt-5 ">
+            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-4 h-full text-(--template-three-text-title) mt-5 px-20">
 
             <Link 
                 onClick={scrollToTop}

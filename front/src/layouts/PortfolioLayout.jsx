@@ -68,7 +68,7 @@ export default function PortfolioLayout() {
 
         case 3:
             return (
-                <div className="relative grid grid-cols-4 grid-rows-[auto_1fr_auto] min-h-screen bg-(--bg-template-three)">
+                <div className="grid grid-cols-4 grid-rows-[auto_1fr_auto] min-h-screen bg-(--bg-template-three)">
                     <header className="sticky top-0 col-span-4 z-10 w-full bg-(--bg-template-three)">
                         
                         <NavBarTemplateThree 

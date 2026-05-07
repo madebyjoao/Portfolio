@@ -1,10 +1,17 @@
-import { Github, Globe } from "lucide-react";
+import { Github, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { BASE_URL } from "../../../api/config";
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import Fade from "embla-carousel-fade";
+
 
 export default function ProjectTemplateThree(props) {
 
     const [isOpen, setIsOpen] = useState(false);
+    const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, containScroll: false }, [Fade()]);
+
+    const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+    const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
     function toggleModal() {
         setIsOpen(!isOpen);
@@ -18,9 +25,7 @@ export default function ProjectTemplateThree(props) {
         return `https://${url}`;
     };
 
-    console.log(props.images)
-
-    return (
+return (
 
         <div className="grid grid-cols-1 grid-rows-1 gap-x-4 gap-y-4 h-full border-2 border-(--border-template-three) rounded-xl">
             
@@ -91,27 +96,34 @@ export default function ProjectTemplateThree(props) {
                                         className="fixed inset-0 bg-black/90 flex items-center justify-center z-999"  
                                     >
                                         <div
-                                            className="flex flex-col w-1/2 h-2/3 bg-white"
+                                            onClick={(e) => e.stopPropagation()}
+                                            className="relative w-1/2 h-2/3"
                                         >
-                                            <div
-                                                className="flex w-full h-full"
+                                            <div ref={emblaRef} className="overflow-hidden h-full rounded-xl">
+                                                <div className="flex h-full" style={{ touchAction: "pan-y pinch-zoom" }}>
+                                                    {props.images.map((image, index) => (
+                                                        <div key={index} className="flex-[0_0_100%] min-w-0 h-full">
+                                                            <img
+                                                                className="h-full w-full object-cover"
+                                                                src={`${BASE_URL}/uploads/${image.image_path}`}
+                                                                alt=""
+                                                            />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <button
+                                                onClick={scrollPrev}
+                                                className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 hover:cursor-pointer"
                                             >
-                                                {props.images.map( (image) => (
-
-                                                    <div
-                                                        
-                                                        key={image.order_index}
-                                                    >
-                                                        <img 
-                                                            className="h-40 w-40"
-                                                            src={`${BASE_URL}/uploads/${image.image_path}`} alt="" />
-                                                    </div>
-                                                ))
-                                                }
-                                            </div>
-                                            <div className="text-black h-fit w-full p-4">
-                                                {props.description}
-                                            </div>
+                                                <ChevronLeft size={20} />
+                                            </button>
+                                            <button
+                                                onClick={scrollNext}
+                                                className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-2 hover:cursor-pointer"
+                                            >
+                                                <ChevronRight size={20} />
+                                            </button>
                                         </div>
 
                                     </div>
