@@ -38,9 +38,9 @@ export default function TemplateThree() {
     const mainFont = fontFamilies[dataTemplate3.font_main];
     const techs = data.data.portfolio.technologies;
     
-    console.log(dataTemplate3);
-    console.log(certificatesT3);
-    console.log(projectsT3);
+    console.log("portfolio", dataTemplate3);
+    console.log("ceetifs", certificatesT3);
+    console.log("projects", projectsT3);
     
     
 
@@ -49,7 +49,7 @@ export default function TemplateThree() {
     return (
         <div 
             style={{ fontFamily: mainFont }}
-            className="relative grid grid-cols-1 grid-rows-3 gap-x-4 gap-y-4 h-full text-(--template-three-text-title) mt-5">
+            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-4 h-full text-(--template-three-text-title) mt-5 px-20">
 
             <Link 
                 onClick={scrollToTop}
@@ -62,17 +62,18 @@ export default function TemplateThree() {
                 <CornerLeftUp color="white"/>
             </Link>
 
+            {/* Header Informations */}
             <Element 
                 name="about"
                 className="">
 
-                <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-3 h-full w-full p-2">
+                <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-3 h-full w-full py-2">
 
-                    <div className="grid row-span-3 content-center w-full h-full">
+                    <div className="grid row-span-3 content-center min-h-70 min-w-70 w-full h-full">
                         <img 
                             src={pic} 
                             alt="profil picture" 
-                            className="h-65"
+                            className="h-full w-full"
                         />
                     </div>
                     <div className="col-start-2 place-content-center">
@@ -95,7 +96,7 @@ export default function TemplateThree() {
                             </div>
                        </div>
                     </div>
-                    <div className="col-start-2 row-start-3 border-2 border-(--border-template-three) rounded-xl mr-2">
+                    <div className="col-start-2 row-start-3 border-2 border-(--border-template-three) rounded-xl">
                         <p className="p-4">
                             {dataTemplate3.about_text}
                         </p>
@@ -104,11 +105,13 @@ export default function TemplateThree() {
                 </div>
 
             </Element>
+
+             {/* Projects*/}
             <Element 
                 name="projects"
                 className="row-start-2">
 
-                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-2 h-full w-full p-2">
+                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-2 h-full w-full">
                     <div className="text-4xl tracking-widest">
                         <h2>Projects</h2>
                     </div>
@@ -118,7 +121,13 @@ export default function TemplateThree() {
                             const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
                             return (
                                 <ProjectTemplateThree 
+                                    key={project.order_index}
                                     thumbnail={`${BASE_URL}/uploads/${project.thumbnail}`}
+                                    title={project.title}
+                                    description={project.description}
+                                    github={project.repo_url}
+                                    technologies={project.technologies}
+                                    website={project.live_url}
                                 />
                             );
                         })}
@@ -127,6 +136,8 @@ export default function TemplateThree() {
                 </div>
 
             </Element>
+
+             {/* Certificates */}
             <Element 
                 name="certificates"
                 className="row-start-3">
@@ -136,7 +147,9 @@ export default function TemplateThree() {
                         <h2>Certificates</h2>
                     </div>
                     <div className="bg-yellow-500 row-start-2">
-
+                            <div className="h-500">
+                                hi
+                            </div>
                     </div>
 
                 </div>

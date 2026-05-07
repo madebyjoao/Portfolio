@@ -68,14 +68,14 @@ export default function PortfolioLayout() {
 
         case 3:
             return (
-                <div className="grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-y-2 min-h-screen bg-(--bg-template-three)">
+                <div className="grid grid-cols-4 grid-rows-[auto_1fr_auto] gap-y-2 min-h-screen  bg-(--bg-template-three)">
                     <header className="sticky top-1 col-span-4 z-10 w-full">
                         <NavBarTemplateThree 
                             title={isPending ? "Loading..." : title}
                             portfolio_info={portfolio_info}
                         />
                     </header>
-                    <main className="row-start-2 col-span-4 h-full">
+                    <main className="row-start-2 col-span-4 ">
                         <Outlet />
                     </main>
                     <footer className="sticky bottom-0 row-start-3 col-span-4 bg-(--bg-template-three) z-95">

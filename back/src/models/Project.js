@@ -53,6 +53,11 @@ const Project = sequelize.define(
             allowNull: false,
             defaultValue: 0,
         },
+
+        technologies: {
+            type: DataTypes.JSON,
+            allowNull: true,
+        },
     },
     {
         tableName: "projects",
