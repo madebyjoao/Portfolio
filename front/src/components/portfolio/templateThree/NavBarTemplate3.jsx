@@ -18,7 +18,8 @@ export default function NavBarTemplateThree({ title, portfolio_info }) {
             <nav 
                 id="nav"
                 style={{ fontFamily: fontNavbar}}
-                className="relative flex items-center left-[2.22%] bg-(--navbar-template-three) min-h-25 max-w-[calc(100vw-2.22%)] border-2 border-(--border-template-three) rounded-bl-full rounded-tl-full p-3 mt-2">
+                className="relative flex items-center left-[2.22%] bg-(--navbar-template-three) min-h-25 max-w-[calc(100vw-2.22%)] border-2 border-(--border-template-three) rounded-bl-full rounded-tl-full p-3 mt-2 z-11">
+                
                 <div className="flex items-center justify-between w-full text-(--template-three-text-title) ml-2 mr-6 tracking-widest">
                     <Link
                         onClick={scrollToTop}
