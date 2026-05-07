@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
 import { getPortfolioTemplateThree } from "../../api/portfolio";
 import { BASE_URL } from "../../api/config";
+import CertificatesTemplateThree from "../portfolio/templateThree/CertificatesTemplate3";
 
 
 
@@ -49,7 +50,7 @@ export default function TemplateThree() {
     return (
         <div 
             style={{ fontFamily: mainFont }}
-            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-4 h-full text-(--template-three-text-title) mt-5 px-20">
+            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-15 h-full text-(--template-three-text-title) mt-5 px-20">
 
             <Link 
                 onClick={scrollToTop}
@@ -111,12 +112,12 @@ export default function TemplateThree() {
                 name="projects"
                 className="row-start-2">
 
-                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-2 h-full w-full">
+                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-4 h-full w-full">
                     <div className="text-4xl tracking-widest">
                         <h2>Projects</h2>
                     </div>
 
-                    <div className="grid row-start-2 border-2 border-(--border-template-three) rounded-xl p-5 gap-5 ">
+                    <div className="grid row-start-2 border-2 border-(--border-template-three) rounded-xl p-5 gap-5">
 
                             {projectsT3.map((project) => {
                                 const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
@@ -130,8 +131,8 @@ export default function TemplateThree() {
                                         technologies={project.technologies}
                                         website={project.live_url}
                                         images={project.images}
-                                        />
-                                        
+                                    />
+                                    
                                 );
                             })}
 
@@ -146,14 +147,26 @@ export default function TemplateThree() {
                 name="certificates"
                 className="row-start-3">
 
-                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-2 h-full w-full p-2">
+                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-4 h-full w-full">
                     <div className="text-4xl tracking-widest">
                         <h2>Certificates</h2>
                     </div>
-                    <div className="bg-yellow-500 row-start-2">
-                            <div className="h-500">
-                                hi
-                            </div>
+                    <div className="row-start-2 grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 justify-items-center border-2 border-(--border-template-three) rounded-xl p-5 gap-5 mb-10">
+                            
+                        {certificatesT3.map( (certificate) => {                          
+                            return (
+                                <CertificatesTemplateThree 
+                                    key={certificate.order_index}
+                                    title={certificate.title}
+                                    description={certificate.description}
+                                    thumbnail={certificate.image_path}
+                                    type={certificate.type}
+                                    issuer={certificate.issuer}
+                                />
+                        )})
+                            
+                                
+                        }    
                     </div>
 
                 </div>
