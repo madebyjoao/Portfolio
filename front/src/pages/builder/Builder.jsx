@@ -30,7 +30,23 @@ const editPortfolioSchema = z.object({
                 (files) => !files || files.length === 0 || ["application/pdf"].includes(files[0].type), "Only PDF files allowed"
             )
             .transform((files) => (files && files.length > 0 ? files[0] : undefined)),
+    picture: z.instanceof(FileList)
+                    .optional()
+                    .refine(
+                        (files) => !files || files.length === 0 || ['image/jpeg', 'image/png', 'image/webp'].includes(files[0].type),
+                        "Only JPEG, PNG and WEBP allowed"
+                    )
+                    .transform((files) => (files && files.length > 0 ? files[0] : undefined)),
+    }).superRefine((data, ctx) => {
+        if (data.template === 3 && !data.picture) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                message: "A picture is required for Template 3",
+                path: ["picture"],
+            });
+        }
     });
+    
 
 function Builder() {
 
@@ -54,10 +70,15 @@ function Builder() {
             queryClient.invalidateQueries(["builder-portfolio", slug]);
             navigate(0);
         },
+        onError: (error) => {
+            console.error("Failed to update portfolio:", error);
+            alert(error?.response?.data?.error ?? "Failed to save changes");
+        },
     });
 
     const [font_navbar, font_main, font_footer] = watch(["font_navbar", "font_main", "font_footer"]);
     const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedPicture, setSelectedPicture] = useState(null);
     const [techInput, setTechInput] = useState("");
     const [charCount, setCharCount] = useState(getValues("about_text")?.length || 0);   
     const MAX_LENGTH = 1024
@@ -116,6 +137,7 @@ function Builder() {
         formData.append("position", data.position ?? "");
         formData.append("region", data.region ?? "");
         formData.append("technologies", JSON.stringify(data.technologies ?? []));
+        if (data.picture) formData.append("picture", data.picture);
         if (data.file) formData.append("file", data.file);
         mutate(formData);
 
@@ -127,6 +149,15 @@ function Builder() {
         setSelectedFile(file.name);
         } else {
         setSelectedFile(null);
+        }
+    };
+
+    const handlePictureChange = (e) => {
+        const picture = e.target.files[0];
+        if (picture) {
+        setSelectedPicture(picture.name);
+        } else {
+        setSelectedPicture(null);
         }
     };
 
@@ -332,7 +363,7 @@ function Builder() {
                     </div>        
 
                     {/* CV Upload */}
-                    <div className="row-start-4 col-span-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                    <div className="row-start-4 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
                         <div className="flex flex-col gap-4 h-full">
                             <h3 className="text-xl font-bold text-(--builder-Sidebar-text) text-center">Upload your CV</h3>
                             <label 
@@ -349,17 +380,44 @@ function Builder() {
                                         {selectedFile ? selectedFile : 'Your CV (.pdf)'}
                                     </p>
                                 </div>
-                                <input 
-                                    id="dropzone-file" 
-                                    type="file" 
-                                    className="hidden" 
-                                    accept=".pdf" 
-                                    {...register("file")} 
-                                    onChange={handleFileChange}
+                                <input
+                                    id="dropzone-file"
+                                    type="file"
+                                    className="hidden"
+                                    accept=".pdf"
+                                    {...register("file", { onChange: handleFileChange })}
                                 />
                             </label>
                         </div>                        
-                    </div>        
+                    </div> 
+                    {/* Pic Upload */}
+                    <div className="row-start-4 col-start-2 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-5 hover:shadow-lg transition-shadow">
+                        <div className="flex flex-col gap-4 h-full">
+                            <h3 className="text-xl font-bold text-(--builder-Sidebar-text) text-center">Upload your Picture</h3>
+                            <label 
+                                htmlFor="dropzone-picture" 
+                                className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg hover:border-(--builder-buttons) hover:bg-(--builder-buttons)/5 transition cursor-pointer group">
+                                <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
+                                    <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
+                                    </svg>
+                                    <p className="mb-2 text-sm text-(--builder-Sidebar-text)">
+                                        <span className="font-semibold">Click to upload</span> or drag and drop
+                                    </p>
+                                    <p className="text-base font-medium text-(--builder-Sidebar-text)">
+                                        {selectedPicture ? selectedPicture : 'Your Picture (.JPEG, .PNG, .WEBP)'}
+                                    </p>
+                                </div>
+                                <input
+                                    id="dropzone-picture"
+                                    type="file"
+                                    className="hidden"
+                                    accept="image/jpeg,image/png,image/webp"
+                                    {...register("picture", { onChange: handlePictureChange })}
+                                />
+                            </label>
+                        </div>                        
+                    </div>         
 
                     {/* Navbar Font */}
                     <div className="row-start-4 col-span-2 col-start-5 backdrop-blur bg-(--builder-SideBar) rounded-xl shadow-md p-4 hover:shadow-lg transition-shadow">

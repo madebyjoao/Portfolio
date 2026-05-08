@@ -99,6 +99,11 @@ const Portfolio = sequelize.define(
             allowNull: true,
             defaultValue: null,
         },
+
+        picture_path: {
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
     },
     {
         tableName: "portfolios",

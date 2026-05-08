@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import {
     createUserFolderCertif,
     createUserFolderCv,
+    createUserFolderPicture,
     createUserFolderProjects,
 } from "../utils/createFolder.js";
 
@@ -107,6 +108,7 @@ async function createUser(req, res) {
         await createUserFolderCertif(normalizedSlug);
         await createUserFolderProjects(normalizedSlug);
         await createUserFolderCv(normalizedSlug)
+        await createUserFolderPicture(normalizedSlug)
         await transaction.commit();
 
         const { password: _, ...safeUser } = newUser.dataValues;

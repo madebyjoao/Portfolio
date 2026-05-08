@@ -60,4 +60,22 @@ async function createUserFolderCv(normalizedSlug) {
     }
 }
 
-export { createUserFolderCertif, createUserFolderProjects, createUserFolderCv };
+async function createUserFolderPicture(normalizedSlug) {
+    const folderPath = path.join(
+        __dirname,
+        "../../uploads",
+        normalizedSlug,
+        "/picture",
+    );
+
+    try {
+        await fs.mkdir(folderPath, { recursive: true });
+        console.log(`Folder created: ${folderPath}`); 
+        return folderPath;
+    } catch (error) {
+        console.error("Failed to create User Picture folder", error);
+        throw error;
+    }
+}
+
+export { createUserFolderCertif, createUserFolderProjects, createUserFolderCv, createUserFolderPicture };

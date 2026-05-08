@@ -22,7 +22,7 @@ builderRouter.get("/projects/:slug", checkSlug, BuilderController.getProjectsBui
 builderRouter.put(
     "/portfolio/:slug",
     checkSlug,
-    upload.single("file"),
+    upload.fields([{ name: "file", maxCount: 1 }, { name: "picture", maxCount: 1 }]),
     BuilderController.updatePortfolio
 );
 

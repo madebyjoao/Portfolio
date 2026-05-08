@@ -5,6 +5,7 @@ import ProjectImage from "../models/ProjectImage.js";
 import sharp from "sharp";
 import fs from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
+import { createUserFolderCv, createUserFolderPicture } from "../utils/createFolder.js";
 
 
 /* GET */
@@ -81,7 +82,8 @@ async function updatePortfolio(req, res) {
 
     const { slug } = req.params;
     const { id, title, about_title, about_text, is_published, template, font_navbar, font_main, font_footer, full_name, position, region, technologies } = req.body;
-    const file = req.file;
+    const file = req.files?.file?.[0];
+    const picture = req.files?.picture?.[0];
 
     try {
         const portfolio = await Portfolio.findOne ({ where: { id }})
@@ -91,10 +93,22 @@ async function updatePortfolio(req, res) {
         }
 
         if (file) {
+            await createUserFolderCv(slug);
             const filename = uuidv4();
             const uploadPath = `./uploads/${slug}/cv/${filename}.pdf`;
             await fs.writeFile(uploadPath, file.buffer);
             portfolio.cv_path = `${slug}/cv/${filename}.pdf`;
+        }
+
+        if (picture) {
+            await createUserFolderPicture(slug);
+            const filename = uuidv4();
+            const uploadPath = `./uploads/${slug}/picture/${filename}.jpg`;
+            await sharp(picture.buffer)
+                .resize(600, 800, { fit: "inside", withoutEnlargement: true })
+                .jpeg({ quality: 80 })
+                .toFile(uploadPath);
+            portfolio.picture_path = `${slug}/picture/${filename}.jpg`;
         }
 
         portfolio.title = title || portfolio.title;
