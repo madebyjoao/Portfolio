@@ -386,6 +386,7 @@ function Builder() {
                                     className="hidden"
                                     accept=".pdf"
                                     {...register("file", { onChange: handleFileChange })}
+                                    
                                 />
                             </label>
                         </div>                        

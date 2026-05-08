@@ -66,13 +66,13 @@ export default function TemplateThree() {
             {/* Header Informations */}
             <Element 
                 name="about"
-                className="">
+            >
 
                 <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-3 h-full w-full py-2">
 
                     <div className="grid row-span-3 content-center min-h-70 min-w-70 w-full h-full">
                         <img 
-                            src={pic} 
+                            src={`${BASE_URL}/uploads/${dataTemplate3.picture_path}`} 
                             alt="profil picture" 
                             className="h-full w-full"
                         />
