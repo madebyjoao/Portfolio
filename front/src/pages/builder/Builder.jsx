@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,10 +8,11 @@ import { getPortfolioBuilder, updatePortfolio } from "../../api/builder";
 import { fonts, fontFamilies } from "../../utils/fonts";
 import Styles from "@/index.module.css"
 import StyledSelect from "@/components/builder/StyledSelect";
+import { BASE_URL } from "../../api/config";
 
 const fontValues = fonts.map(f => f.value);
 
-const editPortfolioSchema = z.object({
+const createEditPortfolioSchema = (hasExistingPicture) => z.object({
     title: z.string().min(1, "title is required"),
     about_title: z.string().min(1, "About title is required"),
     about_text: z.string().min(1, "About You text is required").max(1024, "Max number of characters: 1024"),
@@ -38,7 +39,7 @@ const editPortfolioSchema = z.object({
                     )
                     .transform((files) => (files && files.length > 0 ? files[0] : undefined)),
     }).superRefine((data, ctx) => {
-        if (data.template === 3 && !data.picture) {
+        if (data.template === 3 && !data.picture && !hasExistingPicture) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
                 message: "A picture is required for Template 3",
@@ -53,12 +54,19 @@ function Builder() {
     const slug = localStorage.getItem("slug");
     const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const [preview, setPreview] = useState();
+    const [hasExistingPicture, setHasExistingPicture] = useState(false);
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: ["builder-portfolio", slug],
         queryFn: () => getPortfolioBuilder(slug),
         enabled: !!slug,
     });
+
+    const editPortfolioSchema = useMemo(
+        () => createEditPortfolioSchema(hasExistingPicture),
+        [hasExistingPicture]
+    );
 
     const { register, handleSubmit, reset, control, getValues, formState: { errors }, watch } = useForm({
         resolver: zodResolver(editPortfolioSchema),
@@ -102,8 +110,24 @@ function Builder() {
                 technologies: p.technologies ?? [],
             });
             setCharCount(p.about_text?.length || 0);
+            
+            if (p.picture_path) {
+                setPreview(`${BASE_URL}/uploads/${p.picture_path}`);
+                setHasExistingPicture(true);
+            } else {
+                setHasExistingPicture(false);
+            }
         }
-    }, [data, reset]);
+    }, [data, reset, slug]);
+
+
+    useEffect(() => {
+        return () => {
+            if (preview && preview.startsWith('blob:')) {
+                URL.revokeObjectURL(preview);
+            }
+        };
+    }, [preview]);
 
     if (isPending) {
         return <div>Charging...</div>;
@@ -155,9 +179,13 @@ function Builder() {
     const handlePictureChange = (e) => {
         const picture = e.target.files[0];
         if (picture) {
-        setSelectedPicture(picture.name);
+            setSelectedPicture(picture.name);
+            // Create preview URL for the new picture
+            const previewUrl = URL.createObjectURL(picture);
+            setPreview(previewUrl);
         } else {
-        setSelectedPicture(null);
+            setSelectedPicture(null);
+            setPreview(null);
         }
     };
 
@@ -398,17 +426,33 @@ function Builder() {
                             <label 
                                 htmlFor="dropzone-picture" 
                                 className="flex-1 flex flex-col items-center justify-center border-2 border-dashed border-(--builder-dashboard-border-inputs) rounded-lg hover:border-(--builder-buttons) hover:bg-(--builder-buttons)/5 transition cursor-pointer group">
-                                <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
-                                    <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
-                                    </svg>
-                                    <p className="mb-2 text-sm text-(--builder-Sidebar-text)">
-                                        <span className="font-semibold">Click to upload</span> or drag and drop
-                                    </p>
-                                    <p className="text-base font-medium text-(--builder-Sidebar-text)">
-                                        {selectedPicture ? selectedPicture : 'Your Picture (.JPEG, .PNG, .WEBP)'}
-                                    </p>
-                                </div>
+                                {preview ? (
+                                    <div className="flex flex-col items-center justify-center py-6 px-4 text-center gap-3">
+                                        <img 
+                                            src={preview} 
+                                            alt="Picture preview" 
+                                            className="w-24 h-24 object-cover rounded-full border-2 border-(--builder-buttons)"
+                                        />
+                                        <p className="text-sm text-(--builder-Sidebar-text) font-medium">
+                                            {selectedPicture || 'Current picture'}
+                                        </p>
+                                        <p className="text-xs text-(--builder-Sidebar-text)/70">
+                                            Click to change
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="flex flex-col items-center justify-center py-6 px-4 text-center">
+                                        <svg className="w-10 h-10 mb-3 text-(--builder-buttons) group-hover:scale-110 transition-transform" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"/>
+                                        </svg>
+                                        <p className="mb-2 text-sm text-(--builder-Sidebar-text)">
+                                            <span className="font-semibold">Click to upload</span> or drag and drop
+                                        </p>
+                                        <p className="text-base font-medium text-(--builder-Sidebar-text)">
+                                            Your Picture (.JPEG, .PNG, .WEBP)
+                                        </p>
+                                    </div>
+                                )}
                                 <input
                                     id="dropzone-picture"
                                     type="file"

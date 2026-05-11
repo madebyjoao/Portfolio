@@ -45,6 +45,8 @@ function AccordionItem({
     const slug = localStorage.getItem("slug");
     const queryClient = useQueryClient();
 
+    
+
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         resolver: zodResolver(editCertificateSchema),
         defaultValues: {

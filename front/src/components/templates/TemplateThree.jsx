@@ -15,6 +15,7 @@ import CertificatesTemplateThree from "../portfolio/templateThree/CertificatesTe
 export default function TemplateThree() {
 
     const { slug } = useParams()
+    
 
     const { isPending, isError, data, error } = useQuery({
         queryKey: ["portfolio3", slug],
@@ -50,7 +51,7 @@ export default function TemplateThree() {
     return (
         <div 
             style={{ fontFamily: mainFont }}
-            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-15 h-full text-(--template-three-text-title) mt-5 px-20">
+            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-15 h-full text-(--template-three-text-title) mt-5 md:px-20">
 
             <Link 
                 onClick={scrollToTop}
@@ -58,7 +59,7 @@ export default function TemplateThree() {
                 smooth={true} 
                 duration={500} 
                 offset={-70}
-                className="absolute z-90 size-auto bottom-6 right-6 bg-amber-950 p-2.5 rounded-xl"
+                className="absolute z-90 size-auto bottom-6 right-6 bg-amber-950 p-2.5 rounded-xl hover:cursor-pointer"
             >
                 <CornerLeftUp color="white"/>
             </Link>
