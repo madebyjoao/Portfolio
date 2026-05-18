@@ -51,7 +51,7 @@ export default function TemplateThree() {
     return (
         <div 
             style={{ fontFamily: mainFont }}
-            className="relative grid grid-cols-1 grid-rows-[auto_auto_auto] gap-x-4 gap-y-15 h-full text-(--template-three-text-title) mt-5 md:px-20">
+            className="relative grid grid-cols-1 gap-4 lg:gap-y-8 h-full text-(--template-three-text-title) mt-5 px-4 lg:px-20">
 
             <Link 
                 onClick={scrollToTop}
@@ -59,9 +59,9 @@ export default function TemplateThree() {
                 smooth={true} 
                 duration={500} 
                 offset={-70}
-                className="absolute z-90 size-auto bottom-6 right-6 bg-amber-950 p-2.5 rounded-xl hover:cursor-pointer"
+                className="absolute z-900 bottom-4 right-4 lg:bottom-6 lg:right-6 bg-amber-950 p-2 lg:p-2.5 rounded-xl hover:cursor-pointer hover:bg-amber-900 transition shadow-lg"
             >
-                <CornerLeftUp color="white"/>
+                <CornerLeftUp className="w-5 h-5 lg:w-6 lg:h-6" color="white"/>
             </Link>
 
             {/* Header Informations */}
@@ -69,37 +69,42 @@ export default function TemplateThree() {
                 name="about"
             >
 
-                <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_auto_1fr] gap-3 h-full w-full py-2">
+                <div className="grid grid-cols-1 lg:grid-cols-[minmax(250px,auto)_1fr] gap-4 lg:gap-6 w-full py-2">
 
-                    <div className="grid row-span-3 content-center min-h-70 min-w-70 w-full h-full">
+                    {/* Profile Picture - Full width on mobile, fixed on desktop */}
+                    <div className="flex items-center justify-center lg:row-span-3">
                         <img 
                             src={`${BASE_URL}/uploads/${dataTemplate3.picture_path}`} 
                             alt="profil picture" 
-                            className="h-full w-full"
+                            className="w-full max-w-75 max-h-75 lg:w-full h-auto object-cover rounded-lg lg:rounded-none"
                         />
                     </div>
-                    <div className="col-start-2 place-content-center">
-                        <h2 className="text-5xl tracking-widest">
+
+                    {/* Name */}
+                    <div className="flex items-center justify-center lg:justify-start">
+                        <h2 className="text-3xl lg:text-5xl tracking-widest text-center lg:text-left">
                             {dataTemplate3.full_name}
                         </h2>
                     </div>
-                    <div className="col-start-2 row-start-2">
-                       <div className="flex flex-col gap-2 justify-start items-start">
-                            <p className="tracking-widest">
-                                {dataTemplate3.position}<span className="pr-2 pl-1">·</span>{dataTemplate3.region}
-                            </p>
-                            <div className="flex gap-2 justify-center items-center">
-                                {techs.map((tech, index) => (
-                                    <p 
-                                        key={index}
-                                        className="border-2 border-(--border-template-three) rounded-full px-4 py-1 "
-                                    >{tech}</p>
-                                ))}
-                            </div>
-                       </div>
+
+                    {/* Position, Region & Technologies */}
+                    <div className="flex flex-col gap-3 items-center lg:items-start">
+                        <p className="tracking-widest text-center lg:text-left">
+                            {dataTemplate3.position}<span className="px-2">·</span>{dataTemplate3.region}
+                        </p>
+                        <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                            {techs.map((tech, index) => (
+                                <p 
+                                    key={index}
+                                    className="border-2 border-(--border-template-three) rounded-full px-3 py-1 text-sm lg:text-base"
+                                >{tech}</p>
+                            ))}
+                        </div>
                     </div>
-                    <div className="col-start-2 row-start-3 border-2 border-(--border-template-three) rounded-xl">
-                        <p className="p-4">
+
+                    {/* About Text */}
+                    <div className="border-2 border-(--border-template-three) rounded-xl lg:col-start-2">
+                        <p className="p-4 text-sm lg:text-base leading-relaxed">
                             {dataTemplate3.about_text}
                         </p>
                     </div>
@@ -111,14 +116,14 @@ export default function TemplateThree() {
              {/* Projects*/}
             <Element 
                 name="projects"
-                className="row-start-2">
+            >
 
-                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-4 h-full w-full">
-                    <div className="text-4xl tracking-widest">
+                <div className="grid grid-cols-1 gap-4 h-full w-full">
+                    <div className="text-2xl lg:text-4xl tracking-widest">
                         <h2>Projects</h2>
                     </div>
 
-                    <div className="grid row-start-2 border-2 border-(--border-template-three) rounded-xl p-5 gap-5">
+                    <div className="grid border-2 border-(--border-template-three) rounded-xl p-3 lg:p-5 gap-4 lg:gap-5">
 
                             {projectsT3.map((project) => {
                                 const images = project.images.slice().sort((a, b) => a.order_index - b.order_index);
@@ -146,13 +151,13 @@ export default function TemplateThree() {
              {/* Certificates */}
             <Element 
                 name="certificates"
-                className="row-start-3">
+            >
 
-                <div className="grid grid-cols-1 grid-rows-[auto_1fr] gap-4 h-full w-full">
-                    <div className="text-4xl tracking-widest">
+                <div className="grid grid-cols-1 gap-4 h-full w-full">
+                    <div className="text-2xl lg:text-4xl tracking-widest">
                         <h2>Certificates</h2>
                     </div>
-                    <div className="row-start-2 grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 justify-items-center border-2 border-(--border-template-three) rounded-xl p-5 gap-5 mb-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 justify-items-center border-2 border-(--border-template-three) rounded-xl p-3 lg:p-5 gap-4 lg:gap-5 mb-10">
                             
                         {certificatesT3.map( (certificate) => {                          
                             return (

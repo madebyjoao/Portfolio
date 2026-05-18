@@ -25,79 +25,82 @@ export default function ProjectTemplateThree(props) {
         return `https://${url}`;
     };
 
+    console.log(props.technologies)
+
 return (
 
-        <div className="grid grid-cols-1 grid-rows-1 gap-x-4 gap-y-4 h-full border-2 border-(--border-template-three) rounded-xl">
+        <div className="border-2 border-(--border-template-three) rounded-xl">
             
-                <div className="grid grid-cols-[auto_1fr] grid-rows-[auto_1fr_auto] gap-2 h-full w-full p-2 ">
+                <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-3 md:gap-4 p-3 md:p-4">
 
-                    <div className="row-span-2 h-fit w-fit border-2 border-(--border-template-three) rounded-xl p-2">
-
+                    {/* Thumbnail - Full width on mobile, left column on desktop */}
+                    <div className="flex justify-center md:row-span-2 md:h-fit md:w-fit border-2 border-(--border-template-three) rounded-xl p-2">
                         <img 
-                            className="h-65 w-65"                   
+                            className="w-full max-w-62.5 md:max-w-none md:w-auto md:h-65 object-cover rounded-lg"                   
                             src={props.thumbnail} alt="Project thumbnail picture" 
                         />
-
                     </div>
 
-                    <div className="flex col-start-2 flex-col gap-2 border-2 border-(--border-template-three) rounded-xl p-2">
-                        <div className="text-4xl tracking-widest">{props.title} </div>
-                        <div className="flex gap-2 pl-2">
-                            {props.technologies.map( (tech) => (
+                    {/* Title and Technologies */}
+                    <div className="flex flex-col gap-3 border-2 border-(--border-template-three) rounded-xl p-3">
+                        <div className="text-2xl md:text-4xl tracking-widest font-semibold">{props.title}</div>
+                        <div className="flex flex-wrap gap-2">
+                            {props.technologies && 
+                                (props.technologies.map((tech, index) => (
                                 <strong 
-                                    key={props.order_index}
-                                    className="flex justify-center gap-2 min-w-20 border-2 border-(--border-template-three) rounded-full p-2"
+                                    key={index}
+                                    className="flex justify-center items-center px-3 py-1.5 border-2 border-(--border-template-three) rounded-full text-sm"
                                 >
                                     {tech}
                                 </strong>
-                            ))}
+                            )))}
+                            
                         </div>
-                        
                     </div>
 
-                    <div className="col-start-2 row-start-2 border-2 border-(--border-template-three) rounded-xl p-2">
+                    {/* Description */}
+                    <div className="border-2 border-(--border-template-three) rounded-xl p-3 text-sm md:text-base">
                         {props.description}
                     </div>
                     
-                    <div className="row-start-3 col-span-2 flex justify-between border-2 border-(--border-template-three) rounded-xl p-4 min-h-fit">
-                        <div className="flex gap-4">
+                    {/* Actions: Links and Images Button */}
+                    <div className="md:col-span-2 flex flex-col sm:flex-row justify-between gap-3 border-2 border-(--border-template-three) rounded-xl p-3">
+                        <div className="flex flex-wrap gap-3">
                             {props.github &&
-                                <div className="size-fit">
-                                    <a  
-                                        target="_blank"
-                                        className="flex gap-2 border-2 border-(--border-template-three) rounded-full p-2"
-                                        href={ensureHttps(props.github)}>
-                                        <Github /> <span>my github</span>
-                                    </a>
-                                </div> }
+                                <a  
+                                    target="_blank"
+                                    className="flex items-center gap-2 border-2 border-(--border-template-three) rounded-full px-4 py-2 hover:bg-(--border-template-three)/10 transition text-sm md:text-base"
+                                    href={ensureHttps(props.github)}>
+                                    <Github size={18} /> <span>GitHub</span>
+                                </a>
+                            }
 
                             {props.website &&
-                                <div>
-                                    <a 
-                                        target="_blank"
-                                        className="flex gap-2 border-2 border-(--border-template-three) rounded-full p-2"
-                                        href={ensureHttps(props.website)}>
-                                        <Globe/> <span>My Website</span>
-                                    </a>
-                                </div>}
+                                <a 
+                                    target="_blank"
+                                    className="flex items-center gap-2 border-2 border-(--border-template-three) rounded-full px-4 py-2 hover:bg-(--border-template-three)/10 transition text-sm md:text-base"
+                                    href={ensureHttps(props.website)}>
+                                    <Globe size={18}/> <span>Website</span>
+                                </a>
+                            }
                         </div>
-                        <div className="">
-                                <button
-                                    onClick={toggleModal}
-                                    className="flex gap-2 border-2 border-(--border-template-three) rounded-full p-2 hover:cursor-pointer"
-                                >
-                                    Images
-                                </button>
+                        <div>
+                            <button
+                                onClick={toggleModal}
+                                className="flex items-center gap-2 border-2 border-(--border-template-three) rounded-full px-4 py-2 hover:bg-(--border-template-three)/10 transition hover:cursor-pointer text-sm md:text-base w-full sm:w-auto justify-center"
+                            >
+                                Images
+                            </button>
 
                                 {isOpen && 
 
                                     <div 
                                         onClick={toggleModal}
-                                        className="fixed inset-0 bg-black/90 flex items-center justify-center z-999"  
+                                        className="fixed inset-0 bg-black/90 flex items-center justify-center z-999 p-4"  
                                     >
                                         <div
                                             onClick={(e) => e.stopPropagation()}
-                                            className="relative w-1/2 h-2/3"
+                                            className="relative w-full h-full md:w-3/4 md:h-3/4 lg:w-2/3 lg:h-2/3"
                                         >
                                             <div ref={emblaRef} className="overflow-hidden h-full rounded-xl">
                                                 <div className="flex h-full" style={{ touchAction: "pan-y pinch-zoom" }}>

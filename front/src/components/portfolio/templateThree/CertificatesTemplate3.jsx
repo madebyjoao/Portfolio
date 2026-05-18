@@ -5,25 +5,26 @@ export default function CertificatesTemplateThree(props) {
 
     return (
 
-        <div className="grid grid-cols-1 grid-rows-[auto_auto] gap-x-4 gap-y-4 w-4/5 border-2 border-(--border-template-three) rounded-xl p-5">
+        <div className="grid grid-cols-1 gap-3 md:gap-4 w-full max-w-md border-2 border-(--border-template-three) rounded-xl p-3 md:p-5">
          
-            <div className="grid grid-cols-1 grid-rows-1 gap-2 h-full w-full border-2 border-(--border-template-three) rounded-xl p-5">
+            {/* Certificate Image */}
+            <div className="border-2 border-(--border-template-three) rounded-xl p-3 md:p-4">
                 <img 
-                    className="w-full rounded-xl"
+                    className="w-full rounded-lg"
                     src={`${BASE_URL}/uploads/${props.thumbnail}`}
+                    alt={props.title}
                 />
             </div>
            
-            <div className="row-start-2 h-full w-full border-2 border-(--border-template-three) rounded-xl p-5">
-                <div className="grid grid-cols-1 grid-rows-2 gap-2 h-full w-full">
-                    <div className="border-2 border-(--border-template-three) rounded-xl p-5">
-                        <h2>{props.title}</h2>
-                        <p>{props.description}</p>                        
-                    </div>
-                    <div className="row-start-2 border-2 border-(--border-template-three) rounded-xl p-5">
-                        <h3>{props.issuer}</h3>
-                        <h3>{props.type}</h3>
-                    </div>
+            {/* Certificate Info */}
+            <div className="flex flex-col gap-3 border-2 border-(--border-template-three) rounded-xl p-3 md:p-4">
+                <div className="border-2 border-(--border-template-three) rounded-xl p-3">
+                    <h2 className="font-semibold text-lg md:text-xl mb-1">{props.title}</h2>
+                    <p className="text-sm md:text-base text-gray-300">{props.description}</p>                        
+                </div>
+                <div className="flex flex-col gap-1 border-2 border-(--border-template-three) rounded-xl p-3">
+                    <h3 className="font-medium text-sm md:text-base">{props.issuer}</h3>
+                    <h3 className="text-xs md:text-sm text-gray-400">{props.type}</h3>
                 </div>
             </div>
             

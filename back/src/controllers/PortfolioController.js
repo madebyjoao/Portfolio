@@ -53,7 +53,7 @@ async function getTemplate(req, res) {
     try {
         const portfolio = await Portfolio.findOne({
             where: { slug },
-            attributes: ["id", "template", "title", "about_title", "about_text", "font_navbar", "font_main", "font_footer", "is_published", "full_name", "position", "region", "technologies"],
+            attributes: ["id", "template", "title", "about_title", "about_text", "cv_path", "font_navbar", "font_main", "font_footer", "is_published", "full_name", "position", "region", "technologies",],
         });
 
         if (!portfolio) {

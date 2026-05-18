@@ -1,13 +1,19 @@
 import { Link, Element } from 'react-scroll';
 import logo from "@/assets/logo.svg"
 import { NavLink } from 'react-router';
+import { fontFamilies } from '../../../utils/fonts';
 
-export default function FooterTemplateThree() {
+export default function FooterTemplateThree({ portfolio_info }) {
+
+    const info = portfolio_info.portfolio;
+    const footerFont = fontFamilies[info.font_footer];
 
     return (
 
         <Element name="footer">
-            <div className="flex justify-between items-center text-(--template-three-text-title) min-h-15 ">
+            <div
+                style={{ fontFamily: footerFont }}
+                className="flex justify-between items-center text-(--template-three-text-title) min-h-15 ">
                 <NavLink 
                     to="/"
                     className='size-15'>

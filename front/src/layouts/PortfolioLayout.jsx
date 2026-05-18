@@ -54,10 +54,10 @@ export default function PortfolioLayout() {
                             portfolio_info={portfolio_info}
                         />
 
-                    <main>
+                    <main className="pb-48 md:pb-40">
                         <Outlet />
                     </main>
-                    <footer className="fixed bottom-0">
+                    <footer className="fixed bottom-0 w-full">
                         <FooterPortfolio2 
                             portfolio_info={portfolio_info}
                         />
