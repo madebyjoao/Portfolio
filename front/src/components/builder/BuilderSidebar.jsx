@@ -3,7 +3,6 @@ import {
     User,
     FolderKanban,
     Brush,
-    Eye,
     Settings,
     Award,
     Home,
@@ -66,17 +65,7 @@ export default function BuilderSidebar() {
                     Certificates
                 </NavLink>
 
-                <NavLink
-                    to="/builder/preview"
-                    className={({ isActive }) =>
-                        `flex items-center gap-3 hover:bg-(--builder-buttons)/40 px-4 py-3 rounded-lg text-left transition ${
-                            isActive ? "bg-(--builder-buttons)" : ""
-                        }`
-                    }
-                >
-                    <Eye size={18} />
-                    Preview
-                </NavLink>
+                
             </nav>
 
             <div className="flex flex-col items-start mt-auto pt-6 border-t border-white/10">
