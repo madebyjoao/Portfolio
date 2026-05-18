@@ -9,35 +9,24 @@ export default function FooterPortfolio1({ portfolio_info }) {
     return (
         <section
             style={{ fontFamily: footerFont }}
-            className="w-screen h-40 bg-[rgb(24,61,61)] z-30">
+            className="w-full min-h-fit bg-[rgb(24,61,61)] z-30 relative">
 
-            <div className="absolute top-[-12] w-screen h-12 bg-(--bg-template-one) rounded-bl-3xl rounded-br-3xl"></div>
+            <div className="absolute top-[-12] w-full h-12 bg-(--bg-template-one) rounded-bl-3xl rounded-br-3xl"></div>
 
-            <div
-            className="h-full flex items-center justify-center text-white">
-                <h2>ola test</h2>
-                
-                <AboutBox
-                    about_title={info.about_title}
-                    about_text={info.about_text}
-                />
+            <div className="flex flex-col items-center justify-center text-white gap-2 md:gap-3 px-6 sm:px-12 md:px-16 lg:px-24 pt-8 md:pt-12 pb-6 md:pb-8">
+                <h2 
+                    className="text-xl sm:text-2xl md:text-3xl font-semibold text-center w-full"
+                >
+                    {info.about_title}
+                </h2>
+
+                <p className="text-sm sm:text-base md:text-lg text-center w-full leading-relaxed">
+                    {info.about_text}
+                </p> 
+               
             </div>
         </section>
     );
     
 }
 
-
-/*
-    <nav style={{ fontFamily: `var(--font-${portfolio.font_navbar})` }}>
-    ...
-    </nav>
-
-    <main style={{ fontFamily: `var(--font-${portfolio.font_main})` }}>
-    ...
-    </main>
-
-    <footer style={{ fontFamily: `var(--font-${portfolio.font_footer})` }}>
-    ...
-    </footer>
-*/

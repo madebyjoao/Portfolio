@@ -42,7 +42,7 @@ export default function NavbarPortfolio2({ title, portfolio_info }) {
                 {portfolio_info.portfolio.cv_path && (
                     <button 
                         onClick={handleOpenCV} 
-                        className="hover:underline"
+                        className="hover:underline hover:cursor-pointer"
                     >
                         Download CV
                     </button>

@@ -1,7 +1,24 @@
 import { NavLink, useParams } from "react-router";
+import { BASE_URL } from "../../../api/config";
 
-export default function NavbarPortfolio({ title }) {
+export default function NavbarPortfolio({ title, portfolio_info }) {
     const { slug } = useParams();
+
+    async function handleOpenCV() {
+                try {
+                    const cvUrl = `${BASE_URL}/uploads/${portfolio_info.portfolio.cv_path}`;
+                    const response = await fetch(cvUrl);
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+        
+                    window.open(url, '_blank');
+        
+                    setTimeout(() => window.URL.revokeObjectURL(url), 100);
+                } catch (error) {
+                    console.error("Error opening the CV:", error);
+                    alert("Failed to open CV. Please try again.");
+                }
+            }   
 
     return (
         <nav
@@ -15,9 +32,14 @@ export default function NavbarPortfolio({ title }) {
             <NavLink to={`/u/${slug}/certificates`}>
                 Certificates
             </NavLink>
-            <NavLink to="">
-                Curriculum vitæ
-            </NavLink>
+            {portfolio_info.portfolio.cv_path && (
+                    <button 
+                        onClick={handleOpenCV} 
+                        className="hover:underline hover:cursor-pointer"
+                    >
+                        Download CV
+                    </button>
+                )}
         </nav>
     );
 }

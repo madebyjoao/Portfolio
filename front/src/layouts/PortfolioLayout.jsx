@@ -29,17 +29,17 @@ export default function PortfolioLayout() {
     switch (template) {
         case 1:
             return (
-                <div className="min-h-screen flex flex-col bg-(--bg-template-one)">
+                <div className="h-screen grid grid-rows-[auto_1fr_auto] bg-(--bg-template-one) overflow-hidden">
                     <NavbarPortfolio 
                         title={isPending ? "Loading..." : title} 
                         portfolio_info={portfolio_info}
                     />
 
-                    <main className="flex-1 pb-32 mb-20">
+                    <main className="overflow-y-auto">
                         <Outlet />
                     </main>
 
-                    <footer className="fixed bottom-0">
+                    <footer>
                         <FooterPortfolio1 portfolio_info={portfolio_info} />
                     </footer>
                 </div>
