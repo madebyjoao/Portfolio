@@ -40,9 +40,54 @@ Portfolio/
 
 ## Prerequisites
 
-- Node.js 24+
-- npm
-- MySQL 8+
+Before cloning or running the project, make sure your machine has the following installed.
+
+### Node.js & npm
+
+Node.js ships with npm. Install version **24 or later**.
+
+- Download: https://nodejs.org/en/download
+- Or use a version manager (recommended):
+  - **nvm** (Linux/macOS): https://github.com/nvm-sh/nvm
+  - **nvm-windows** (Windows): https://github.com/coreybutler/nvm-windows
+
+```bash
+# verify installation
+node -v   # should print v24.x.x or higher
+npm -v
+```
+
+With nvm:
+
+```bash
+nvm install 24
+nvm use 24
+```
+
+### MySQL 8+
+
+- Download: https://dev.mysql.com/downloads/mysql/
+- Or via package manager:
+
+```bash
+# macOS (Homebrew)
+brew install mysql
+brew services start mysql
+
+# Ubuntu / Debian
+sudo apt update && sudo apt install mysql-server
+sudo systemctl start mysql
+
+# Windows
+# Use the MySQL Installer from the download link above
+```
+
+```bash
+# verify installation
+mysql --version   # should print 8.x.x or higher
+```
+
+> **Tip:** [MySQL Workbench](https://dev.mysql.com/downloads/workbench/) is a free GUI client that makes it easier to manage databases and run queries.
 
 ## Getting Started
 

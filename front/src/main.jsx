@@ -22,6 +22,8 @@ import PortfolioLayout from "./layouts/PortfolioLayout.jsx";
 import BuilderProjects from "./pages/builder/builderPages/BuilderProjects.jsx";
 import BuilderPreview from "./pages/builder/builderPages/BuilderPreview.jsx";
 import BuilderCertificates from "./pages/builder/builderPages/BuilderCertificates.jsx";
+import { DesktopCheck } from "./middlewares/DesktopCheck.jsx";
+
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -30,6 +32,8 @@ const queryClient = new QueryClient({
         },
     },
 });
+
+
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -60,9 +64,11 @@ createRoot(document.getElementById("root")).render(
                     <Route
                         path="/builder"
                         element={
-                            <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
-                                <BuilderLayout />
-                            </RoleGuard>
+                            <DesktopCheck>
+                                <RoleGuard allowedRoles={["ADMIN", "CLIENT"]}>
+                                    <BuilderLayout />
+                                </RoleGuard>
+                            </DesktopCheck>
                         }
                     >
                         <Route index element={<Builder />} />
