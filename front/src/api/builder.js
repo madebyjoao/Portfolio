@@ -34,6 +34,10 @@ async function getCertificateBuilder(slug) {
     return await instance.get(`builder/certificates/${slug}`);
 }
 
+async function getProjectsBuilder(slug) {
+    return await instance.get(`builder/projects/${slug}`);
+}
+
 
 
 //PUT routes
@@ -49,6 +53,12 @@ async function updateCertificate(slug, formData) {
     });
 }
 
+async function updateProject(slug, formData) {
+    return await instance.put(`builder/projects/${slug}`, formData, {
+        timeout: 10000,
+    });
+}
+
 //DELETE routes
 
 async function deleteCertificate(id) {
@@ -59,14 +69,21 @@ async function deleteProject(id) {
     return await instance.delete(`builder/projects/${id}`);
 }
 
+async function deleteProjectImage(id) {
+    return await instance.delete(`builder/projects/images/${id}`);
+}
+
 export {
     uploadCertificates,
     uploadProjects,
     uploadProjectImages,
     getPortfolioBuilder,
     getCertificateBuilder,
+    getProjectsBuilder,
     updatePortfolio,
     updateCertificate,
+    updateProject,
     deleteCertificate,
-    deleteProject
+    deleteProject,
+    deleteProjectImage
 };

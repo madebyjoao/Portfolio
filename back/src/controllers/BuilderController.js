@@ -174,11 +174,38 @@ async function updateCertificates(req, res) {
 }
 
 async function updateProjects(req, res) {
+    const { slug } = req.params;
+    const { id, title, description, repo_url, live_url, is_public, order_index } = req.body;
+    const file = req.file;
 
     try {
+        const project = await Project.findOne({ where: { id } });
 
+        if (!project) {
+            return res.status(404).json({ error: "Project not found" });
+        }
+
+        if (file) {
+            const filename = uuidv4();
+            const uploadPath = `./uploads/${slug}/projects/${filename}.jpg`;
+            await sharp(file.buffer)
+                .resize(500, 500, { fit: "inside", withoutEnlargement: true })
+                .jpeg({ quality: 80 })
+                .toFile(uploadPath);
+            project.thumbnail = `${slug}/projects/${filename}.jpg`;
+        }
+
+        project.title = title || project.title;
+        project.description = description !== undefined ? description : project.description;
+        project.repo_url = repo_url !== undefined ? repo_url : project.repo_url;
+        project.live_url = live_url !== undefined ? live_url : project.live_url;
+        project.is_public = is_public !== undefined ? is_public === "1" : project.is_public;
+        project.order_index = order_index !== undefined ? Number(order_index) : project.order_index;
+
+        await project.save();
+        res.status(200).json({ project });
     } catch (error) {
-        res.status(500).json({ error: "Something is wrong updating"})
+        res.status(500).json({ error: "Something is wrong updating the project" });
     }
 }
 
@@ -206,13 +233,25 @@ async function deleteProject(req, res) {
   }
 }
 
-export default { 
+async function deleteProjectImage(req, res) {
+  const { id } = req.params;
+
+  try {
+    await ProjectImage.destroy({ where: { id } });
+    res.status(204).json({ message: "Project image deleted" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete project image" });
+  }
+}
+
+export default {
     getPortfolioBuilder,
-    getCertificatesBuilder, 
+    getCertificatesBuilder,
     getProjectsBuilder,
     updatePortfolio,
     updateCertificates,
     updateProjects,
     deleteCertificate,
-    deleteProject
+    deleteProject,
+    deleteProjectImage
 }

@@ -12,6 +12,7 @@ import { Register } from "./pages/auth/Register.jsx";
 import { RoleGuard } from "./middlewares/RoleGuard.jsx";
 import Users from "./pages/admin/Users.jsx";
 import Contact from "./pages/public/Contact.jsx";
+import ToS from "./pages/public/ToS.jsx";
 import CV from "./pages/public/CV.jsx";
 import Cms from "./pages/admin/Cms.jsx";
 import Builder from "./pages/builder/Builder.jsx";
@@ -46,6 +47,7 @@ createRoot(document.getElementById("root")).render(
                         <Route path="/contact" element={<Contact />} />
                         <Route path="/auth/login" element={<Login />} />
                         <Route path="/auth/register" element={<Register />} />
+                        <Route path="/tos" element={<ToS />} />
                     </Route>
 
                     {/* CV standalone page */}

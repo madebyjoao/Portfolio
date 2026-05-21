@@ -32,7 +32,12 @@ builderRouter.put(
     upload.single("image"),
     BuilderController.updateCertificates
 );
-builderRouter.put("/projects", checkSlug, BuilderController.updateProjects)
+builderRouter.put(
+    "/projects/:slug",
+    checkSlug,
+    upload.single("image"),
+    BuilderController.updateProjects
+);
 
 {/** Post Routes */}
 builderRouter.post(
@@ -78,6 +83,7 @@ builderRouter.post(
 {/** DELETE Routes */}
 
 builderRouter.delete("/certificates/:id", BuilderController.deleteCertificate);
+builderRouter.delete("/projects/images/:id", BuilderController.deleteProjectImage);
 builderRouter.delete("/projects/:id", BuilderController.deleteProject);
 
 export default builderRouter;

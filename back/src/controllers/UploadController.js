@@ -123,10 +123,12 @@ async function getUploadProjects(req, res, next) {
         const project = await Project.create({
             portfolio_id: portfolio.id,
             title: req.body.title,
-            description: req.body.info,
+            description: req.body.description,
             thumbnail: imagePath,
-            repo_url: req.body.github,
-            is_public: true,
+            repo_url: req.body.repo_url || null,
+            live_url: req.body.live_url || null,
+            is_public: req.body.is_public !== undefined ? req.body.is_public === "1" : true,
+            order_index: req.body.order_index ? Number(req.body.order_index) : 0,
         });
 
         req.body.image = filename;

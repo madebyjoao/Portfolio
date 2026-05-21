@@ -272,9 +272,17 @@ export function Register() {
                                 className="mr-2"
                                 required
                             />
-                            <label htmlFor="tos"
-                                className="text-gray-500">
-                                I accept all the terms and conditions
+                            <label htmlFor="tos" className="text-gray-500">
+                                I accept all the{" "}
+                                <a
+                                    href="/tos"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="underline hover:text-gray-300 transition-colors"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    terms and conditions
+                                </a>
                             </label>
                         </div>
                         <button
