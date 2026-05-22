@@ -1,5 +1,5 @@
 {
-  "name": "starter-marsai",
+  "name": "portfolio_builder",
   "version": "1.0.0",
   "description": "- Node.js 24+ - Express - MySQL 8+ - React.js avec Vite",
   "main": "index.js",
