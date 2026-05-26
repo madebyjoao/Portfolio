@@ -1,90 +1,164 @@
-import { useEffect, useState } from "react";
-import {
-    deleteUser,
-    getUsers,
-    updateUser,
-    getRoles,
-    createUser,
-} from "../../api/users.js";
-import { useMutation } from "@tanstack/react-query";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { deleteUser, getUsers, updateUser, getRoles, createUser } from "../../api/users.js";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import {
-    flexRender,
-    getCoreRowModel,
-    useReactTable,
-    getSortedRowModel,
-} from "@tanstack/react-table";
-import FormField from "@/components/FormField";
+import { Pencil, Trash2, Plus, X } from "lucide-react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const registerSchema = z.object({
-    // Champs de notre formulaire
-    id: z.number().optional(),
-    first_name: z.string(),
-    last_name: z.string(),
-    password: z.string(),
-    mobile: z.string().optional(),
-    email: z.string(),
-    phone: z.string().optional(),
-    birth_date: z.string().optional(),
-    street: z.string().optional(),
-    postal_code: z.string().optional(),
-    city: z.string().optional(),
-    country: z.string().optional(),
-    biography: z.string().optional(),
-    current_job: z.string().optional(),
-    portfolio_url: z.string().optional(),
-    youtube_url: z.string().optional(),
-    instagram_url: z.string().optional(),
-    linkedin_url: z.string().optional(),
-    facebook_url: z.string().optional(),
-    tiktok_ur: z.string().optional(),
-    discovery_source: z.string().optional(),
-    role: z.string(),
+const schema = z.object({
+    first_name: z.string().min(1, "Requis"),
+    last_name: z.string().min(1, "Requis"),
+    email: z.string().email("Email invalide"),
+    password: z.string().optional(),
+    slug: z.string().optional(),
+    role: z.string().min(1, "Requis"),
 });
 
-function Users() {
-    const [users, setUsers] = useState([]);
-    const [roles, setRoles] = useState([]);
-    const [modeEdit, setModeEdit] = useState(false);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [sorting, setSorting] = useState([]);
+const inputCls =
+    "w-full bg-zinc-800 border border-zinc-700 rounded-lg px-3 py-2 text-white text-sm placeholder:text-zinc-500 focus:outline-none focus:border-zinc-500";
 
-    useEffect(() => {
-        getUsers().then((data) => {
-            setUsers(data.data);
-        });
+function Field({ label, error, children }) {
+    return (
+        <div className="flex flex-col gap-1">
+            <label className="text-zinc-400 text-xs">{label}</label>
+            {children}
+            {error && <span className="text-red-400 text-xs">{error.message}</span>}
+        </div>
+    );
+}
 
-        getRoles().then((data) => {
-            setRoles(data.data.roles);
-        });
-    }, []);
-
-    const { register, handleSubmit, setValue } = useForm({
-        resolver: zodResolver(registerSchema),
-    });
-
-    const registerMutation = useMutation({
-        mutationFn: async (newUser) => {
-            return await createUser(newUser);
-        },
-        onSuccess: (data, variables, context) => {
-            window.location.reload();
-        },
+function UserModal({ user, roles, onClose, onCreate, onUpdate, isPending }) {
+    const isEdit = !!user;
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: zodResolver(schema),
+        defaultValues: isEdit
+            ? { first_name: user.first_name, last_name: user.last_name, email: user.email, role: user.role, password: "", slug: "" }
+            : { first_name: "", last_name: "", email: "", password: "", slug: "", role: "CLIENT" },
     });
 
     function onSubmit(data) {
-        return registerMutation.mutate(data);
+        if (isEdit) {
+            onUpdate({ ...data, id: user.id });
+        } else {
+            onCreate(data);
+        }
     }
 
+    return (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+            <div className="bg-zinc-900 border border-zinc-700 rounded-xl p-6 w-full max-w-md shadow-xl">
+                <div className="flex justify-between items-center mb-5">
+                    <h2 className="text-white font-semibold text-lg">
+                        {isEdit ? "Modifier l'utilisateur" : "Nouvel utilisateur"}
+                    </h2>
+                    <button onClick={onClose} className="text-zinc-400 hover:text-white transition-colors">
+                        <X size={20} />
+                    </button>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                    <div className="grid grid-cols-2 gap-3">
+                        <Field label="Prénom" error={errors.first_name}>
+                            <input {...register("first_name")} className={inputCls} />
+                        </Field>
+                        <Field label="Nom" error={errors.last_name}>
+                            <input {...register("last_name")} className={inputCls} />
+                        </Field>
+                    </div>
+
+                    <Field label="Email" error={errors.email}>
+                        <input type="email" {...register("email")} className={inputCls} />
+                    </Field>
+
+                    <Field
+                        label={isEdit ? "Mot de passe (laisser vide pour ne pas changer)" : "Mot de passe"}
+                        error={errors.password}
+                    >
+                        <input type="password" {...register("password")} className={inputCls} />
+                    </Field>
+
+                    {!isEdit && (
+                        <Field label="Slug (identifiant portfolio)" error={errors.slug}>
+                            <input
+                                {...register("slug")}
+                                className={inputCls}
+                                placeholder="ex: jean-dupont"
+                            />
+                        </Field>
+                    )}
+
+                    <Field label="Rôle" error={errors.role}>
+                        <select {...register("role")} className={inputCls}>
+                            {roles.map((r) => (
+                                <option key={r} value={r}>
+                                    {r}
+                                </option>
+                            ))}
+                        </select>
+                    </Field>
+
+                    <div className="flex gap-2 justify-end pt-1">
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="px-4 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
+                        >
+                            Annuler
+                        </button>
+                        <button
+                            type="submit"
+                            disabled={isPending}
+                            className="px-4 py-2 bg-white text-black text-sm font-medium rounded-lg hover:bg-zinc-200 disabled:opacity-50 transition-colors"
+                        >
+                            {isPending ? "..." : isEdit ? "Mettre à jour" : "Créer"}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    );
+}
+
+function Users() {
+    const [modal, setModal] = useState(null); // null | { mode: "create" } | { mode: "edit", user }
+    const queryClient = useQueryClient();
+
+    const { data: usersData, isPending: loadingUsers } = useQuery({
+        queryKey: ["users"],
+        queryFn: getUsers,
+    });
+    const { data: rolesData } = useQuery({
+        queryKey: ["roles"],
+        queryFn: getRoles,
+    });
+
+    const users = usersData?.data ?? [];
+    const roles = rolesData?.data?.roles ?? [];
+
+    const createMutation = useMutation({
+        mutationFn: createUser,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+            setModal(null);
+        },
+    });
+
+    const updateMutation = useMutation({
+        mutationFn: ({ id, ...data }) => updateUser(id, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["users"] });
+            setModal(null);
+        },
+    });
+
     const deleteMutation = useMutation({
-        mutationFn: async (id) => {
-            return await deleteUser(id);
-        },
-        onSuccess: (data, variables, context) => {
-            window.location.reload();
-        },
+        mutationFn: deleteUser,
+        onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
     });
 
     function handleDelete(id) {
@@ -93,507 +167,94 @@ function Users() {
         }
     }
 
-    const updateMutation = useMutation({
-        mutationFn: async (updatedUser) => {
-            return await updateUser(updatedUser.id, updatedUser);
-        },
-        onSuccess: (data, variables, context) => {
-            window.location.reload();
-        },
-    });
-
-    function handleEdit(user) {
-        setValue("id", user.id);
-        setValue("first_name", user.first_name);
-        setValue("last_name", user.last_name);
-        setValue("password", "");
-        setValue("mobile", user.mobile || "0606060606");
-        setValue("email", user.email);
-        setValue("phone", user.phone || "0606060606");
-        setValue("birth_date", user.birth_date || "01/01/1999");
-        setValue("street", user.street || "street");
-        setValue("postal_code", user.postal_code || "06060");
-        setValue("city", user.city || "Cannes");
-        setValue("country", user.country || "France");
-        setValue("biography", user.biography || "Something");
-        setValue("current_job", user.current_job || "Unemployed");
-        setValue("portfolio_url", user.portfolio_url || "https://google.com");
-        setValue("youtube_url", user.youtube_url || "https://google.com");
-        setValue("instagram_url", user.instagram_url || "https://google.com");
-        setValue("linkedin_url", user.linkedin_url || "https://google.com");
-        setValue("facebook_url", user.facebook_url || "https://google.com");
-        setValue("tiktok_ur", user.tiktok_ur || "https://google.com");
-        setValue(
-            "discovery_source",
-            user.discovery_source || "https://google.com",
-        );
-        setValue("role", user.role);
-        setIsDialogOpen(true);
-        setModeEdit(true);
-    }
-
-    function handleReset() {
-        setValue("id", undefined);
-        setValue("first_name", "");
-        setValue("last_name", "");
-        setValue("password", "");
-        setValue("mobile", "");
-        setValue("email", "");
-        setValue("phone", "");
-        setValue("birth_date", "");
-        setValue("street", "");
-        setValue("postal_code", "");
-        setValue("city", "");
-        setValue("country", "");
-        setValue("biography", "");
-        setValue("current_job", "");
-        setValue("portfolio_url", "");
-        setValue("youtube_url", "");
-        setValue("instagram_url", "");
-        setValue("linkedin_url", "");
-        setValue("facebook_url", "");
-        setValue("tiktok_ur", "");
-        setValue("discovery_source", "");
-        setValue("role", "");
-        setIsDialogOpen(false);
-        setModeEdit(false);
-    }
-
-    function onUpdate(updatedUser) {
-        updateMutation.mutate(updatedUser);
-    }
-
-    // Define table columns
-    const columns = [
-        {
-            accessorKey: "first_name",
-            header: "Prénom",
-        },
-        {
-            accessorKey: "last_name",
-            header: "Nom",
-        },
-        {
-            accessorKey: "email",
-            header: "Email",
-        },
-        {
-            accessorKey: "role",
-            header: "Rôle",
-            cell: ({ row }) => <span>{row.getValue("role")}</span>,
-        },
-        {
-            id: "actions",
-            cell: ({ row }) => {
-                const user = row.original;
-                return (
-                    <div>
-                        <button onClick={() => handleEdit(user)}>
-                            Modifier
-                        </button>
-                        <button onClick={() => handleDelete(user.id)}>
-                            Supprimer
-                        </button>
-                    </div>
-                );
-            },
-        },
-    ];
-
-    const table = useReactTable({
-        data: users,
-        columns,
-        getCoreRowModel: getCoreRowModel(),
-        getSortedRowModel: getSortedRowModel(),
-        state: {
-            sorting,
-        },
-        onSortingChange: setSorting,
-    });
-
     return (
-        <section>
-            <div>
-                <div>
-                    <h2>Liste des utilisateurs</h2>
-                    {/* Create User Dialog */}
-                    {isDialogOpen && !modeEdit && (
-                        <div>
-                            <button
-                                onClick={() => {
-                                    setIsDialogOpen(false);
-                                    handleReset();
-                                }}
-                            >
-                                Close
-                            </button>
-                            <div>
-                                <h3>Créer un utilisateur</h3>
-                                <p>
-                                    Remplissez les informations pour créer un
-                                    nouvel utilisateur
-                                </p>
-                            </div>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <input
-                                    type="hidden"
-                                    id="id"
-                                    {...register("id")}
-                                />
-
-                                <div>
-                                    <FormField
-                                        label="Prénom"
-                                        id="first_name"
-                                        register={register}
-                                        required
-                                    />
-                                    <FormField
-                                        label="Nom"
-                                        id="last_name"
-                                        register={register}
-                                        required
-                                    />
-                                    <FormField
-                                        label="Email"
-                                        id="email"
-                                        type="email"
-                                        register={register}
-                                        required
-                                    />
-                                    <FormField
-                                        label="Mot de passe"
-                                        id="password"
-                                        type="password"
-                                        register={register}
-                                        required
-                                    />
-                                    <FormField
-                                        label="Mobile"
-                                        id="mobile"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Téléphone"
-                                        id="phone"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Date de naissance"
-                                        id="birth_date"
-                                        type="date"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Rue"
-                                        id="street"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Code postal"
-                                        id="postal_code"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Ville"
-                                        id="city"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Pays"
-                                        id="country"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Emploi actuel"
-                                        id="current_job"
-                                        register={register}
-                                    />
-                                </div>
-
-                                <FormField
-                                    label="Biographie"
-                                    id="biography"
-                                    type="textarea"
-                                    register={register}
-                                />
-
-                                <div>
-                                    <FormField
-                                        label="Portfolio URL"
-                                        id="portfolio_url"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="YouTube URL"
-                                        id="youtube_url"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Instagram URL"
-                                        id="instagram_url"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="LinkedIn URL"
-                                        id="linkedin_url"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Facebook URL"
-                                        id="facebook_url"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="TikTok URL"
-                                        id="tiktok_ur"
-                                        type="url"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Source de découverte"
-                                        id="discovery_source"
-                                        register={register}
-                                    />
-                                    <FormField
-                                        label="Rôle"
-                                        id="role"
-                                        type="select"
-                                        register={register}
-                                        options={roles}
-                                    />
-                                </div>
-
-                                <div>
-                                    <button type="button" onClick={handleReset}>
-                                        Annuler
-                                    </button>
-                                    <button type="submit">
-                                        Créer un utilisateur
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    )}
-
-                    <button onClick={() => setIsDialogOpen(true)}>
-                        Créer un utilisateur
-                    </button>
-                </div>
-
-                {users.length > 0 ? (
-                    <div>
-                        <table>
-                            <thead>
-                                {table.getHeaderGroups().map((headerGroup) => (
-                                    <tr key={headerGroup.id}>
-                                        {headerGroup.headers.map((header) => (
-                                            <th key={header.id}>
-                                                {header.isPlaceholder
-                                                    ? null
-                                                    : flexRender(
-                                                          header.column
-                                                              .columnDef.header,
-                                                          header.getContext(),
-                                                      )}
-                                            </th>
-                                        ))}
-                                    </tr>
-                                ))}
-                            </thead>
-                            <tbody>
-                                {table.getRowModel().rows?.length ? (
-                                    table.getRowModel().rows.map((row) => (
-                                        <tr key={row.id}>
-                                            {row
-                                                .getVisibleCells()
-                                                .map((cell) => (
-                                                    <td key={cell.id}>
-                                                        {flexRender(
-                                                            cell.column
-                                                                .columnDef.cell,
-                                                            cell.getContext(),
-                                                        )}
-                                                    </td>
-                                                ))}
-                                        </tr>
-                                    ))
-                                ) : (
-                                    <tr>
-                                        <td colSpan={columns.length}>
-                                            Aucun utilisateur trouvé.
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                ) : (
-                    <div>Aucun utilisateur trouvé.</div>
-                )}
+        <div className="p-6">
+            <div className="flex items-center justify-between mb-6">
+                <h1 className="text-white text-2xl font-semibold">Utilisateurs</h1>
+                <button
+                    onClick={() => setModal({ mode: "create" })}
+                    className="flex items-center gap-2 bg-white text-black text-sm font-medium px-4 py-2 rounded-lg hover:bg-zinc-200 transition-colors"
+                >
+                    <Plus size={16} />
+                    Nouvel utilisateur
+                </button>
             </div>
 
-            {/* Edit Modal */}
-            {isDialogOpen && modeEdit && (
-                <div>
-                    <button
-                        onClick={() => {
-                            setIsDialogOpen(false);
-                            handleReset();
-                        }}
-                    >
-                        Close
-                    </button>
-                    <div>
-                        <h3>Modifier un utilisateur</h3>
-                        <p>Modifiez les informations de l'utilisateur</p>
-                    </div>
-                    <form onSubmit={handleSubmit(onUpdate)}>
-                        <input type="hidden" id="id" {...register("id")} />
+            <div className="border border-zinc-800 rounded-xl overflow-hidden">
+                <table className="w-full text-sm">
+                    <thead className="bg-zinc-900 border-b border-zinc-800">
+                        <tr>
+                            <th className="text-left px-4 py-3 text-zinc-400 font-medium">Nom</th>
+                            <th className="text-left px-4 py-3 text-zinc-400 font-medium">Email</th>
+                            <th className="text-left px-4 py-3 text-zinc-400 font-medium">Rôle</th>
+                            <th className="px-4 py-3 w-20" />
+                        </tr>
+                    </thead>
+                    <tbody className="divide-y divide-zinc-800">
+                        {loadingUsers ? (
+                            <tr>
+                                <td colSpan={4} className="text-center text-zinc-500 py-8">
+                                    Chargement...
+                                </td>
+                            </tr>
+                        ) : users.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} className="text-center text-zinc-500 py-8">
+                                    Aucun utilisateur
+                                </td>
+                            </tr>
+                        ) : (
+                            users.map((user) => (
+                                <tr key={user.id} className="bg-zinc-950 hover:bg-zinc-900 transition-colors">
+                                    <td className="px-4 py-3 text-white">
+                                        {user.first_name} {user.last_name}
+                                    </td>
+                                    <td className="px-4 py-3 text-zinc-400">{user.email}</td>
+                                    <td className="px-4 py-3">
+                                        <span
+                                            className={`px-2 py-0.5 rounded-full text-xs font-medium ${
+                                                user.role === "ADMIN"
+                                                    ? "bg-violet-500/20 text-violet-300"
+                                                    : "bg-zinc-700 text-zinc-300"
+                                            }`}
+                                        >
+                                            {user.role}
+                                        </span>
+                                    </td>
+                                    <td className="px-4 py-3">
+                                        <div className="flex items-center gap-3 justify-end">
+                                            <button
+                                                onClick={() => setModal({ mode: "edit", user })}
+                                                className="text-zinc-400 hover:text-white transition-colors"
+                                            >
+                                                <Pencil size={15} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(user.id)}
+                                                className="text-zinc-400 hover:text-red-400 transition-colors"
+                                            >
+                                                <Trash2 size={15} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
+                    </tbody>
+                </table>
+            </div>
 
-                        <div>
-                            <FormField
-                                label="Prénom"
-                                id="first_name"
-                                register={register}
-                                required
-                            />
-                            <FormField
-                                label="Nom"
-                                id="last_name"
-                                register={register}
-                                required
-                            />
-                            <FormField
-                                label="Email"
-                                id="email"
-                                type="email"
-                                register={register}
-                                required
-                            />
-                            <FormField
-                                label="Mot de passe"
-                                id="password"
-                                type="password"
-                                register={register}
-                                placeholder="Laisser vide pour ne pas changer"
-                            />
-                            <FormField
-                                label="Mobile"
-                                id="mobile"
-                                register={register}
-                            />
-                            <FormField
-                                label="Téléphone"
-                                id="phone"
-                                register={register}
-                            />
-                            <FormField
-                                label="Date de naissance"
-                                id="birth_date"
-                                type="date"
-                                register={register}
-                            />
-                            <FormField
-                                label="Rue"
-                                id="street"
-                                register={register}
-                            />
-                            <FormField
-                                label="Code postal"
-                                id="postal_code"
-                                register={register}
-                            />
-                            <FormField
-                                label="Ville"
-                                id="city"
-                                register={register}
-                            />
-                            <FormField
-                                label="Pays"
-                                id="country"
-                                register={register}
-                            />
-                            <FormField
-                                label="Emploi actuel"
-                                id="current_job"
-                                register={register}
-                            />
-                        </div>
-
-                        <FormField
-                            label="Biographie"
-                            id="biography"
-                            type="textarea"
-                            register={register}
-                        />
-
-                        <div>
-                            <FormField
-                                label="Portfolio URL"
-                                id="portfolio_url"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="YouTube URL"
-                                id="youtube_url"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="Instagram URL"
-                                id="instagram_url"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="LinkedIn URL"
-                                id="linkedin_url"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="Facebook URL"
-                                id="facebook_url"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="TikTok URL"
-                                id="tiktok_ur"
-                                type="url"
-                                register={register}
-                            />
-                            <FormField
-                                label="Source de découverte"
-                                id="discovery_source"
-                                register={register}
-                            />
-                            <FormField
-                                label="Rôle"
-                                id="role"
-                                type="select"
-                                register={register}
-                                options={roles}
-                            />
-                        </div>
-
-                        <div>
-                            <button type="button" onClick={handleReset}>
-                                Annuler
-                            </button>
-                            <button type="submit">Mettre à jour</button>
-                        </div>
-                    </form>
-                </div>
+            {modal && (
+                <UserModal
+                    user={modal.mode === "edit" ? modal.user : null}
+                    roles={roles}
+                    onClose={() => setModal(null)}
+                    onCreate={createMutation.mutate}
+                    onUpdate={updateMutation.mutate}
+                    isPending={createMutation.isPending || updateMutation.isPending}
+                />
             )}
-        </section>
+        </div>
     );
 }
 

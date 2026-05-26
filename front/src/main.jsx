@@ -11,6 +11,7 @@ import { Login } from "./pages/auth/Login.jsx";
 import { Register } from "./pages/auth/Register.jsx";
 import { RoleGuard } from "./middlewares/RoleGuard.jsx";
 import Users from "./pages/admin/Users.jsx";
+import Portfolios from "./pages/admin/Portfolios.jsx";
 import Contact from "./pages/public/Contact.jsx";
 import ToS from "./pages/public/ToS.jsx";
 import CV from "./pages/public/CV.jsx";
@@ -25,7 +26,6 @@ import BuilderPreview from "./pages/builder/builderPages/BuilderPreview.jsx";
 import BuilderCertificates from "./pages/builder/builderPages/BuilderCertificates.jsx";
 import { DesktopCheck } from "./middlewares/DesktopCheck.jsx";
 
-
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -33,8 +33,6 @@ const queryClient = new QueryClient({
         },
     },
 });
-
-
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -56,10 +54,7 @@ createRoot(document.getElementById("root")).render(
                     {/* Routes portfolio */}
                     <Route path="/u" element={<PortfolioLayout />}>
                         <Route path=":slug" element={<Portfolio />} />
-                        <Route
-                            path=":slug/certificates"
-                            element={<Certificates />}
-                        />
+                        <Route path=":slug/certificates" element={<Certificates />} />
                     </Route>
 
                     {/* Routes privées */}
@@ -75,10 +70,7 @@ createRoot(document.getElementById("root")).render(
                     >
                         <Route index element={<Builder />} />
                         <Route path="projects" element={<BuilderProjects />} />
-                        <Route
-                            path="certificates"
-                            element={<BuilderCertificates />}
-                        />
+                        <Route path="certificates" element={<BuilderCertificates />} />
                         <Route path="preview" element={<BuilderPreview />} />
                     </Route>
 
@@ -92,6 +84,7 @@ createRoot(document.getElementById("root")).render(
                     >
                         <Route index element={<Dashboard />} />
                         <Route path="users" element={<Users />} />
+                        <Route path="portfolios" element={<Portfolios />} />
                         <Route path="cms" element={<Cms />} />
                     </Route>
                 </Routes>

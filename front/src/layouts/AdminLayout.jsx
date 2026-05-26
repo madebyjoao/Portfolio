@@ -1,12 +1,11 @@
-import { NavLink, Outlet } from "react-router";
-import AdminSidebar from "@/components/admin/AdminSideBar";
+import { Outlet } from "react-router";
+import AdminNavbar from "@/components/admin/AdminSideBar";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout() {
     return (
-        <div>
-            <AdminSidebar />
-            <main>
-                {children}
+        <div className="min-h-screen bg-zinc-950 flex flex-col">
+            <AdminNavbar />
+            <main className="flex-1">
                 <Outlet />
             </main>
         </div>
