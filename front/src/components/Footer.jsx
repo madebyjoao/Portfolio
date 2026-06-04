@@ -75,9 +75,11 @@ export default function Footer() {
                     >
                         Terms
                     </Link>
-                    <Link className="col-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
+                    <Link 
+                        to="/live"
+                        className="col-start-2 grid content-center place-items-center size-full text-2xl font-semibold hover:border-b-2 hover:border-white/50 hover:bg-white/5"
                         >
-                        Contact
+                        Live
                     </Link>
                     <Link 
                         to="/cv"

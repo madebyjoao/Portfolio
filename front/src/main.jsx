@@ -25,6 +25,7 @@ import BuilderProjects from "./pages/builder/builderPages/BuilderProjects.jsx";
 import BuilderPreview from "./pages/builder/builderPages/BuilderPreview.jsx";
 import BuilderCertificates from "./pages/builder/builderPages/BuilderCertificates.jsx";
 import { DesktopCheck } from "./middlewares/DesktopCheck.jsx";
+import LivePortfolios from "./pages/public/LivePortfolio.jsx";
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -43,6 +44,7 @@ createRoot(document.getElementById("root")).render(
                     <Route path="/" element={<PublicLayout />}>
                         <Route index element={<Home />} />
                         <Route path="/contact" element={<Contact />} />
+                        <Route path="/live" element={<LivePortfolios />} />
                         <Route path="/auth/login" element={<Login />} />
                         <Route path="/auth/register" element={<Register />} />
                         <Route path="/tos" element={<ToS />} />

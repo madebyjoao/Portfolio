@@ -23,4 +23,5 @@ async function getStats(req, res) {
     }
 }
 
+
 export default { getStats };
