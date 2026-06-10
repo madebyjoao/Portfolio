@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { login } from "../../api/auth.js";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,8 +13,6 @@ const loginSchema = z.object({
 
 export function Login() {
     const navigate = useNavigate();
-    const location = useLocation();
-    const alertMessage = location.state?.alertMessage;
 
     const { register, handleSubmit } = useForm({
         resolver: zodResolver(loginSchema),
