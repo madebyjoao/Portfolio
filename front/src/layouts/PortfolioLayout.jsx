@@ -35,7 +35,7 @@ export default function PortfolioLayout() {
                         portfolio_info={portfolio_info}
                     />
 
-                    <main className="overflow-y-auto">
+                    <main role="main" className="overflow-y-auto">
                         <Outlet />
                     </main>
 
@@ -54,7 +54,7 @@ export default function PortfolioLayout() {
                             portfolio_info={portfolio_info}
                         />
 
-                    <main className="pb-48 md:pb-40">
+                    <main role="main" className="pb-48 md:pb-40">
                         <Outlet />
                     </main>
                     <footer className="fixed bottom-0 w-full">
@@ -77,7 +77,7 @@ export default function PortfolioLayout() {
                         />
                         
                     </header>
-                    <main className="row-start-2 col-span-4 ">
+                    <main role="main" className="row-start-2 col-span-4 ">
                         <Outlet />
                     </main>
                     <footer className="sticky bottom-0 row-start-3 col-span-4 bg-(--bg-template-three) z-95">

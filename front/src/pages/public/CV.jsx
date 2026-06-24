@@ -34,6 +34,7 @@ export default function CV() {
                   font-size: 11.5px;
                   line-height: 1.65;
                   min-height: 100vh;
+                  overflow-x: hidden;
                 }
 
                 /* ── TAB BAR ── */
@@ -67,6 +68,7 @@ export default function CV() {
                   display: grid;
                   grid-template-columns: 210px 1fr;
                   min-height: calc(100vh - 36px);
+                  min-width: 0;
                 }
 
                 /* ── SIDEBAR ── */
@@ -125,6 +127,7 @@ export default function CV() {
                   background: var(--bg);
                   display: flex;
                   flex-direction: column;
+                  min-width: 0;
                 }
 
                 /* summary header */
@@ -145,8 +148,8 @@ export default function CV() {
                   grid-template-columns: 1fr 1fr;
                   flex: 1;
                 }
-                .col { padding: 20px 24px; }
-                .col-left { border-right: 1px solid var(--border); }
+                .col { padding: 20px 24px; min-width: 0; }
+                .col-left { border-right: 1px solid var(--border); min-width: 0; }
 
                 /* code blocks */
                 .class-name {
@@ -181,6 +184,31 @@ export default function CV() {
                 .cbullet { display: block; padding-left: 10px; position: relative; }
                 .cbullet::before { content: "–"; position: absolute; left: 0; color: var(--muted); }
 
+                /* ── MOBILE ── */
+                @media (max-width: 768px) {
+                  .tabs { overflow-x: auto; }
+                  .tab-hide { display: none; }
+
+                  .wrap {
+                    grid-template-columns: 1fr;
+                    min-height: auto;
+                  }
+
+                  .sidebar {
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                  }
+
+                  .body-cols {
+                    grid-template-columns: 1fr;
+                  }
+
+                  .col-left {
+                    border-right: none;
+                    border-bottom: 1px solid var(--border);
+                  }
+                }
+
                 @media print {
                   .cv-container { background: #1a1b26; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
                 }
@@ -191,8 +219,8 @@ export default function CV() {
                     <div className="tab active cursor-default">
                         <span className="dot"></span>SilvaJoao.js
                     </div>
-                    <div className="tab cursor-default">package.json</div>
-                    <div className="tab cursor-default">README.md</div>
+                    <div className="tab tab-hide cursor-default">package.json</div>
+                    <div className="tab tab-hide cursor-default">README.md</div>
                     <Link to="/" className="tab hover:cursor-pointer">GetMeBack.jsx</Link>
                 </div>
 

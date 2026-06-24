@@ -32,7 +32,7 @@ export default function PublicLayout() {
                 <Navbar />
             </header>
             <AddsLeft />
-            <main className={`${Styles.Main} flex-1 overflow-hidden`}>
+            <main className={`${Styles.Main} flex-1 overflow-x-hidden overflow-y-auto`}>
                 <Outlet />
             </main>
             <AddsRight />
