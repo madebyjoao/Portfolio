@@ -18,6 +18,7 @@
 .AddsRight,
 .AddsLeft,
 .Footer {
+	display: flex;
 	width: 100%;
 }
 

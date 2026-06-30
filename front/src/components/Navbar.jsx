@@ -16,11 +16,11 @@ export default function Navbar() {
         <nav
             role="navigation"
             aria-label="Main navigation"
-            className="flex justify-between items-stretch min-h-20 w-full px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 "
+            className="flex items-center justify-between sm:items-stretch sm:min-h-20 w-full px-2 sm:px-7 top-0 gap-4 left-0 right-0 relative backdrop-blur bg-white/1 "
         >
             <NavLink
                 to="/"
-                className="flex w-16 h-16 sm:w-40 sm:h-40 top-0"
+                className="flex w-16 h-16 sm:w-40 sm:h-40 sm:top-0"
             >
                 <img
                     className="w-16 h-16 sm:w-40 sm:h-40 object-fill"
@@ -28,12 +28,12 @@ export default function Navbar() {
                     alt="Picture of the Logo"
                 />
             </NavLink>
-            <div className="flex justify-between items-stretch gap-10 box-border">
+            <div className="flex justify-between items-stretch gap-4 sm:gap-10 box-border">
 
                 <NavLink
                     to="/builder"
                     onMouseEnter={() => setShowLogout(false)}
-                    className="flex items-center text-(--text-website) text-[26px] font-bold px-2 py-1 hover:bg-white/10 hover:border-r-white hover:border-l-white"
+                    className="flex items-center text-(--text-website) sm:text-[26px] font-bold px-2 py-1 hover:bg-white/10 hover:border-r-white hover:border-l-white"
                 >
                     BUILDER
                 </NavLink>
@@ -85,32 +85,3 @@ export default function Navbar() {
     );
 }
 
-{/*
-
-(
-    <div
-        onMouseEnter={() => setShowLogout(true)}
-        onMouseLeave={() => setShowLogout(false)}
-        className="flex items-center justify-center text-(--text-website) gap-3 p-2 text-[18px] sm:text-[26px] hover:bg-white/10 hover:border-r-white/20 hover:border-l-white/20 font-bold cursor-pointer"
-        onClick={showLogout ? handleLogout : null}
-    >
-        {showLogout ? (
-            <div className="flex flex-col >
-                <div>
-                    <p>Welcome, {localStorage.getItem("first_name")}</p>
-                    <LucideUserCheck2 color="white" strokeWidth={3} />
-                </div>
-                <div>       
-                    <p className="text-red-500">GoodBye, {localStorage.getItem("first_name")}</p>
-                    <UserRoundXIcon color="red" strokeWidth={3} />
-                </div>
-
-            </div>
-        ) : (
-            <>
-                <p>Welcome, {localStorage.getItem("first_name")}</p>
-                <LucideUserCheck2 color="white" strokeWidth={3} />
-            </>
-        )}
-    </div>
-)  */} 
