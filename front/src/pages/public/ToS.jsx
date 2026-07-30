@@ -1,3 +1,6 @@
+import { Link } from 'react-router';
+
+
 export default function ToS() {
     return (
         <main className="max-w-3xl mx-auto px-6 py-16 text-(--text-website)">
@@ -80,7 +83,20 @@ export default function ToS() {
                 </div>
 
                 <div>
-                    <h2 className="text-lg font-semibold text-white mb-2">9. Disclaimer of Warranties</h2>
+                    <h2 className="text-lg font-semibold text-white mb-2">9. Data Deletion</h2>
+                    <p>
+                        You may request the permanent deletion of your account and all associated information
+                        (profile data, portfolio content, and uploaded files) at any time by contacting the
+                        administrator via the{" "}
+                        <Link to="/contact" className="underline hover:text-white transition-colors">
+                            Contact
+                        </Link>{" "}
+                        page. Once processed, the deletion is permanent and your data cannot be recovered.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 className="text-lg font-semibold text-white mb-2">10. Disclaimer of Warranties</h2>
                     <p>
                         The Service is provided "as is" without warranties of any kind. We do not guarantee
                         uptime, accuracy, or fitness for a particular purpose. Use the Service at your own risk.

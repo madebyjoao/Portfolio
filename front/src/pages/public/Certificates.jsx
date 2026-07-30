@@ -25,7 +25,15 @@ export default function Certificates() {
     if (!data) {
         return <div>No certificates</div>;
     }
-    const certificates_info = data.data.certificates;
+    const certificates_info = data.data.certificates ?? [];
+
+    if (certificates_info.length === 0) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                No certificates
+            </div>
+        );
+    }
 
     const next = () => {
         setCurrentCertif((prev) => (prev + 1) % certificates_info.length);
@@ -40,7 +48,11 @@ export default function Certificates() {
     };
 
     const length = certificates_info.length
-    
+
+    // A refetch can return a shorter list than when the index was set, so clamp
+    // rather than reading past the end.
+    const safeIndex = Math.min(currentCertif, length - 1);
+
 
     return (
         <div className="relative flex items-center justify-center min-h-screen py-8 px-4">
@@ -53,7 +65,7 @@ export default function Certificates() {
             </button>
 
             <CertificatesBox
-                certificates_info={certificates_info[currentCertif]}
+                certificates_info={certificates_info[safeIndex]}
                 certificates_length={length}
             />
 

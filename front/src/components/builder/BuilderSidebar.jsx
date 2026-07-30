@@ -7,13 +7,17 @@ import {
     Award,
     Home,
     ScanBarcode,
+    KeyRound,
 } from "lucide-react";
 import { Link, NavLink } from "react-router";
+import { useState } from "react";
+import ChangePasswordModal from "./ChangePasswordModal";
 
 export default function BuilderSidebar() {
     const firstName = localStorage.getItem("first_name");
     const lastName = localStorage.getItem("last_name");
     const slug = localStorage.getItem("slug")
+    const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
     return (
         <aside className="flex flex-col p-6 w-1/6 min-h-screen rounded-md backdrop-blur bg-black/30 text-(--builder-Sidebar-text) ">
@@ -69,6 +73,15 @@ export default function BuilderSidebar() {
             </nav>
 
             <div className="flex flex-col items-start mt-auto pt-6 border-t border-white/10">
+                <button
+                    type="button"
+                    aria-label="Button to change your password"
+                    onClick={() => setPasswordModalOpen(true)}
+                    className="flex gap-1 p-1 text-sm hover:cursor-pointer"
+                >
+                    <KeyRound size={19} />
+                    <p>Change password</p>
+                </button>
                 <Link
                     to="/"
                     aria-label="Button Home Page"
@@ -90,6 +103,11 @@ export default function BuilderSidebar() {
                     Portfolio Builder Panel
                 </p>
             </div>
+
+            <ChangePasswordModal
+                open={passwordModalOpen}
+                onClose={() => setPasswordModalOpen(false)}
+            />
         </aside>
     );
 }

@@ -8,6 +8,7 @@ import {
     createUserFolderCertif,
     createUserFolderProjects,
 } from "../utils/createFolder.js";
+import { parseBoolean } from "../utils/parseBoolean.js";
 
 {/* CERTIFICATES */}
 
@@ -46,7 +47,7 @@ async function getUploadCertificates(req, res, next) {
             image_path: imagePath,
             order_index: req.body.order_index,
             type: req.body.type,
-            is_public: req.body.is_public,
+            is_public: parseBoolean(req.body.is_public, true),
         });
 
         req.body.image = filename;
@@ -127,7 +128,7 @@ async function getUploadProjects(req, res, next) {
             thumbnail: imagePath,
             repo_url: req.body.repo_url || null,
             live_url: req.body.live_url || null,
-            is_public: req.body.is_public !== undefined ? req.body.is_public === "1" : true,
+            is_public: parseBoolean(req.body.is_public, true),
             order_index: req.body.order_index ? Number(req.body.order_index) : 0,
         });
 

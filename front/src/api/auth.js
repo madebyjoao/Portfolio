@@ -8,4 +8,8 @@ async function signIn(data) {
     return await instance.post("auth/register", data);
 }
 
-export { login, signIn };
+async function changePassword(data) {
+    return await instance.put("auth/password", data);
+}
+
+export { login, signIn, changePassword };

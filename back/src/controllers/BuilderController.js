@@ -6,6 +6,7 @@ import sharp from "sharp";
 import fs from "fs/promises";
 import { v4 as uuidv4 } from "uuid";
 import { createUserFolderCv, createUserFolderPicture } from "../utils/createFolder.js";
+import { parseBoolean } from "../utils/parseBoolean.js";
 
 
 /* GET */
@@ -114,7 +115,7 @@ async function updatePortfolio(req, res) {
         portfolio.title = title || portfolio.title;
         portfolio.about_title = about_title || portfolio.about_title;
         portfolio.about_text = about_text || portfolio.about_text;
-        portfolio.is_published = is_published !== undefined ? is_published === "1" : portfolio.is_published;
+        portfolio.is_published = parseBoolean(is_published, portfolio.is_published);
         portfolio.template = template || portfolio.template;
         portfolio.font_navbar = font_navbar || portfolio.font_navbar;
         portfolio.font_main = font_main || portfolio.font_main;
@@ -162,7 +163,7 @@ async function updateCertificates(req, res) {
         certificate.issuer = issuer || certificate.issuer;
         certificate.issued_at = issued_at || certificate.issued_at;
         certificate.type = type || certificate.type;
-        certificate.is_public = is_public !== undefined ? is_public === "1" : certificate.is_public ;
+        certificate.is_public = parseBoolean(is_public, certificate.is_public);
         certificate.order_index = order_index !== undefined ? Number(order_index ) : certificate.order_index;
         await certificate.save();
         res.status(200).json({ certificate });
@@ -199,7 +200,7 @@ async function updateProjects(req, res) {
         project.description = description !== undefined ? description : project.description;
         project.repo_url = repo_url !== undefined ? repo_url : project.repo_url;
         project.live_url = live_url !== undefined ? live_url : project.live_url;
-        project.is_public = is_public !== undefined ? is_public === "1" : project.is_public;
+        project.is_public = parseBoolean(is_public, project.is_public);
         project.order_index = order_index !== undefined ? Number(order_index) : project.order_index;
 
         await project.save();

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
 import { ArrowBigDown } from "lucide-react";
+import { externalUrl } from "../../../utils/helpers";
 
 function AccordionItem({
     project_title,
@@ -105,7 +106,7 @@ function AccordionItem({
                         <div className="flex flex-wrap gap-3">
                             {project_repo_url && (
                                 <a
-                                    href={project_repo_url}
+                                    href={externalUrl(project_repo_url)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-4 py-2 rounded-lg border text-sm font-medium hover:bg-white/10 transition-colors"
@@ -115,7 +116,7 @@ function AccordionItem({
                             )}
                             {project_live_url && (
                                 <a
-                                    href={project_live_url}
+                                    href={externalUrl(project_live_url)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-colors"

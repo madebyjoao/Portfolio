@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import Portfolio from "../models/Portfolio.js";
-import { comparePassword } from "../utils/password.js";
+import { comparePassword, hashPassword } from "../utils/password.js";
 import UserController from "./UserController.js";
 import jwt from "jsonwebtoken";
 
@@ -79,4 +79,40 @@ function checkToken(req, res) {
     }
 }
 
-export default { login, register, checkToken };
+async function changePassword(req, res) {
+    const { current_password, new_password } = req.body;
+
+    if (!current_password || !new_password) {
+        return res
+            .status(400)
+            .json({ error: "Current and new password are required" });
+    }
+
+    if (new_password.length < 8) {
+        return res
+            .status(400)
+            .json({ error: "New password must be at least 8 characters" });
+    }
+
+    try {
+        const isMatch = await comparePassword(
+            current_password,
+            req.user.password,
+        );
+
+        if (!isMatch) {
+            return res
+                .status(401)
+                .json({ error: "Current password is incorrect" });
+        }
+
+        req.user.password = await hashPassword(new_password);
+        await req.user.save();
+
+        return res.status(200).json({ message: "Password updated" });
+    } catch (error) {
+        return res.status(500).json({ error: "Server error" });
+    }
+}
+
+export default { login, register, checkToken, changePassword };

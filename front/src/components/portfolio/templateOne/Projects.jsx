@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BASE_URL } from "../../../api/config";
+import { externalUrl } from "../../../utils/helpers";
 
 export default function ProjectsBox({
     project_title,
@@ -63,7 +64,7 @@ export default function ProjectsBox({
                             <div className="flex gap-3 mt-2">
                                 {project_repo_url && (
                                     <a
-                                        href={project_repo_url}
+                                        href={externalUrl(project_repo_url)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="px-4 py-2 rounded-lg border text-sm font-medium hover:bg-white/10 transition-colors"
@@ -73,7 +74,7 @@ export default function ProjectsBox({
                                 )}
                                 {project_live_url && (
                                     <a
-                                        href={project_live_url}
+                                        href={externalUrl(project_live_url)}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-500 transition-colors"

@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { CircleX, CircleXIcon, Plus, Upload, X } from "lucide-react";
 import { useNavigate } from "react-router";
+import { externalUrl } from "../../../utils/helpers";
 
 const editProjectSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -110,8 +111,8 @@ function AccordionItem({
         formData.append("id", project_id);
         formData.append("title", data.title);
         formData.append("description", data.description ?? "");
-        formData.append("repo_url", data.repo_url ?? "");
-        formData.append("live_url", data.live_url ?? "");
+        formData.append("repo_url", externalUrl(data.repo_url) ?? "");
+        formData.append("live_url", externalUrl(data.live_url) ?? "");
         formData.append("is_public", data.is_public);
         formData.append("order_index", data.order_index);
         if (data.image) formData.append("image", data.image);
@@ -654,8 +655,8 @@ export default function ProjectsAccordion() {
             const formData = new FormData();
             formData.append("title", data.title);
             formData.append("description", data.description);
-            formData.append("repo_url", data.repo_url ?? "");
-            formData.append("live_url", data.live_url ?? "");
+            formData.append("repo_url", externalUrl(data.repo_url) ?? "");
+            formData.append("live_url", externalUrl(data.live_url) ?? "");
             formData.append("is_public", data.is_public);
             formData.append("order_index", data.order_index);
             formData.append("image", data.image);
