@@ -79,7 +79,7 @@ export function Register() {
     return (
         <>
             <div className="h-full flex items-center justify-center lg:w-260" >
-                <div className="flex flex-col w-full px-6 py-121 box-border m-4 gap-3">
+                <div className="flex flex-col w-full px-6 box-border m-4 gap-3">
                     <form
                         onSubmit={handleSubmit(onSubmit)}
                         className="h-full flex flex-col gap-5 justify-center items-center"
